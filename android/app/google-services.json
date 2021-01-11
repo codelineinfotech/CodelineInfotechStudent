@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "561204420101",
+    "firebase_url": "https://codeline-students.firebaseio.com",
+    "project_id": "codeline-students",
+    "storage_bucket": "codeline-students.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:561204420101:android:6d178900c4df2e03cd066c",
+        "android_client_info": {
+          "package_name": "com.codeline.codelineStudentsApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "561204420101-gltadheiesjicq4j0jjpgv6e4kigsc72.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codeline.codelineStudentsApp",
+            "certificate_hash": "dd887981796fafff4358fbd6e05223508211e232"
+          }
+        },
+        {
+          "client_id": "561204420101-0hgbbmfj7m152djufp21vea16vkkvgki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVqSFby_9ZvcszDxBt4whQFYB6HHFdVD0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "561204420101-0hgbbmfj7m152djufp21vea16vkkvgki.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "561204420101-r0bp7lu8ovf9k1aj5d7mg2n51pqq8i1r.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.codeline.codelineStudentsApp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
