@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 Widget progressContainer({intialValue, child, collection}) {
   return Padding(
-    padding: const EdgeInsets.only(top: 20, bottom: 30, left: 20, right: 20),
+    padding: const EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 12),
       height: Get.height / 9,

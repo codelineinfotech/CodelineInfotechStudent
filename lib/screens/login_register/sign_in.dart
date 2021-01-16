@@ -1,29 +1,51 @@
 import 'dart:convert';
 
+import 'package:codeline_students_app/Resource/utility.dart';
 import 'package:codeline_students_app/controller/validation_getx_controller.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/screens/login_register/sign_up.dart';
 import 'package:codeline_students_app/screens/login_register/text_fields.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/buttons.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/widgets.dart';
 import 'package:codeline_students_app/services/firebase_login_service.dart';
 import 'package:codeline_students_app/services/google_login_service.dart';
+import 'package:codeline_students_app/widgets/circularprogress.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide Key;
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:flutter/src/foundation/key.dart';
 
-final ValidationController validationController =
-    Get.put(ValidationController());
+import 'sign_up_new.dart';
 
-class SignIn extends StatelessWidget {
+class SignIn extends StatefulWidget {
+  @override
+  _SignInState createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   RxBool signInPasswordVisible = true.obs;
+
+  ValidationController validationController = Get.put(ValidationController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    validationController.obscureText = true.obs;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print("SING IN LOGIN");
+
     var deviceHeight = MediaQuery.of(context).size.height;
     var deviceWidth = MediaQuery.of(context).size.width;
     return Obx(() => WillPopScope(
@@ -50,7 +72,10 @@ class SignIn extends StatelessWidget {
                         SafeArea(
                             child: IconButton(
                           onPressed: () {
-                            Get.to(SignUp());
+                            // validationController.chnageTC();
+
+                            // Get.to(SignUp());
+                            Get.to(SignUpScreen());
                           },
                           icon: Icon(
                             Icons.arrow_back_ios,
@@ -69,21 +94,72 @@ class SignIn extends StatelessWidget {
                               SizedBox(
                                 height: deviceWidth / 10,
                               ),
-                              signTextField(
-                                  title: "Email Address",
-                                  icon: 'mail',
-                                  controller: emailController,
-                                  emailValidation: true),
+                              TextFormField(
+                                controller: emailController,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(50),
+                                  FilteringTextInputFormatter.allow(RegExp(Utility
+                                      .alphabetDigitsSpecialValidationPattern))
+                                ],
+                                validator: (email) =>
+                                    email.isEmpty ? "Email is required" : null,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                decoration: InputDecoration(
+                                  hintText: "Enter Email Address",
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 17,
+                                    color: const Color(0xff3a3f44)
+                                        .withOpacity(0.5),
+                                  ),
+                                  prefixIcon: Image.asset(
+                                    ImagePath.mailPng,
+                                    height: 5,
+                                    width: 5,
+                                  ),
+                                ),
+                              ),
                               SizedBox(height: deviceWidth / 14),
-                              signTextField(
-                                  title: "Password",
-                                  icon: 'pass',
-                                  obsecureText: signInPasswordVisible.value,
-                                  controller: passwordController,
-                                  passwordVisibleClick: () {
-                                    signInPasswordVisible.value =
-                                        !signInPasswordVisible.value;
-                                  }),
+                              TextFormField(
+                                controller: passwordController,
+                                inputFormatters: [
+                                  LengthLimitingTextInputFormatter(30),
+                                  FilteringTextInputFormatter.allow(RegExp(Utility
+                                      .alphabetDigitsSpecialValidationPattern))
+                                ],
+                                validator: (password) => password.isEmpty
+                                    ? "Password is required"
+                                    : null,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                decoration: InputDecoration(
+                                  hintText: "Enter Password",
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 17,
+                                    color: const Color(0xff3a3f44)
+                                        .withOpacity(0.5),
+                                  ),
+                                  prefixIcon: Image.asset(
+                                    ImagePath.passwordPng,
+                                    height: 5,
+                                    width: 5,
+                                  ),
+                                  suffixIcon: InkWell(
+                                    onTap: () {
+                                      validationController.toggle();
+                                    },
+                                    child: Icon(
+                                      !validationController.obscureText.value
+                                          ? Icons.visibility_off
+                                          : Icons.visibility,
+                                    ),
+                                  ),
+                                ),
+                                obscureText:
+                                    validationController.obscureText.value,
+                              ),
                               SizedBox(height: deviceWidth / 20),
                               GestureDetector(
                                 onTap: () {
@@ -108,21 +184,45 @@ class SignIn extends StatelessWidget {
                               activeButton(
                                 title: "Sign in",
                                 onTap: () async {
-                                  if (_formKey.currentState.validate()) {
-                                    FocusScope.of(context).unfocus();
-                                    validationController.progressVisible.value =
-                                        true;
-                                    await FirebaseLoginService().firebaseLogin(
-                                        email: emailController.text,
-                                        password: passwordController.text);
+                                  if (_formKey.currentState != null) {
+                                    if (_formKey.currentState.validate()) {
+                                      FocusScope.of(context).unfocus();
+                                      validationController
+                                          .progressVisible.value = true;
+                                      await FirebaseLoginService()
+                                          .firebaseLogin(
+                                              email: emailController.text,
+                                              password:
+                                                  passwordController.text);
+                                    }
                                   }
                                 },
                               ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'OR',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: Color(0xff3a3f44),
+                                  ),
+                                  textAlign: TextAlign.left,
+                                ),
+                              ),
+                              googleSignInButton(
+                                  onTap: () async {
+                                    validationController.progressVisible.value =
+                                        true;
+                                    await GoogleLoginService().googleLogin();
+                                  },
+                                  deviceWidth: deviceWidth,
+                                  title: "Sign in With Google"),
                               SizedBox(height: 15),
                               Center(
-                                child: GestureDetector(
+                                child: InkWell(
                                   onTap: () {
-                                    navigateToSignUp(context);
+                                    Get.to(SignUpScreen());
+                                    // navigateToSignUp(context);
                                   },
                                   child: Text.rich(TextSpan(children: [
                                     TextSpan(text: 'Don\'t have an Account? '),
@@ -136,26 +236,6 @@ class SignIn extends StatelessWidget {
                                   ])),
                                 ),
                               ),
-                              SizedBox(height: 25),
-                              // Align(
-                              //   alignment: Alignment.center,
-                              //   child: Text(
-                              //     'OR',
-                              //     style: TextStyle(
-                              //       fontSize: 16,
-                              //       color: Color(0xff3a3f44),
-                              //     ),
-                              //     textAlign: TextAlign.left,
-                              //   ),
-                              // ),
-                              // googleSignInButton(
-                              //     onTap: () async {
-                              //       validationController.progressVisible.value =
-                              //           true;
-                              //       await GoogleLoginService().googleLogin();
-                              //     },
-                              //     deviceWidth: deviceWidth,
-                              //     title: "Sign in With Google"),
                             ],
                           ),
                         ),
@@ -163,12 +243,21 @@ class SignIn extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
+              validationController.progressVisible.value
+                  ? Container(
+                      color: Colors.black38,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : SizedBox(),
             ]))));
   }
 
   void navigateToSignUp(context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => SignUp()));
+    /*Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => SignUpScreen()));*/
+    // .push(MaterialPageRoute(builder: (context) => SignUp()));
   }
 }

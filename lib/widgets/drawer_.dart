@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
+import 'package:codeline_students_app/screens/user_edit_profile/user_edit_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,31 +36,50 @@ Widget buildDrawer() {
         SizedBox(
           height: Get.height / 30,
         ),
-        Center(
-          child: Text(
-            'Robert Williamson',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 23,
-              color: const Color(0xff232c42),
-              fontWeight: FontWeight.w500,
-            ),
-            textAlign: TextAlign.center,
-          ),
+
+        ///GET CURRENT USER DATA ....
+        StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection("User")
+              .doc((_auth.currentUser.uid))
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Center(
+                child: Text(
+                  (snapshot.data["fullName"] as String).capitalize,
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 23,
+                    color: const Color(0xff232c42),
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            } else {
+              return Container();
+            }
+          },
         ),
         SizedBox(
           height: Get.height / 15,
         ),
-        Padding(
-          padding: const EdgeInsets.only(left: 40),
-          child: Text(
-            'Edit Profile',
-            style: TextStyle(
-              fontFamily: 'Merriweather',
-              fontSize: 14,
-              color: const Color(0xff1d4777),
+        InkWell(
+          onTap: () {
+            Get.to(UserEditProfile());
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 40),
+            child: Text(
+              'Edit Profile',
+              style: TextStyle(
+                fontFamily: 'Merriweather',
+                fontSize: 14,
+                color: const Color(0xff1d4777),
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ),
         SizedBox(

@@ -1,3 +1,4 @@
+import 'package:codeline_students_app/resource/color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ Widget activeButton({title, onTap}) {
         margin: EdgeInsets.only(bottom: 20),
         alignment: Alignment.center,
         width: Get.width,
-        height: 62.0,
+        height: Get.height / 14,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(13.0),
           color: const Color(0xff17a2b8),
@@ -53,9 +54,9 @@ Widget googleSignInButton({deviceWidth, title, onTap}) {
     child: Container(
       padding: EdgeInsets.symmetric(horizontal: 16),
       alignment: Alignment.center,
-      height: deviceWidth / 6,
+      height: Get.height / 14,
       width: deviceWidth,
-      margin: EdgeInsets.symmetric(horizontal: 0, vertical: 25),
+      margin: EdgeInsets.symmetric(horizontal: 0, vertical: 12),
       decoration: BoxDecoration(
         boxShadow: [
           BoxShadow(
@@ -68,21 +69,26 @@ Widget googleSignInButton({deviceWidth, title, onTap}) {
         color: Colors.white,
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset("assets/images/glogo.png"),
-          SizedBox(
-            width: 15,
-          ),
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 22,
-              color: Color(0xff3a3f44),
-              letterSpacing: -0.004400000065565109,
-              fontWeight: FontWeight.w600,
+          Expanded(flex: 1, child: Image.asset("assets/images/glogo.png")),
+          // Spacer(),
+
+          ///Google Signin Text
+          Expanded(
+            flex: 3,
+            child: Text(
+              title,
+              style: TextStyle(
+                fontSize: 20,
+                color: ColorsPicker.darkGrey,
+                letterSpacing: -0.004400000065565109,
+                fontWeight: FontWeight.w500,
+              ),
             ),
-            textAlign: TextAlign.left,
           ),
+
+          Spacer(),
         ],
       ),
     ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_utils/get_utils.dart';
 
 Widget profileRow() {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -29,7 +30,7 @@ Widget profileRow() {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Text(
-                  snapshot.data["fullName"],
+                  (snapshot.data["fullName"] as String).capitalize,
                   style: TextStyle(
                     fontFamily: 'Roboto',
                     fontSize: 23,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,9 @@ Widget signTextField(
     bool passwordLength,
     TextEditingController controller,
     Function passwordVisibleClick,
-    bool emailValidation}) {
+    bool emailValidation,
+    String regularExpressions,
+    int inputTextLength}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -30,6 +33,11 @@ Widget signTextField(
         onEditingComplete: onEditComplete,
         obscureText: obsecureText ?? false,
         controller: controller,
+        // autovalidateMode: AutovalidateMode.always,
+        inputFormatters: [
+          LengthLimitingTextInputFormatter(inputTextLength),
+          FilteringTextInputFormatter.allow(RegExp(regularExpressions))
+        ],
         validator: (value) => value.isEmpty
             ? '* Require'
             : emailValidation == true

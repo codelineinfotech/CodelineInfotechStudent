@@ -1,50 +1,34 @@
 {
   "project_info": {
-    "project_number": "561204420101",
-    "firebase_url": "https://codeline-students.firebaseio.com",
-    "project_id": "codeline-students",
-    "storage_bucket": "codeline-students.appspot.com"
+    "project_number": "650707912403",
+    "project_id": "studentapp-a47d3",
+    "storage_bucket": "studentapp-a47d3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:561204420101:android:6d178900c4df2e03cd066c",
+        "mobilesdk_app_id": "1:650707912403:android:a0dd77df3fbdb3b5f1f626",
         "android_client_info": {
-          "package_name": "com.codeline.codelineStudentsApp"
+          "package_name": "com.codelineInfotech.studentApp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "561204420101-gltadheiesjicq4j0jjpgv6e4kigsc72.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.codeline.codelineStudentsApp",
-            "certificate_hash": "dd887981796fafff4358fbd6e05223508211e232"
-          }
-        },
-        {
-          "client_id": "561204420101-0hgbbmfj7m152djufp21vea16vkkvgki.apps.googleusercontent.com",
+          "client_id": "650707912403-6lcbegbmohcv080ohh55evhdl32f4gq5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDVqSFby_9ZvcszDxBt4whQFYB6HHFdVD0"
+          "current_key": "AIzaSyBQFos9wx1DObeAwRs0jKc-81IUQh4hJps"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "561204420101-0hgbbmfj7m152djufp21vea16vkkvgki.apps.googleusercontent.com",
+              "client_id": "650707912403-6lcbegbmohcv080ohh55evhdl32f4gq5.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "561204420101-r0bp7lu8ovf9k1aj5d7mg2n51pqq8i1r.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.codeline.codelineStudentsApp"
-              }
             }
           ]
         }

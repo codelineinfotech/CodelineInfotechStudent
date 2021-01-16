@@ -1,12 +1,17 @@
+import 'package:codeline_students_app/Resource/utility.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:codeline_students_app/screens/login_register/text_fields.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/back_string_button.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/buttons.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/widgets.dart';
 import 'package:codeline_students_app/services/firebase_sign_up_service.dart';
+import 'package:codeline_students_app/widgets/circularprogress.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_core/rx_impl.dart';
+
+import '../../controller/validation_getx_controller.dart';
+import 'sign_in.dart';
 
 class SignUp extends StatelessWidget {
   TextEditingController emailController = TextEditingController();
@@ -16,9 +21,12 @@ class SignUp extends StatelessWidget {
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   RxBool passwordVisible = true.obs;
   RxBool rePasswordVisible = true.obs;
+  final ValidationController validationController =
+      Get.put(ValidationController());
 
   @override
   Widget build(BuildContext context) {
+    print("BUILD CALL");
     var deviceHeight = MediaQuery.of(context).size.height;
 
     var deviceWidth = MediaQuery.of(context).size.width;
@@ -27,9 +35,10 @@ class SignUp extends StatelessWidget {
 
   Widget _buildBody(
       double deviceWidth, BuildContext context, double deviceHeight) {
-    return Obx(() {
+    return GetBuilder(builder: (_) {
       return WillPopScope(
         onWillPop: () async {
+          print("_buildBody");
           validationController.termCondition.value = false;
           return true;
         },
@@ -67,15 +76,22 @@ class SignUp extends StatelessWidget {
                                 height: deviceWidth / 10,
                               ),
                               signTextField(
-                                  title: "Full Name",
-                                  icon: 'user',
-                                  controller: fullNameController),
+                                title: "Full Name",
+                                icon: 'user',
+                                controller: fullNameController,
+                                inputTextLength: 50,
+                                regularExpressions:
+                                    Utility.alphabetSpaceValidationPattern,
+                              ),
                               SizedBox(height: deviceWidth / 14),
                               signTextField(
-                                  title: "Email Address",
-                                  icon: 'mail',
-                                  emailValidation: true,
-                                  controller: emailController),
+                                title: "Email Address",
+                                icon: 'mail',
+                                emailValidation: true,
+                                controller: emailController,
+                                inputTextLength: 40,
+                                regularExpressions: r"([a-zA-Z0-9@.]+)",
+                              ),
                               SizedBox(height: deviceWidth / 14),
                               signTextField(
                                 title: "Password",
@@ -87,6 +103,9 @@ class SignUp extends StatelessWidget {
                                 },
                                 obsecureText: passwordVisible.value,
                                 controller: passwordController,
+                                inputTextLength: 20,
+                                regularExpressions: Utility
+                                    .alphabetDigitsSpecialValidationPattern,
                               ),
                               SizedBox(height: deviceWidth / 14),
                               signTextField(
@@ -100,6 +119,9 @@ class SignUp extends StatelessWidget {
                                 },
                                 obsecureText: rePasswordVisible.value,
                                 controller: rePasswordController,
+                                inputTextLength: 20,
+                                regularExpressions: Utility
+                                    .alphabetDigitsSpecialValidationPattern,
                               ),
                               SizedBox(height: deviceWidth / 14),
                               _termsNCondition(),
@@ -141,12 +163,7 @@ class SignUp extends StatelessWidget {
                 ),
               ),
               validationController.progressVisible.value
-                  ? Container(
-                      color: Colors.black38,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
-                    )
+                  ? CircularProgress.circularProgress()
                   : SizedBox()
             ],
           ),
@@ -156,64 +173,72 @@ class SignUp extends StatelessWidget {
   }
 
   void navigateToSignIn(context) {
+    print("navigateToSignIn");
+
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => SignIn()));
   }
-}
 
-Widget _termsNCondition() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      Container(
-        height: 22,
-        width: 22,
-        child: Checkbox(
-          value: validationController.termCondition.value,
-          onChanged: (value) {
-            validationController.termCondition.value =
-                !validationController.termCondition.value;
-          },
-          checkColor: Colors.white,
-          activeColor: Color(0xff17a2b8),
-        ),
-      ),
-      SizedBox(
-        width: 10,
-      ),
-      Text.rich(
-        TextSpan(
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 15,
-            color: const Color(0xff797b8b),
+  Widget _termsNCondition() {
+    print("T&C --> " + validationController.termCondition.value.toString());
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          height: 22,
+          width: 22,
+          child: Checkbox(
+            value: validationController.termCondition.value,
+            onChanged: (value) {
+              print("T&C Chnage --> " +
+                  validationController.termCondition.value.toString());
+
+              validationController.termCondition.value =
+                  !validationController.termCondition.value;
+              // validationController.chnageTC();
+            },
+            checkColor: Colors.white,
+            activeColor: Color(0xff17a2b8),
           ),
-          children: [
-            TextSpan(
-              text: 'I agree to the ',
-            ),
-            TextSpan(
-              text: 'terms',
-              style: TextStyle(
-                color: Color(0xff17a2b8),
-              ),
-            ),
-            TextSpan(
-              text: ' and ',
-            ),
-            TextSpan(
-              text: 'Privacy',
-              style: TextStyle(
-                color: Color(0xff17a2b8),
-              ),
-            ),
-            TextSpan(
-              text: ' policy.',
-            ),
-          ],
         ),
-        textAlign: TextAlign.left,
-      ),
-    ],
-  );
+        SizedBox(
+          width: 10,
+        ),
+        Text.rich(
+          TextSpan(
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 15,
+              color: const Color(0xff797b8b),
+            ),
+            children: [
+              TextSpan(
+                text: 'I agree to the ',
+              ),
+              TextSpan(
+                text: 'terms',
+                style: TextStyle(
+                  color: Color(0xff17a2b8),
+                ),
+              ),
+              TextSpan(
+                text: ' and ',
+              ),
+              TextSpan(
+                text: 'Privacy',
+                style: TextStyle(
+                  color: Color(0xff17a2b8),
+                ),
+              ),
+              TextSpan(
+                text: ' policy.',
+              ),
+            ],
+          ),
+          textAlign: TextAlign.left,
+        ),
+      ],
+    );
+  }
 }

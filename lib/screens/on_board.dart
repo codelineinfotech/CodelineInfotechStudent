@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import 'login_register/sign_in.dart';
+
 class OnBoardPage extends StatefulWidget {
   @override
   _OnBoardPageState createState() => _OnBoardPageState();
@@ -12,6 +14,7 @@ class OnBoardPage extends StatefulWidget {
 class _OnBoardPageState extends State<OnBoardPage> {
   @override
   Widget build(BuildContext context) {
+    print("ON BOARD");
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -93,26 +96,31 @@ class _OnBoardPageState extends State<OnBoardPage> {
                 ),
               ),
               Center(
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: "Already Have Account ?",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 16,
-                          color: const Color(0xff3A3F44),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(SignIn());
+                  },
+                  child: Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "Already Have Account ?",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 16,
+                            color: const Color(0xff3A3F44),
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: " Sign in",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 16,
-                          color: const Color(0xff17a2b8),
-                        ),
-                      )
-                    ],
+                        TextSpan(
+                          text: " Sign in",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 16,
+                            color: const Color(0xff17a2b8),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

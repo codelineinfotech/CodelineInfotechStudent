@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+//com.codelineInfotech.studentApp
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -22,6 +23,34 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Codeline Student',
       home: _auth.currentUser != null ? HomePage() : OnBoardPage(),
+      // home: Demo(),
+    );
+  }
+}
+
+class Demo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    print("Demo");
+    return Material(
+      child: Center(
+        child: RaisedButton(
+          onPressed: () {
+            Get.to(SecondScreen());
+          },
+          child: Text("Second Screen"),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    print("Second Screen");
+    return Material(
+      child: Center(child: TextField()),
     );
   }
 }
