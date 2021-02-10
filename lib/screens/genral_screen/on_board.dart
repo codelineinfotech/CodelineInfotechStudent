@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-import 'login_register/sign_in.dart';
+import '../login_register/sign_in.dart';
 
 class OnBoardPage extends StatefulWidget {
   @override

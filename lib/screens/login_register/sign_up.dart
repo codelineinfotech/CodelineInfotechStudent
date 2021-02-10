@@ -5,7 +5,7 @@ import 'package:codeline_students_app/screens/login_register/widgets/back_string
 import 'package:codeline_students_app/screens/login_register/widgets/buttons.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/widgets.dart';
 import 'package:codeline_students_app/services/firebase_sign_up_service.dart';
-import 'package:codeline_students_app/widgets/circularprogress.dart';
+import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_rx/src/rx_core/rx_impl.dart';
@@ -163,7 +163,7 @@ class SignUp extends StatelessWidget {
                 ),
               ),
               validationController.progressVisible.value
-                  ? CircularProgress.circularProgress()
+                  ? CommanWidget.circularProgress()
                   : SizedBox()
             ],
           ),

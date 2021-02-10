@@ -1,11 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/controller/home_controller.dart';
+import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/screens/langInfo/widgets/app_bar_.dart';
 import 'package:codeline_students_app/screens/langInfo/widgets/background_elements.dart';
 import 'package:codeline_students_app/screens/langInfo/widgets/chapter_details.dart';
 import 'package:codeline_students_app/screens/langInfo/widgets/progress_container.dart';
 import 'package:codeline_students_app/style/box_decorations.dart';
+import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:codeline_students_app/widgets/drawer_.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -26,12 +28,14 @@ class _LangInfoState extends State<LangInfo> {
   final homeController = Get.put(HomeContoller());
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  String submisstionStatus = "Pending";
 
   @override
   Widget build(BuildContext context) {
+    print("COllation name" + widget.collectionName);
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: buildDrawer(),
+      endDrawer: buildDrawer(context),
       body: Stack(children: [
         bgElement(),
         Column(children: [
@@ -72,20 +76,25 @@ class _LangInfoState extends State<LangInfo> {
                                         return FadeInLeft(
                                           duration: Duration(milliseconds: 400),
                                           child: chapterDetails(
-                                            course: widget.collectionName,
-                                            title: snapshot.data.docs[index].id,
-                                            index: index,
-                                            homeController: homeController,
-                                            sequenceNo: snapshot
-                                                .data.docs[index]
-                                                .get("sequence"),
-                                          ),
+                                              course: widget.collectionName,
+                                              title:
+                                                  snapshot.data.docs[index].id,
+                                              index: index,
+                                              homeController: homeController,
+                                              sequenceNo: index + 1,
+                                              // .data.docs[index]
+                                              // .get("sequence")snapshot
+                                              // .data.docs[index]
+                                              // .get("sequence"),
+                                              assignmentLink: snapshot
+                                                  .data.docs[index]
+                                                  .get("assignment"),
+                                              submissionStatus:
+                                                  submisstionStatus),
                                         );
                                       });
                                 } else {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
+                                  return CommanWidget.circularProgress();
                                 }
                               })),
                     ))
@@ -95,6 +104,11 @@ class _LangInfoState extends State<LangInfo> {
             ]),
           )
         ]),
+        Obx(() {
+          return homeController.isLoad.value == true
+              ? CommanWidget.circularProgress()
+              : Container();
+        }),
       ]),
     );
   }

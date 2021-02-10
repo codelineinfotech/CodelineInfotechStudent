@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>codeline_students_app</string>
+	<string>CodelineInfotechStudent</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -26,7 +26,30 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Allow access to camera to capture photos</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Allow access to microphone</string>
+    <!-- Put me in the [my_project]/ios/Runner/Info.plist file -->
+    <!-- Google Sign-in Section -->
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+    	<key>CFBundleTypeRole</key>
+    	<string>Editor</string>
+    	<key>CFBundleURLSchemes</key>
+    	<array>
+    			<!-- TODO Replace this value: -->
+    			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
+    	  <string>com.googleusercontent.apps.650707912403-gjcpep2rqvgkggvtbrsir0ve7rpfjle2</string>
+        </array>
+    	</dict>
+    </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    	<string>en</string>
+    <!-- End of the Google Sign-in Section -->
 	<key>UISupportedInterfaceOrientations</key>
+
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
@@ -39,30 +62,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>LSApplicationQueriesSchemes</key>
-    <array>
-    	<string>instagram-stories</string>
-    	<string>facebook-stories</string>
-    	<string>facebook</string>
-    	<string>instagram</string>
-    	<string>twitter</string>
-    	<string>whatsapp</string>
-        <string>tg</string>
-    </array>
-    <key>CFBundleURLTypes</key>
-    <array>
-    	<dict>
-    		<key>CFBundleTypeRole</key>
-    		<string>Editor</string>
-    		<key>CFBundleURLSchemes</key>
-    		<array>
-    			<!-- TODO Replace this value: -->
-    			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
-    			<string>com.googleusercontent.apps.650707912403-gjcpep2rqvgkggvtbrsir0ve7rpfjle2</string>
-    		</array>
-    	</dict>
-    </array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<!-- PDF VIEWER -->
+    <key>io.flutter.embedded_views_preview</key>
+     <true/>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>$(PRODUCT_NAME)photos description.</string>
+    <key>LSSupportsOpeningDocumentsInPlace</key>
+    <true/>
+    <key>UIFileSharingEnabled</key>
+    <true/>
 </dict>
 </plist>

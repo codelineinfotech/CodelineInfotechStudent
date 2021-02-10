@@ -8,7 +8,7 @@ import 'package:codeline_students_app/screens/login_register/widgets/back_string
 import 'package:codeline_students_app/screens/login_register/widgets/buttons.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/widgets.dart';
 import 'package:codeline_students_app/services/firebase_sign_up_service.dart';
-import 'package:codeline_students_app/widgets/circularprogress.dart';
+import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -32,6 +32,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
 
   TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController mobileNoTextEditingController = TextEditingController();
 
   TextEditingController conformPasswordTextEditingController =
       TextEditingController();
@@ -75,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           Obx(
             () => validationController.progressVisible.value
-                ? CircularProgress.circularProgress()
+                ? CommanWidget.circularProgress()
                 : SizedBox(),
           ),
         ],
@@ -115,86 +116,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  demoView() {
-    return Column(
-      children: [
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-        TextField(),
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-        Container(
-          height: 50,
-          color: Colors.red,
-        ),
-        Container(
-          height: 50,
-          color: Colors.blue,
-        ),
-      ],
     );
   }
 
@@ -266,7 +187,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 inputFormatters: [
                   LengthLimitingTextInputFormatter(50),
                   FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetDigitsSpecialValidationPattern))
+                      RegExp(Utility.emailAddressValidationPattern))
                 ],
                 validator: (email) =>
                     email.isEmpty ? "Email is required" : null,
@@ -283,6 +204,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     height: 5,
                     width: 5,
                     alignment: Alignment.center,
+                  ),
+                ),
+              ),
+
+              SizedBox(
+                height: deviceSize.width / 14,
+              ),
+
+              ///Mobile Number...
+              Text(
+                "Mobile No",
+                style: TextStyle(
+                  fontSize: 14,
+                  color: ColorsPicker.skyColor,
+                ),
+              ),
+              TextFormField(
+                controller: mobileNoTextEditingController,
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(10),
+                  FilteringTextInputFormatter.allow(
+                      RegExp(Utility.digitsValidationPattern))
+                ],
+                validator: (name) =>
+                    name.isEmpty ? "Mobile Number is required" : null,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  hintText: "Enter Mobile No",
+                  hintStyle: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 17,
+                    color: const Color(0xff3a3f44).withOpacity(0.5),
+                  ),
+                  prefixIcon: SizedBox(
+                    width: 20,
+                    child: Icon(Icons.phone_android_rounded),
                   ),
                 ),
               ),
@@ -408,6 +365,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               email: emailTextEditingController.text,
                               password: passwordTextEditingController.text,
                               fullName: nameTextEditingController.text,
+                              mobileNo: mobileNoTextEditingController.text,
                             );
                           } else {
                             Get.snackbar('Terms & Conditions',

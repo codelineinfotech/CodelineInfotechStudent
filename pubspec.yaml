@@ -37,6 +37,38 @@ dependencies:
   cloud_firestore: ^0.14.2
   firebase_core: ^0.5.1
   animate_do: ^1.7.3
+  image_picker: ^0.6.6+5
+  flutter_pdfview: ^1.0.4
+  path_provider: ^1.2.0
+  firebase_storage:
+  permission_handler:
+  screenshot:
+  gallery_saver:
+  flutter_html: ^1.2.0
+  intl:
+  flutter_html_to_pdf: ^0.5.2
+  dio: ^3.0.10
+  image_gallery_saver: ^1.6.6
+  printing: ^4.0.0
+  flutter_downloader: ^1.5.2
+  file_picker: ^2.1.5+1
+  octo_image: ^0.3.0
+  cached_network_image: ^2.5.0
+  dependencies:
+  connectivity: ^0.4.8+2
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -88,9 +120,20 @@ flutter:
       fonts:
         - asset: assets/fonts/Merriweather-Regular.ttf
         - asset: assets/fonts/Merriweather-Bold.ttf
+    - family: MerriweatherBold
+      fonts:
+        - asset: assets/fonts/Merriweather-Bold.ttf
     - family: Jack
       fonts:
         - asset: assets/fonts/Jack-Frost.otf
+    - family: ProximaNova
+      fonts:
+        - asset: assets/fonts/ProximaNova-Regular.otf
+    - family: MetropolisLight
+      fonts:
+        - asset: assets/fonts/metropolis_light.otf
+
+
 
   #   - family: Trajan Pro
   #     fonts:

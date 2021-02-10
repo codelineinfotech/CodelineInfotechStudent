@@ -30,7 +30,15 @@ class GoogleLoginService {
         _fireStore.collection('User').doc(authResult.user.uid).set({
           'fullName': authResult.user.displayName,
           'email': authResult.user.email,
+          'password': "",
+          'mobileNo': authResult.user.phoneNumber == null
+              ? ""
+              : authResult.user.phoneNumber,
+          'address': "",
+          'imageUrl': authResult.user.photoURL,
           'approval': true,
+          'course': ['CLanguage', 'C++'],
+          'percentage': {'CLanguage': 0, 'C++': 0}
         }).then((value) {
           validationController.progressVisible.value = false;
           Get.offAll(HomePage());

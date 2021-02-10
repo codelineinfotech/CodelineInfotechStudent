@@ -9,7 +9,7 @@ import 'package:codeline_students_app/screens/login_register/widgets/buttons.dar
 import 'package:codeline_students_app/screens/login_register/widgets/widgets.dart';
 import 'package:codeline_students_app/services/firebase_login_service.dart';
 import 'package:codeline_students_app/services/google_login_service.dart';
-import 'package:codeline_students_app/widgets/circularprogress.dart';
+import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide Key;
 import 'package:flutter/services.dart';
@@ -30,8 +30,6 @@ class _SignInState extends State<SignIn> {
   TextEditingController emailController = TextEditingController();
 
   TextEditingController passwordController = TextEditingController();
-
-  RxBool signInPasswordVisible = true.obs;
 
   ValidationController validationController = Get.put(ValidationController());
 
@@ -98,8 +96,8 @@ class _SignInState extends State<SignIn> {
                                 controller: emailController,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(50),
-                                  FilteringTextInputFormatter.allow(RegExp(Utility
-                                      .alphabetDigitsSpecialValidationPattern))
+                                  FilteringTextInputFormatter.allow(RegExp(
+                                      Utility.emailAddressValidationPattern))
                                 ],
                                 validator: (email) =>
                                     email.isEmpty ? "Email is required" : null,
@@ -125,8 +123,8 @@ class _SignInState extends State<SignIn> {
                                 controller: passwordController,
                                 inputFormatters: [
                                   LengthLimitingTextInputFormatter(30),
-                                  FilteringTextInputFormatter.allow(RegExp(Utility
-                                      .alphabetDigitsSpecialValidationPattern))
+                                  /*     FilteringTextInputFormatter.allow(RegExp(Utility
+                                      .alphabetDigitsSpecialValidationPattern))*/
                                 ],
                                 validator: (password) => password.isEmpty
                                     ? "Password is required"
@@ -247,9 +245,7 @@ class _SignInState extends State<SignIn> {
               validationController.progressVisible.value
                   ? Container(
                       color: Colors.black38,
-                      child: Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                      child: CommanWidget.circularProgress(),
                     )
                   : SizedBox(),
             ]))));

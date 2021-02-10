@@ -27,17 +27,20 @@ Widget homeAppBar({onMenuTap}) {
                   height: Get.height / 15,
                   width: Get.height / 15,
                 ),
-                Container(
-                  height: Get.height / 20,
-                  width: Get.height / 20,
-                  padding: EdgeInsets.all(Get.height / 100),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Color(0xff26D147), width: 2),
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                  ),
-                  child: SvgPicture.asset(
-                    "assets/images/bell.svg",
+                InkWell(
+                  // onTap: () => Get.to(StudentList()),
+                  child: Container(
+                    height: Get.height / 20,
+                    width: Get.height / 20,
+                    padding: EdgeInsets.all(Get.height / 100),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xff26D147), width: 2),
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: SvgPicture.asset(
+                      "assets/images/bell.svg",
+                    ),
                   ),
                 ),
                 Positioned(

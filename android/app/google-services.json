@@ -14,6 +14,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "650707912403-9jik8hbgqr698ncehel1pg6usd5k04rn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codelineInfotech.studentApp",
+            "certificate_hash": "11000185ade8b0731d7901b7881abb0ac6dae0af"
+          }
+        },
+        {
+          "client_id": "650707912403-b93pp78o3rp6vl9jo748iohkkfovsapk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codelineInfotech.studentApp",
+            "certificate_hash": "dd887981796fafff4358fbd6e05223508211e232"
+          }
+        },
+        {
           "client_id": "650707912403-6lcbegbmohcv080ohh55evhdl32f4gq5.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,6 +45,13 @@
             {
               "client_id": "650707912403-6lcbegbmohcv080ohh55evhdl32f4gq5.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "650707912403-gjcpep2rqvgkggvtbrsir0ve7rpfjle2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.codelineInfotech.studentApp"
+              }
             }
           ]
         }

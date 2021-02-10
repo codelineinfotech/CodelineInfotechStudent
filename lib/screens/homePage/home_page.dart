@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/controller/home_controller.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/app_bar_.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/fees_detail.dart';
@@ -6,11 +7,12 @@ import 'package:codeline_students_app/screens/homePage/widgets/lang_box.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/profile_row.dart';
 import 'package:codeline_students_app/screens/langInfo/lang_info.dart';
 import 'package:codeline_students_app/style/box_decorations.dart';
+import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:codeline_students_app/widgets/drawer_.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -18,14 +20,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var homeController = Get.put(HomeContoller());
+  HomeContoller homeController = Get.put(HomeContoller());
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  String imageUrl;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      endDrawer: buildDrawer(),
+      endDrawer: buildDrawer(context),
       body: Stack(
         children: [
           FadeInRight(
@@ -88,130 +92,218 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
                                         Expanded(
-                                            child: PageView(
-                                          physics: BouncingScrollPhysics(),
-                                          onPageChanged: (value) {
-                                            homeController.langIndex.value =
-                                                value;
-                                          },
-                                          children: [
-                                            ZoomIn(
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  Get.to(LangInfo(
-                                                    collectionName: "CLanguage",
-                                                    initialValue: 29,
-                                                    child: Text(
-                                                      'C',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Merriweather',
-                                                        fontSize: 28,
-                                                        color: Colors.white,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ));
-                                                },
-                                                child: langBox2(
-                                                  color: Color(0xff84FAB0),
-                                                  darkColor: Colors.green,
-                                                  title: "C Programming",
-                                                  intialValue: 29.0,
-                                                  child: Text(
-                                                    'C',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Merriweather',
-                                                      fontSize: 24,
-                                                      color: const Color(
-                                                          0xff232c42),
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            ZoomIn(
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  Get.to(LangInfo(
-                                                    collectionName: "C++Lang",
-                                                    initialValue: 80,
-                                                    child: Text(
-                                                      'C++',
-                                                      style: TextStyle(
-                                                        fontFamily:
-                                                            'Merriweather',
-                                                        fontSize: 24,
-                                                        color: Colors.white,
-                                                      ),
-                                                      textAlign:
-                                                          TextAlign.center,
-                                                    ),
-                                                  ));
-                                                },
-                                                child: langBox2(
-                                                  color: Color(0xff1D4777),
-                                                  darkColor: Colors.blue[900],
-                                                  title: "C++ Programming",
-                                                  intialValue: 80.0,
-                                                  child: Text(
-                                                    'C++',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                          'Merriweather',
-                                                      fontSize: 16,
-                                                      color: Colors.white,
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            ZoomIn(
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  Get.to(LangInfo(
-                                                    collectionName: "Dart",
-                                                    initialValue: 75,
-                                                    child: SvgPicture.asset(
-                                                        "assets/images/dart.svg"),
-                                                  ));
-                                                },
-                                                child: langBox2(
-                                                  color: Color(0xffD8FAFF),
-                                                  darkColor: Color(0xff17A2B8),
-                                                  title: "Dart Dev",
-                                                  intialValue: 75.0,
-                                                  child: SvgPicture.asset(
-                                                      "assets/images/dart.svg"),
-                                                ),
-                                              ),
-                                            ),
-                                            ZoomIn(
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  Get.to(LangInfo(
-                                                    collectionName: "Flutter",
-                                                    child: Image.asset(
-                                                        "assets/images/flutter.png"),
-                                                    initialValue: 10,
-                                                  ));
-                                                },
-                                                child: langBox2(
-                                                  color: Color(0xffC6EEFF),
-                                                  darkColor: Colors.blue[900],
-                                                  title: "Flutter",
-                                                  intialValue: 10.0,
-                                                  child: Image.asset(
-                                                      "assets/images/flutter.png"),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        )),
+                                            child: StreamBuilder<
+                                                    DocumentSnapshot>(
+                                                stream: FirebaseFirestore
+                                                    .instance
+                                                    .collection("User")
+                                                    .doc(
+                                                        (_auth.currentUser.uid))
+                                                    .snapshots(),
+                                                // stream:FirebaseFirestore.instance
+                                                //     .collection('User')
+                                                //     .doc(FirebaseAuth.instance.currentUser.uid)
+                                                //     .get(),
+                                                builder: (context, snapshot) {
+                                                  if (snapshot.hasData) {
+                                                    return PageView(
+                                                      physics:
+                                                          BouncingScrollPhysics(),
+                                                      onPageChanged: (value) {
+                                                        homeController.langIndex
+                                                            .value = value;
+                                                      },
+                                                      children: [
+                                                        ZoomIn(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              Get.to(LangInfo(
+                                                                collectionName:
+                                                                    "CLanguage",
+                                                                initialValue:
+                                                                    snapshot
+                                                                        .data
+                                                                        .get(
+                                                                            'percentage.CLanguage'),
+                                                                child: Text(
+                                                                  'C',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Merriweather',
+                                                                    fontSize:
+                                                                        28,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ));
+                                                            },
+                                                            child: langBox2(
+                                                              color: Color(
+                                                                  0xff84FAB0),
+                                                              darkColor:
+                                                                  Colors.green,
+                                                              title:
+                                                                  "C Programming",
+                                                              intialValue: snapshot
+                                                                  .data
+                                                                  .get(
+                                                                      'percentage.CLanguage')
+                                                                  .toDouble(),
+                                                              child: Text(
+                                                                'C',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Merriweather',
+                                                                  fontSize: 24,
+                                                                  color: const Color(
+                                                                      0xff232c42),
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        ZoomIn(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              Get.to(LangInfo(
+                                                                collectionName:
+                                                                    "C++",
+                                                                initialValue:
+                                                                    snapshot
+                                                                        .data
+                                                                        .get(
+                                                                            'percentage.C++'),
+                                                                child: Text(
+                                                                  'C++',
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Merriweather',
+                                                                    fontSize:
+                                                                        24,
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ));
+                                                            },
+                                                            child: langBox2(
+                                                              color: Color(
+                                                                  0xff1D4777),
+                                                              darkColor: Colors
+                                                                  .blue[900],
+                                                              title:
+                                                                  "C++ Programming",
+                                                              intialValue: snapshot
+                                                                  .data
+                                                                  .get(
+                                                                      'percentage.C++')
+                                                                  .toDouble(),
+                                                              child: Text(
+                                                                'C++',
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontFamily:
+                                                                      'Merriweather',
+                                                                  fontSize: 16,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        ZoomIn(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              Get.to(LangInfo(
+                                                                collectionName:
+                                                                    "Dart",
+                                                                initialValue:
+                                                                    snapshot
+                                                                        .data
+                                                                        .get(
+                                                                            'percentage.Dart'),
+                                                                child: SvgPicture
+                                                                    .asset(
+                                                                        "assets/images/dart.svg"),
+                                                              ));
+                                                            },
+                                                            child: langBox2(
+                                                              color: Color(
+                                                                  0xffD8FAFF),
+                                                              darkColor: Color(
+                                                                  0xff17A2B8),
+                                                              title: "Dart Dev",
+                                                              intialValue: snapshot
+                                                                  .data
+                                                                  .get(
+                                                                      'percentage.Dart')
+                                                                  .toDouble(),
+                                                              child: SvgPicture
+                                                                  .asset(
+                                                                      "assets/images/dart.svg"),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        ZoomIn(
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () {
+                                                              Get.to(LangInfo(
+                                                                collectionName:
+                                                                    "Flutter",
+                                                                child: Image.asset(
+                                                                    "assets/images/flutter.png"),
+                                                                initialValue:
+                                                                    snapshot
+                                                                        .data
+                                                                        .get(
+                                                                            'percentage.Flutter'),
+                                                              ));
+                                                            },
+                                                            child: langBox2(
+                                                              color: Color(
+                                                                  0xffC6EEFF),
+                                                              darkColor: Colors
+                                                                  .blue[900],
+                                                              title: "Flutter",
+                                                              intialValue: snapshot
+                                                                  .data
+                                                                  .get(
+                                                                      'percentage.Flutter')
+                                                                  .toDouble(),
+                                                              child: Image.asset(
+                                                                  "assets/images/flutter.png"),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  } else {
+                                                    return Center(
+                                                        child: CommanWidget
+                                                            .circularProgress());
+                                                  }
+                                                })),
                                         Obx(() {
                                           return Padding(
                                             padding:
