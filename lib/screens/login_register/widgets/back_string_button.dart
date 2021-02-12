@@ -12,7 +12,8 @@ Widget backStringButton({deviceWidth, title, onTap}) {
           Icon(
             Icons.arrow_back_ios,
             size: 25,
-            color: Color(0xff17a2b8),
+            color: Colors.black,
+            // color: Color(0xff17a2b8),
           ),
           SizedBox(
             width: 5,

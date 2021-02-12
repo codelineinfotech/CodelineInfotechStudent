@@ -132,7 +132,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               signLabel(title: "Sign up"),
               SizedBox(
-                height: deviceSize.height / 10,
+                height: deviceSize.height / 20,
               ),
 
               ///Name...

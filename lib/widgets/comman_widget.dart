@@ -26,7 +26,7 @@ class CommanWidget {
         width: imageWidth,
         child: imageUrl != null && imageUrl != ""
             ? OctoImage(
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.fill,
                 imageBuilder: OctoImageTransformer.circleAvatar(),
                 image: NetworkImage(imageUrl),
                 placeholderBuilder:
@@ -37,7 +37,7 @@ class CommanWidget {
         decoration: decoration == "NoDecoration"
             ? BoxDecoration()
             : BoxDecoration(
-                color: Colors.grey[400],
+                color: Colors.red,
                 borderRadius: BorderRadius.circular(100),
                 border: Border.all(color: Colors.white, width: 5),
               ),

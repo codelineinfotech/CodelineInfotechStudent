@@ -4,7 +4,7 @@ import 'package:codeline_students_app/screens/genral_screen/certificate_screen.d
 import 'package:codeline_students_app/screens/genral_screen/contactus_screen.dart';
 import 'package:codeline_students_app/screens/fees_report/fees_report_screen.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
-import 'package:codeline_students_app/screens/genral_screen/notification_screen.dart';
+import 'package:codeline_students_app/screens/notofication/notification_screen.dart';
 import 'package:codeline_students_app/screens/user_edit_profile/user_edit_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ Widget buildDrawer(BuildContext context) {
                     child: snapshot.data["imageUrl"] != null &&
                             snapshot.data["imageUrl"] != ""
                         ? OctoImage(
-                            fit: BoxFit.fitHeight,
+                            fit: BoxFit.fill,
                             imageBuilder: OctoImageTransformer.circleAvatar(),
                             image: NetworkImage(snapshot.data["imageUrl"]),
                             placeholderBuilder: OctoPlaceholder.blurHash(

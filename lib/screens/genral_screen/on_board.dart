@@ -1,5 +1,5 @@
 import 'package:codeline_students_app/screens/homePage/home_page.dart';
-import 'package:codeline_students_app/screens/splash/splash_screen.dart';
+import 'package:codeline_students_app/screens/splash/walking_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -53,7 +53,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
               Spacer(),
               Center(
                 child: GestureDetector(
-                  onTap: () => Get.off(SplashScreen()),
+                  onTap: () => Get.off(WalkingScreen()),
                   child: Container(
                       margin: EdgeInsets.only(bottom: 20),
                       alignment: Alignment.center,

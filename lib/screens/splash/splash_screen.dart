@@ -1,7 +1,11 @@
-import 'package:codeline_students_app/controller/home_controller.dart';
+import 'package:avatar_glow/avatar_glow.dart';
+import 'package:codeline_students_app/screens/genral_screen/on_board.dart';
 import 'package:codeline_students_app/screens/homePage/home_page.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,244 +14,50 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  var homeController = Get.put(HomeContoller());
-  PageController pageController = PageController(initialPage: 0);
+  Size _size;
+  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    Future.delayed(Duration(seconds: 5), () {
+      _firebaseAuth.currentUser != null
+          ? Get.off(HomePage())
+          : Get.off(OnBoardPage());
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        PageView(
-          onPageChanged: (value) {
-            homeController.splashIndex.value = value;
-          },
-          controller: pageController,
-          children: [
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  "assets/images/splash1.png",
-                  width: Get.width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: Get.height / 2,
-                    ),
-                    Text(
-                      'Add Products',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 24,
-                        color: const Color(0xff3a3f44),
-                        letterSpacing: 0.24,
-                        height: 4.0625,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    Text(
-                      'Capture photos of your products and fill product\nnotes easily and efficient\n',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16,
-                        color: const Color(0xff656c80),
-                        letterSpacing: 0.16,
-                        fontWeight: FontWeight.w500,
-                        height: 2.0625,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                )
-              ],
+    _size = MediaQuery.of(context).size;
+    return Material(
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [Color(0XFF17A2B8), Color(0XFF0c515c)],
+        )),
+        child: AvatarGlow(
+          glowColor: Color(0xFF68A4AE),
+          endRadius: 200.0,
+          duration: Duration(milliseconds: 2000),
+          repeat: true,
+          showTwoGlows: true,
+          repeatPauseDuration: Duration(milliseconds: 100),
+          child: CircleAvatar(
+            radius: _size.width / 3.5,
+            backgroundColor: Color(0xffAFD2D8),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: SvgPicture.asset(
+                "assets/icons/splash_logo.svg",
+              ),
             ),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  "assets/images/splash2.png",
-                  width: Get.width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: Get.height / 2,
-                    ),
-                    Text(
-                      'Export\n',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 24,
-                        color: const Color(0xff3a3f44),
-                        letterSpacing: 0.24,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      width: 370.0,
-                      child: Text(
-                        'Export your Products into excel or PDF\nCustomized to your needs within one click',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 16,
-                          color: const Color(0xff656c80),
-                          letterSpacing: 0.16,
-                          fontWeight: FontWeight.w500,
-                          height: 2.0625,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            Stack(
-              alignment: Alignment.center,
-              children: [
-                Image.asset(
-                  "assets/images/splash3.png",
-                  width: Get.width,
-                  fit: BoxFit.fitWidth,
-                ),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(
-                      height: Get.height / 2,
-                    ),
-                    SizedBox(
-                      width: 77.0,
-                      child: Text(
-                        'Share\n',
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 24,
-                          color: const Color(0xff3a3f44),
-                          letterSpacing: 0.24,
-                          fontWeight: FontWeight.w700,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    Text(
-                      'Send and share your Exported Documents\nanywhere directly from mobile app',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                        fontSize: 16,
-                        color: const Color(0xff656c80),
-                        letterSpacing: 0.16,
-                        fontWeight: FontWeight.w500,
-                        height: 2.0625,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                )
-              ],
-            )
-          ],
+          ),
         ),
-        Obx(() {
-          return Padding(
-            padding: const EdgeInsets.all(40),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    Get.offAll(SignIn());
-                  },
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 20,
-                      color: const Color(0xff898ba5),
-                      letterSpacing: 0.2,
-                      fontWeight: FontWeight.w700,
-                      height: 2.55,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ),
-                Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: CircleAvatar(
-                    radius: 5,
-                    backgroundColor: homeController.splashIndex.value == 0
-                        ? Color(0xff17A2B8)
-                        : Color(0xffC4C7C7),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: CircleAvatar(
-                    radius: 5,
-                    backgroundColor: homeController.splashIndex.value == 1
-                        ? Color(0xff17A2B8)
-                        : Color(0xffC4C7C7),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: CircleAvatar(
-                    radius: 5,
-                    backgroundColor: homeController.splashIndex.value == 2
-                        ? Color(0xff17A2B8)
-                        : Color(0xffC4C7C7),
-                  ),
-                ),
-                Spacer(),
-                GestureDetector(
-                  onTap: () {
-                    if (homeController.splashIndex.value == 2) {
-                      Get.offAll(SignIn());
-                    } else {
-                      pageController.animateToPage(
-                          homeController.splashIndex.value == 0
-                              ? 1
-                              : homeController.splashIndex.value == 1
-                                  ? 2
-                                  : 3,
-                          duration: Duration(milliseconds: 300),
-                          curve: Curves.ease);
-                    }
-                  },
-                  child: Text(
-                    'Next',
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 20,
-                      color: const Color(0xff17a2b8),
-                      letterSpacing: 0.2,
-                      fontWeight: FontWeight.w700,
-                      height: 2.55,
-                    ),
-                    textAlign: TextAlign.right,
-                  ),
-                ),
-              ],
-            ),
-          );
-        })
-      ],
-    ));
+      ),
+    );
   }
 }

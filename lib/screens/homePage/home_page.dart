@@ -24,6 +24,12 @@ class _HomePageState extends State<HomePage> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   String imageUrl;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+    print("HOME PAGE CALL");
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
