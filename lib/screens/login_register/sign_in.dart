@@ -243,10 +243,7 @@ class _SignInState extends State<SignIn> {
                 ),
               ),
               validationController.progressVisible.value
-                  ? Container(
-                      color: Colors.black38,
-                      child: CommanWidget.circularProgress(),
-                    )
+                  ? CommanWidget.circularProgressBgBlack()
                   : SizedBox(),
             ]))));
   }

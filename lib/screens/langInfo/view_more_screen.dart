@@ -50,6 +50,7 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
       // final url = "http://www.pdf995.com/samples/pdf.pdf";
       // final url = "http://www.africau.edu/images/default/sample.pdf";
       final url = topicDescriptionUrl;
+      print("topicDescriptionUrl" + topicDescriptionUrl);
       final filename = url.substring(url.lastIndexOf("/") + 1);
       var request = await HttpClient().getUrl(Uri.parse(url));
       var response = await request.close();
@@ -137,10 +138,12 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
                                           });
                                         },
                                         onError: (error) {
-                                          print(error.toString());
+                                          print(
+                                              "ONERROR -->" + error.toString());
                                         },
                                         onPageError: (page, error) {
-                                          print('$page: ${error.toString()}');
+                                          print("ONERROR2 -->" +
+                                              '$page: ${error.toString()}');
                                         },
                                         onViewCreated: (PDFViewController
                                             pdfViewController) {

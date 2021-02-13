@@ -207,7 +207,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
           ),
           Obx(() {
             return _homeContoller.isLoad.value == true
-                ? CommanWidget.circularProgress()
+                ? CommanWidget.circularProgressBgBlack()
                 : Container();
           }),
         ],

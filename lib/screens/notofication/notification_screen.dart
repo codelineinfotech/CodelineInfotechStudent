@@ -18,7 +18,7 @@ class NotificationsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     deviceSize = MediaQuery.of(context).size;
     return Material(
-      color: ColorsPicker.offWhite,
+      color: Colors.white,
       child: StreamBuilder<QuerySnapshot>(
           stream:
               FirebaseFirestore.instance.collection('Notification').snapshots(),
@@ -27,13 +27,14 @@ class NotificationsScreen extends StatelessWidget {
               return Column(
                 children: [
                   SafeArea(
+                      bottom: false,
                       child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: backStringButton(
-                        deviceWidth: deviceSize.width,
-                        title: "Notification",
-                        onTap: () => Navigator.pop(context)),
-                  )),
+                        padding: const EdgeInsets.symmetric(horizontal: 25),
+                        child: backStringButton(
+                            deviceWidth: deviceSize.width,
+                            title: "Notification",
+                            onTap: () => Navigator.pop(context)),
+                      )),
                   Expanded(
                     child: ListView.separated(
                         padding: EdgeInsets.zero,
@@ -57,7 +58,7 @@ class NotificationsScreen extends StatelessWidget {
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 15),
+                                  vertical: 10, horizontal: 25),
                               width: deviceSize.width,
                               color: (snapshot.data.docs[index].get('read_user')
                                           as List)
@@ -74,7 +75,13 @@ class NotificationsScreen extends StatelessWidget {
                                     margin: EdgeInsets.only(top: 15),
                                     child: Icon(
                                       Icons.circle,
-                                      color: Colors.red,
+                                      color: (snapshot.data.docs[index]
+                                                  .get('read_user') as List)
+                                              .contains(
+                                                  _firebaseAuth.currentUser.uid)
+                                          // .contains(_auth.currentUser.uid)
+                                          ? Colors.grey
+                                          : Colors.red,
                                       size: 13,
                                     ),
                                   ),

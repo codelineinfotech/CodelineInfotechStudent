@@ -22,11 +22,19 @@ Widget profileRow() {
           if (snapshot.hasData) {
             return Row(
               children: [
-                CommanWidget.imageProfileView(
-                    imageUrl: snapshot.data["imageUrl"].toString(),
-                    imageHeight: 70,
-                    imageWidth: 70,
-                    decoration: "NoDecoration"),
+                snapshot.data["imageUrl"] != null &&
+                        snapshot.data["imageUrl"] != ""
+                    ? CommanWidget.imageProfileView(
+                        imageUrl: snapshot.data["imageUrl"].toString(),
+                        imageHeight: 70,
+                        imageWidth: 70,
+                        decoration: "NoDecoration")
+                    : CircleAvatar(
+                        backgroundColor: Colors.white,
+                        backgroundImage:
+                            AssetImage("assets/images/profile.png"),
+                        radius: 25,
+                      ),
                 SizedBox(
                   width: 15,
                 ),

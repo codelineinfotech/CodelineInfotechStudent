@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+FirebaseAuth _auth = FirebaseAuth.instance;
 Widget appBar({onMenuTap}) {
   return Padding(
     padding: const EdgeInsets.only(left: 10, right: 20, top: 20),
@@ -42,23 +45,47 @@ Widget appBar({onMenuTap}) {
                 Positioned(
                   top: 1,
                   right: 2,
-                  child: Container(
-                    alignment: Alignment.center,
-                    height: Get.height / 40,
-                    width: Get.height / 40,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff26D147), width: 2),
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Text(
-                      "3",
-                      style: TextStyle(
-                        fontSize: 10,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
+                  child: StreamBuilder<QuerySnapshot>(
+                      stream: FirebaseFirestore.instance
+                          .collection('Notification')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          int notificationCount = snapshot.data.docs.length;
+
+                          snapshot.data.docs.forEach((element) {
+                            if ((element.get('read_user') as List)
+                                .contains(_auth.currentUser.uid)) {
+                              notificationCount = notificationCount - 1;
+                            }
+                          });
+                          print(
+                              "NOTIFICATION COUNT${notificationCount.toString()}");
+
+                          return notificationCount.toString() != '0'
+                              ? Container(
+                                  alignment: Alignment.center,
+                                  height: Get.height / 40,
+                                  width: Get.height / 40,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Color(0xff26D147), width: 2),
+                                    color: Colors.white,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Text(
+                                    notificationCount.toString(),
+                                    style: TextStyle(
+                                      fontSize: 10,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                )
+                              : Container();
+                        } else {
+                          return Container();
+                        }
+                      }),
                 )
               ],
             ),

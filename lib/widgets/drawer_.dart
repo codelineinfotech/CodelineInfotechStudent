@@ -31,31 +31,44 @@ Widget buildDrawer(BuildContext context) {
             if (snapshot.hasData) {
               return Column(
                 children: [
-                  Container(
-                    height: Get.height / 6,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white, width: 7),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.16),
-                          offset: Offset(0, 3),
-                          blurRadius: 6,
-                        )
-                      ],
+                  Material(
+                    child: ClipRRect(
+                      child: Container(
+                        height: Get.width / 3,
+                        width: Get.width / 3,
+                        decoration: BoxDecoration(
+                          // color: Colors.blue,
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.white, width: 7),
+                        ),
+                        child: snapshot.data["imageUrl"] != null &&
+                                snapshot.data["imageUrl"] != ""
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: OctoImage(
+                                  fit: BoxFit.fill,
+                                  imageBuilder:
+                                      OctoImageTransformer.circleAvatar(),
+                                  image:
+                                      NetworkImage(snapshot.data["imageUrl"]),
+                                  placeholderBuilder: OctoPlaceholder.blurHash(
+                                      'LEHV6nWB2yk8pyo0adR*.7kCMdnj'),
+                                  errorBuilder:
+                                      OctoError.icon(color: Colors.red),
+                                ),
+                              )
+                            : CircleAvatar(
+                                backgroundColor: Colors.white,
+                                backgroundImage:
+                                    AssetImage("assets/images/profile.png"),
+                                radius: 25,
+                              ),
+                      ),
+                      borderRadius: BorderRadius.circular(100),
+                      // clipBehavior: Clip.antiAliasWithSaveLayer,
                     ),
-                    child: snapshot.data["imageUrl"] != null &&
-                            snapshot.data["imageUrl"] != ""
-                        ? OctoImage(
-                            fit: BoxFit.fill,
-                            imageBuilder: OctoImageTransformer.circleAvatar(),
-                            image: NetworkImage(snapshot.data["imageUrl"]),
-                            placeholderBuilder: OctoPlaceholder.blurHash(
-                                'LEHV6nWB2yk8pyo0adR*.7kCMdnj'),
-                            errorBuilder: OctoError.icon(color: Colors.red),
-                          )
-                        : Image.asset("assets/images/profile.png"),
+                    elevation: 10,
+                    shape: CircleBorder(),
                   ),
                   SizedBox(
                     height: Get.height / 30,

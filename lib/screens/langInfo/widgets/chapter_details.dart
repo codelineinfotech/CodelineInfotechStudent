@@ -348,7 +348,7 @@ Widget chapterDetails({
                                                       ],
                                                     );
                                                   } else {
-                                                    return CircularProgressIndicator();
+                                                    return Container();
                                                   }
                                                 }),
                                           ),

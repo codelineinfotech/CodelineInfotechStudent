@@ -2,15 +2,12 @@ import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/services/firebase_contactus_service.dart';
-import 'package:codeline_students_app/widgets/drawer_.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../langInfo/widgets/app_bar_.dart';
-import '../langInfo/widgets/background_elements.dart';
 import '../login_register/widgets/back_string_button.dart';
 import '../login_register/widgets/widgets.dart';
 
@@ -26,33 +23,29 @@ class ContactUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     deviceSize = MediaQuery.of(context).size;
 
-    return Material(
-      color: ColorsPicker.offWhite,
-      child: Stack(
+    return Scaffold(
+      backgroundColor: ColorsPicker.offWhite,
+      body: Stack(
         overflow: Overflow.visible,
         children: [
           bgElements1(deviceWidth: deviceSize.width),
           bgElement2(deviceSize),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: SafeArea(
-                      child: backStringButton(
-                        onTap: () => Navigator.pop(context),
-                        title: "Contact Us",
-                        deviceWidth: deviceSize.width,
-                      ),
-                    ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SafeArea(
+                  child: backStringButton(
+                    onTap: () => Navigator.pop(context),
+                    title: "Contact Us",
+                    deviceWidth: deviceSize.width,
                   ),
-                  // signUpForm(context),
-                  Form(key: _formKey, child: contactUsForm(context))
-                ],
-              ),
+                ),
+                // signUpForm(context),
+                Expanded(
+                    child: Form(key: _formKey, child: contactUsForm(context)))
+              ],
             ),
           ),
         ],
@@ -81,7 +74,7 @@ class ContactUsScreen extends StatelessWidget {
 
   Widget contactUsForm(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 15),
       child: Scrollbar(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -126,6 +119,12 @@ class ContactUsScreen extends StatelessWidget {
                 validator: (name) => name.isEmpty ? "Name is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Full Name",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -170,6 +169,12 @@ class ContactUsScreen extends StatelessWidget {
                     email.isEmpty ? "Email is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Email Address",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -238,7 +243,12 @@ class ContactUsScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  border: OutlineInputBorder(
+                  focusColor: ColorsPicker.skyColor,
+                  enabledBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
                     borderSide:
                         BorderSide(color: ColorsPicker.skyColor, width: 1.0),
                   ),

@@ -76,7 +76,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           ),
           Obx(
             () => validationController.progressVisible.value
-                ? CommanWidget.circularProgress()
+                ? CommanWidget.circularProgressBgBlack()
                 : SizedBox(),
           ),
         ],

@@ -106,7 +106,7 @@ class _LangInfoState extends State<LangInfo> {
         ]),
         Obx(() {
           return homeController.isLoad.value == true
-              ? CommanWidget.circularProgress()
+              ? CommanWidget.circularProgressBgBlack()
               : Container();
         }),
       ]),

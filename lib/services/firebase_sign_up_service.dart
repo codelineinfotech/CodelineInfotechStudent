@@ -43,7 +43,7 @@ class SignUpService {
         print("SIGNUP SUCCESSFULLY");
         _auth.signOut();
         validationController.progressVisible.value = false;
-        CommanWidget.circularProgress();
+        CommanWidget.circularProgressBgBlack();
 
         Get.offAll(SignIn());
       }).catchError((e) {

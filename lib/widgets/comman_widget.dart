@@ -5,8 +5,15 @@ import 'package:octo_image/octo_image.dart';
 
 class CommanWidget {
   static Widget circularProgress() {
+    return Center(
+        child: CircularProgressIndicator(
+      valueColor: new AlwaysStoppedAnimation<Color>(ColorsPicker.skyColor),
+    ));
+  }
+
+  static Widget circularProgressBgBlack() {
     return Container(
-      color: Colors.black38,
+      color: Colors.black26,
       child: Center(
           child: CircularProgressIndicator(
         valueColor: new AlwaysStoppedAnimation<Color>(ColorsPicker.skyColor),
