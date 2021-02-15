@@ -37,10 +37,13 @@ class GoogleLoginService {
           'address': "",
           'imageUrl': authResult.user.photoURL,
           'approval': true,
-          'course': ['CLanguage', 'C++'],
-          'percentage': {'CLanguage': 0, 'C++': 0}
+          'course': ['CLanguage', 'C++', 'Dart', 'Flutter'],
+          'percentage': {'CLanguage': 0, 'C++': 0, 'Dart': 0, 'Flutter': 0},
+          'storageLocation': ''
         }).then((value) {
           validationController.progressVisible.value = false;
+          Get.snackbar("Message", "Your Registration is Successfully");
+
           Get.offAll(HomePage());
         }).catchError((e) => print(e.toString()));
       } else {

@@ -48,30 +48,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     deviceSize = MediaQuery.of(context).size;
-    return Material(
-      color: ColorsPicker.offWhite,
-      child: Stack(
+    return Scaffold(
+      backgroundColor: ColorsPicker.offWhite,
+      body: Stack(
         overflow: Overflow.visible,
         children: [
           bgElements1(deviceSize),
           bgElement2(deviceSize),
-          Container(
+          Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SafeArea(
-                    child: backStringButton(
-                      onTap: () => Navigator.pop(context),
-                      title: "Sign in",
-                      deviceWidth: deviceSize.width,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SafeArea(
+                  child: backStringButton(
+                    onTap: () => Navigator.pop(context),
+                    title: "Sign in",
+                    deviceWidth: deviceSize.width,
                   ),
-                  // signUpForm(context),
-                  Form(key: _formKey, child: signUpForm(context))
-                ],
-              ),
+                ),
+                // signUpForm(context),
+                Expanded(child: Form(key: _formKey, child: signUpForm(context)))
+              ],
             ),
           ),
           Obx(
@@ -120,19 +118,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget signUpForm(BuildContext context) {
-    return Obx(() => Container(
-          // color: Colors.yellow,
-          child: Column(
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      physics: BouncingScrollPhysics(),
+      child: Obx(() => Column(
             // shrinkWrap: true,
 
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 10,
-              ),
               signLabel(title: "Sign up"),
               SizedBox(
-                height: deviceSize.height / 20,
+                height: deviceSize.height / 25,
               ),
 
               ///Name...
@@ -153,6 +149,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 validator: (name) => name.isEmpty ? "Name is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Full Name",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -193,6 +195,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     email.isEmpty ? "Email is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Email Address",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -231,6 +239,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     name.isEmpty ? "Mobile Number is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Mobile No",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -239,7 +253,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   prefixIcon: SizedBox(
                     width: 20,
-                    child: Icon(Icons.phone_android_rounded),
+                    child: Icon(
+                      Icons.phone_android_rounded,
+                      color: Color(0xff9A9BA7),
+                    ),
                   ),
                 ),
               ),
@@ -267,6 +284,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     password.isEmpty ? "Password is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Password",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -287,6 +310,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       !validationController.obscureText.value
                           ? Icons.visibility_off
                           : Icons.visibility,
+                      color: ColorsPicker.skyColor,
                     ),
                   ),
                 ),
@@ -316,6 +340,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     cPassword.isEmpty ? "Conform Password is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Conform Password",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -336,6 +366,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       !validationController.obscureText.value
                           ? Icons.visibility_off
                           : Icons.visibility,
+                      color: ColorsPicker.skyColor,
                     ),
                   ),
                 ),
@@ -382,13 +413,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       print("Validat Method was call on null");
                     }
                   }),
-              Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-              ),
+              // Padding(
+              //   padding: EdgeInsets.only(
+              //       bottom: MediaQuery.of(context).viewInsets.bottom),
+              // ),
             ],
-          ),
-        ));
+          )),
+    );
   }
 
   Widget _termsNCondition() {

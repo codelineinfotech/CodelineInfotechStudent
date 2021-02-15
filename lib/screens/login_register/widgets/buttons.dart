@@ -80,7 +80,7 @@ Widget googleSignInButton({deviceWidth, title, onTap}) {
             child: Text(
               title,
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 18,
                 color: ColorsPicker.darkGrey,
                 letterSpacing: -0.004400000065565109,
                 fontWeight: FontWeight.w500,

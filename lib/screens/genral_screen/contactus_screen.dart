@@ -73,116 +73,66 @@ class ContactUsScreen extends StatelessWidget {
   }
 
   Widget contactUsForm(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
-      child: Scrollbar(
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Details',
-                style: TextStyle(
+    return Scrollbar(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Details',
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 38,
+                color: const Color(0xff3a3f44),
+                letterSpacing: 0.38,
+                fontWeight: FontWeight.w500,
+                height: 1.3421052631578947,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 15,
+            ),
+
+            ///Name...
+            Text(
+              "Full Name",
+              style: TextStyle(
+                fontSize: 14,
+                color: ColorsPicker.skyColor,
+              ),
+            ),
+            TextFormField(
+              controller: nameTextEditingController,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(30),
+                FilteringTextInputFormatter.allow(
+                    RegExp(Utility.alphabetSpaceValidationPattern))
+              ],
+              // style: TextStyle(
+              //   color: ColorsPicker.darkGrey.withOpacity(0.8),
+              // ),
+              validator: (name) => name.isEmpty ? "Name is required" : null,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                focusedBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorsPicker.skyColor)),
+                hintText: "Enter Full Name",
+                hintStyle: TextStyle(
                   fontFamily: 'Roboto',
-                  fontSize: 38,
-                  color: const Color(0xff3a3f44),
-                  letterSpacing: 0.38,
-                  fontWeight: FontWeight.w500,
-                  height: 1.3421052631578947,
+                  fontSize: 17,
+                  color: const Color(0xff3a3f44).withOpacity(0.5),
                 ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 15,
-              ),
-
-              ///Name...
-              Text(
-                "Full Name",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
-              TextFormField(
-                controller: nameTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(30),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetSpaceValidationPattern))
-                ],
-                // style: TextStyle(
-                //   color: ColorsPicker.darkGrey.withOpacity(0.8),
-                // ),
-                validator: (name) => name.isEmpty ? "Name is required" : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Full Name",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
-                  prefixIcon: SizedBox(
-                    width: 20,
-                    child: Image.asset(
-                      ImagePath.userPng,
-                      height: 5,
-                      width: 5,
-                      color: ColorsPicker.darkGrey.withOpacity(0.6),
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
-
-              ///Email...
-              Text(
-                "Email Address",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
-              TextFormField(
-                controller: emailTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(50),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetDigitsSpecialValidationPattern))
-                ],
-                // style: TextStyle(
-                //   color: ColorsPicker.darkGrey.withOpacity(0.8),
-                // ),
-                validator: (email) =>
-                    email.isEmpty ? "Email is required" : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Email Address",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
-                  prefixIcon: Image.asset(
-                    ImagePath.mailPng,
+                prefixIcon: SizedBox(
+                  width: 20,
+                  child: Image.asset(
+                    ImagePath.userPng,
                     height: 5,
                     width: 5,
                     color: ColorsPicker.darkGrey.withOpacity(0.6),
@@ -190,125 +140,171 @@ class ContactUsScreen extends StatelessWidget {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: deviceSize.width / 14,
+            ),
 
-              SizedBox(
-                height: deviceSize.width / 14,
+            ///Email...
+            Text(
+              "Email Address",
+              style: TextStyle(
+                fontSize: 14,
+                color: ColorsPicker.skyColor,
               ),
-
-              ///Message...
-              Row(
-                children: [
-                  Text(
-                    "Message",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: ColorsPicker.skyColor,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Icon(
-                    Icons.message,
-                    size: 15,
-                    color: Colors.grey,
-                  ),
-                  // Image.asset(
-                  //   ImagePath.messagePng,
-                  //   color: ColorsPicker.darkGrey.withOpacity(0.8),
-                  //   alignment: Alignment.topCenter,
-                  // )
-                ],
-              ),
-              SizedBox(
-                height: deviceSize.width / 20,
-              ),
-              TextFormField(
-                maxLines: 5,
-
-                controller: messageTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(100),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetDigitsSpaceValidationPattern))
-                ],
-                textInputAction: TextInputAction.done,
-                // style: TextStyle(
-                //   color: ColorsPicker.darkGrey.withOpacity(0.8),
-                // ),
-                textAlign: TextAlign.start,
-                validator: (message) =>
-                    message.isEmpty ? "Message is required" : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  focusColor: ColorsPicker.skyColor,
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+            ),
+            TextFormField(
+              controller: emailTextEditingController,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(50),
+                FilteringTextInputFormatter.allow(
+                    RegExp(Utility.alphabetDigitsSpecialValidationPattern))
+              ],
+              // style: TextStyle(
+              //   color: ColorsPicker.darkGrey.withOpacity(0.8),
+              // ),
+              validator: (email) => email.isEmpty ? "Email is required" : null,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                focusedBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: ColorsPicker.skyColor)),
+                hintText: "Enter Email Address",
+                hintStyle: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 17,
+                  color: const Color(0xff3a3f44).withOpacity(0.5),
+                ),
+                prefixIcon: Image.asset(
+                  ImagePath.mailPng,
+                  height: 5,
+                  width: 5,
+                  color: ColorsPicker.darkGrey.withOpacity(0.6),
+                  alignment: Alignment.center,
                 ),
               ),
+            ),
 
-              SizedBox(
-                height: deviceSize.width / 14,
+            SizedBox(
+              height: deviceSize.width / 14,
+            ),
+
+            ///Message...
+            Row(
+              children: [
+                Text(
+                  "Message",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: ColorsPicker.skyColor,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Icon(
+                  Icons.message,
+                  size: 15,
+                  color: Colors.grey,
+                ),
+                // Image.asset(
+                //   ImagePath.messagePng,
+                //   color: ColorsPicker.darkGrey.withOpacity(0.8),
+                //   alignment: Alignment.topCenter,
+                // )
+              ],
+            ),
+            SizedBox(
+              height: deviceSize.width / 20,
+            ),
+            TextFormField(
+              maxLines: 5,
+
+              controller: messageTextEditingController,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(100),
+                FilteringTextInputFormatter.allow(
+                    RegExp(Utility.alphabetDigitsSpaceValidationPattern))
+              ],
+              textInputAction: TextInputAction.done,
+              // style: TextStyle(
+              //   color: ColorsPicker.darkGrey.withOpacity(0.8),
+              // ),
+              textAlign: TextAlign.start,
+              validator: (message) =>
+                  message.isEmpty ? "Message is required" : null,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              decoration: InputDecoration(
+                contentPadding:
+                    EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                focusColor: ColorsPicker.skyColor,
+                enabledBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                ),
+                hintStyle: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 17,
+                  color: const Color(0xff3a3f44).withOpacity(0.5),
+                ),
               ),
-              InkWell(
-                onTap: () {
-                  contactUs();
-                },
-                child: Container(
-                    margin: EdgeInsets.only(bottom: 20),
-                    alignment: Alignment.center,
-                    width: Get.width,
-                    height: Get.height / 14,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(13.0),
-                      color: const Color(0xff17a2b8),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0x6117a2b8),
-                          offset: Offset(0, 10),
-                          blurRadius: 40,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 16),
-                          child: Text(
-                            "Send Message",
-                            style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 22,
-                              color: const Color(0xffffffff),
-                              letterSpacing: -0.004400000065565109,
-                            ),
-                            textAlign: TextAlign.left,
+            ),
+
+            SizedBox(
+              height: deviceSize.width / 14,
+            ),
+            InkWell(
+              onTap: () {
+                contactUs();
+              },
+              child: Container(
+                  margin: EdgeInsets.only(bottom: 20),
+                  alignment: Alignment.center,
+                  width: Get.width,
+                  height: Get.height / 14,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(13.0),
+                    color: const Color(0xff17a2b8),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0x6117a2b8),
+                        offset: Offset(0, 10),
+                        blurRadius: 40,
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16),
+                        child: Text(
+                          "Send Message",
+                          style: TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 22,
+                            color: const Color(0xffffffff),
+                            letterSpacing: -0.004400000065565109,
                           ),
+                          textAlign: TextAlign.left,
                         ),
-                        Spacer(),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 16),
-                          child: SvgPicture.asset("assets/images/arrow.svg"),
-                        )
-                      ],
-                    )),
-              ),
-            ],
-          ),
+                      ),
+                      Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16),
+                        child: SvgPicture.asset("assets/images/arrow.svg"),
+                      )
+                    ],
+                  )),
+            ),
+          ],
         ),
       ),
     );

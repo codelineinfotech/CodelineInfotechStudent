@@ -31,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     _size = MediaQuery.of(context).size;
+
     return Material(
       child: Container(
         decoration: BoxDecoration(

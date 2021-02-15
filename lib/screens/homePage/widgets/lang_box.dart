@@ -163,3 +163,89 @@ Widget langBox2({color, title, darkColor, intialValue, child}) {
         ],
       ));
 }
+
+Widget langBoxGrid({color, title, darkColor, intialValue, child}) {
+  return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(18.0),
+        color: const Color(0xffffffff),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0x29000000),
+            offset: Offset(0, 1),
+            blurRadius: 10,
+          ),
+          BoxShadow(
+            color: const Color(0x29000000),
+            offset: Offset(0, -1),
+            blurRadius: 5,
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: Get.height / 25),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SleekCircularSlider(
+                      initialValue: intialValue,
+                      appearance: CircularSliderAppearance(
+                          infoProperties: InfoProperties(
+                              mainLabelStyle: TextStyle(
+                                  color: color,
+                                  fontSize: 15,
+                                  fontFamily: "Merriweather")),
+                          startAngle: 270,
+                          angleRange: 360,
+                          animationEnabled: true,
+                          customWidths: CustomSliderWidths(
+                              trackWidth: 10, progressBarWidth: 10),
+                          customColors: CustomSliderColors(
+                              hideShadow: true,
+                              trackColor: Color(0xffE4EBEB),
+                              progressBarColors: [
+                                color,
+                                color,
+                              ]),
+                          size: Get.height / 10),
+                      onChange: null),
+                  SizedBox(
+                    height: Get.height / 130,
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                      fontFamily: 'Merriweather',
+                      fontSize: 12,
+                      color: const Color(0xff232c42),
+                    ),
+                  ),
+                  SizedBox(
+                    height: Get.height / 130,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Positioned(
+            top: 0,
+            left: 0,
+            child: Container(
+              alignment: Alignment.center,
+              height: Get.height / 20,
+              width: Get.height / 20,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(18),
+                    bottomRight: Radius.circular(18)),
+                color: color,
+              ),
+              child: child,
+            ),
+          ),
+        ],
+      ));
+}

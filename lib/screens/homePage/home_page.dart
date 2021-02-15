@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/controller/home_controller.dart';
+import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/app_bar_.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/fees_detail.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/lang_box.dart';
@@ -84,7 +85,8 @@ class _HomePageState extends State<HomePage> {
                                         Align(
                                           alignment: Alignment.centerLeft,
                                           child: Padding(
-                                            padding: const EdgeInsets.all(20),
+                                            padding: const EdgeInsets.only(
+                                                left: 25, top: 20),
                                             child: Text(
                                               'Course Status',
                                               style: TextStyle(
@@ -106,316 +108,142 @@ class _HomePageState extends State<HomePage> {
                                                     .doc(
                                                         (_auth.currentUser.uid))
                                                     .snapshots(),
-                                                // stream:FirebaseFirestore.instance
-                                                //     .collection('User')
-                                                //     .doc(FirebaseAuth.instance.currentUser.uid)
-                                                //     .get(),
                                                 builder: (context, snapshot) {
                                                   if (snapshot.hasData) {
-                                                    return PageView(
-                                                      physics:
-                                                          BouncingScrollPhysics(),
-                                                      onPageChanged: (value) {
-                                                        homeController.langIndex
-                                                            .value = value;
-                                                      },
-                                                      children: [
-                                                        ZoomIn(
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              Get.to(LangInfo(
-                                                                collectionName:
-                                                                    "CLanguage",
-                                                                initialValue:
-                                                                    snapshot
-                                                                        .data
-                                                                        .get(
-                                                                            'percentage.CLanguage'),
-                                                                child: Text(
-                                                                  'C',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Merriweather',
-                                                                    fontSize:
-                                                                        28,
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                              ));
-                                                            },
-                                                            child: langBox2(
-                                                              color: Color(
-                                                                  0xff84FAB0),
-                                                              darkColor:
-                                                                  Colors.green,
-                                                              title:
-                                                                  "C Programming",
-                                                              intialValue: snapshot
-                                                                  .data
-                                                                  .get(
-                                                                      'percentage.CLanguage')
-                                                                  .toDouble(),
-                                                              child: Text(
-                                                                'C',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Merriweather',
-                                                                  fontSize: 24,
-                                                                  color: const Color(
-                                                                      0xff232c42),
-                                                                ),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        ZoomIn(
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              Get.to(LangInfo(
-                                                                collectionName:
-                                                                    "C++",
-                                                                initialValue:
-                                                                    snapshot
-                                                                        .data
-                                                                        .get(
-                                                                            'percentage.C++'),
-                                                                child: Text(
-                                                                  'C++',
-                                                                  style:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Merriweather',
-                                                                    fontSize:
-                                                                        24,
-                                                                    color: Colors
-                                                                        .white,
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                ),
-                                                              ));
-                                                            },
-                                                            child: langBox2(
-                                                              color: Color(
-                                                                  0xff1D4777),
-                                                              darkColor: Colors
-                                                                  .blue[900],
-                                                              title:
-                                                                  "C++ Programming",
-                                                              intialValue: snapshot
-                                                                  .data
-                                                                  .get(
-                                                                      'percentage.C++')
-                                                                  .toDouble(),
-                                                              child: Text(
-                                                                'C++',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Merriweather',
-                                                                  fontSize: 16,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        ZoomIn(
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              Get.to(LangInfo(
-                                                                collectionName:
-                                                                    "Dart",
-                                                                initialValue:
-                                                                    snapshot
-                                                                        .data
-                                                                        .get(
-                                                                            'percentage.Dart'),
-                                                                child: SvgPicture
-                                                                    .asset(
-                                                                        "assets/images/dart.svg"),
-                                                              ));
-                                                            },
-                                                            child: langBox2(
-                                                              color: Color(
-                                                                  0xffD8FAFF),
-                                                              darkColor: Color(
-                                                                  0xff17A2B8),
-                                                              title: "Dart Dev",
-                                                              intialValue: snapshot
-                                                                  .data
-                                                                  .get(
-                                                                      'percentage.Dart')
-                                                                  .toDouble(),
-                                                              child: SvgPicture
-                                                                  .asset(
-                                                                      "assets/images/dart.svg"),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        ZoomIn(
-                                                          child:
-                                                              GestureDetector(
-                                                            onTap: () {
-                                                              Get.to(LangInfo(
-                                                                collectionName:
-                                                                    "Flutter",
-                                                                child: Image.asset(
-                                                                    "assets/images/flutter.png"),
-                                                                initialValue:
-                                                                    snapshot
-                                                                        .data
-                                                                        .get(
-                                                                            'percentage.Flutter'),
-                                                              ));
-                                                            },
-                                                            child: langBox2(
-                                                              color: Color(
-                                                                  0xffC6EEFF),
-                                                              darkColor: Colors
-                                                                  .blue[900],
-                                                              title: "Flutter",
-                                                              intialValue: snapshot
-                                                                  .data
-                                                                  .get(
-                                                                      'percentage.Flutter')
-                                                                  .toDouble(),
-                                                              child: Image.asset(
-                                                                  "assets/images/flutter.png"),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    );
+                                                    if (Get.height > 800) {
+                                                      return _viewAbove800(
+                                                          snapshot);
+                                                    } else {
+                                                      return _viewBelow800(
+                                                          snapshot);
+                                                    }
                                                   } else {
                                                     return Center(
                                                         child: CommanWidget
                                                             .circularProgress());
                                                   }
                                                 })),
-                                        Obx(() {
-                                          return Padding(
-                                            padding:
-                                                EdgeInsets.only(bottom: 20),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                AnimatedContainer(
-                                                  height: 10,
-                                                  width: homeController
-                                                              .langIndex
-                                                              .value ==
-                                                          0
-                                                      ? 25
-                                                      : 10,
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  decoration: BoxDecoration(
-                                                    color: homeController
-                                                                .langIndex
-                                                                .value ==
-                                                            0
-                                                        ? Color(0xff31AFC3)
-                                                        : Colors.grey[300],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
+                                        Get.height < 800
+                                            ? Obx(() {
+                                                return Padding(
+                                                  padding: EdgeInsets.only(
+                                                      bottom: 20),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      AnimatedContainer(
+                                                        height: 10,
+                                                        width: homeController
+                                                                    .langIndex
+                                                                    .value ==
+                                                                0
+                                                            ? 25
+                                                            : 10,
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: homeController
+                                                                      .langIndex
+                                                                      .value ==
+                                                                  0
+                                                              ? Color(
+                                                                  0xff31AFC3)
+                                                              : Colors
+                                                                  .grey[300],
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(50),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      AnimatedContainer(
+                                                        height: 10,
+                                                        width: homeController
+                                                                    .langIndex
+                                                                    .value ==
+                                                                1
+                                                            ? 25
+                                                            : 10,
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        decoration: BoxDecoration(
+                                                            color: homeController
+                                                                        .langIndex
+                                                                        .value ==
+                                                                    1
+                                                                ? Color(
+                                                                    0xff31AFC3)
+                                                                : Colors
+                                                                    .grey[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        50)),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      AnimatedContainer(
+                                                        height: 10,
+                                                        width: homeController
+                                                                    .langIndex
+                                                                    .value ==
+                                                                2
+                                                            ? 25
+                                                            : 10,
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        decoration: BoxDecoration(
+                                                            color: homeController
+                                                                        .langIndex
+                                                                        .value ==
+                                                                    2
+                                                                ? Color(
+                                                                    0xff31AFC3)
+                                                                : Colors
+                                                                    .grey[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        50)),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      AnimatedContainer(
+                                                        height: 10,
+                                                        width: homeController
+                                                                    .langIndex
+                                                                    .value ==
+                                                                3
+                                                            ? 25
+                                                            : 10,
+                                                        duration: Duration(
+                                                            milliseconds: 300),
+                                                        decoration: BoxDecoration(
+                                                            color: homeController
+                                                                        .langIndex
+                                                                        .value ==
+                                                                    3
+                                                                ? Color(
+                                                                    0xff31AFC3)
+                                                                : Colors
+                                                                    .grey[300],
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        50)),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                AnimatedContainer(
-                                                  height: 10,
-                                                  width: homeController
-                                                              .langIndex
-                                                              .value ==
-                                                          1
-                                                      ? 25
-                                                      : 10,
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  decoration: BoxDecoration(
-                                                      color: homeController
-                                                                  .langIndex
-                                                                  .value ==
-                                                              1
-                                                          ? Color(0xff31AFC3)
-                                                          : Colors.grey[300],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                AnimatedContainer(
-                                                  height: 10,
-                                                  width: homeController
-                                                              .langIndex
-                                                              .value ==
-                                                          2
-                                                      ? 25
-                                                      : 10,
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  decoration: BoxDecoration(
-                                                      color: homeController
-                                                                  .langIndex
-                                                                  .value ==
-                                                              2
-                                                          ? Color(0xff31AFC3)
-                                                          : Colors.grey[300],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                ),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                AnimatedContainer(
-                                                  height: 10,
-                                                  width: homeController
-                                                              .langIndex
-                                                              .value ==
-                                                          3
-                                                      ? 25
-                                                      : 10,
-                                                  duration: Duration(
-                                                      milliseconds: 300),
-                                                  decoration: BoxDecoration(
-                                                      color: homeController
-                                                                  .langIndex
-                                                                  .value ==
-                                                              3
-                                                          ? Color(0xff31AFC3)
-                                                          : Colors.grey[300],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              50)),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }),
+                                                );
+                                              })
+                                            : SizedBox(),
                                       ],
                                     ),
                                   ),
@@ -433,6 +261,245 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
+    );
+  }
+
+  Widget _viewAbove800(AsyncSnapshot<DocumentSnapshot> snapshot) {
+    return GridView.count(
+      crossAxisCount: 2,
+      mainAxisSpacing: 15,
+      crossAxisSpacing: 15,
+      primary: false,
+      padding: const EdgeInsets.all(30),
+      children: [
+        ZoomIn(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(LangInfo(
+                collectionName: "CLanguage",
+                initialValue: snapshot.data.get('percentage.CLanguage'),
+                child: Text(
+                  'C',
+                  style: TextStyle(
+                    fontFamily: 'Merriweather',
+                    fontSize: 28,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ));
+            },
+            child: langBoxGrid(
+              color: Color(0xff84FAB0),
+              darkColor: Colors.green,
+              title: "C Programming",
+              intialValue: snapshot.data.get('percentage.CLanguage').toDouble(),
+              child: Text(
+                'C',
+                style: TextStyle(
+                  fontFamily: 'Merriweather',
+                  fontSize: 18,
+                  color: const Color(0xff232c42),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+        ZoomIn(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(LangInfo(
+                collectionName: "C++",
+                initialValue: snapshot.data.get('percentage.C++'),
+                child: Text(
+                  'C++',
+                  style: TextStyle(
+                    fontFamily: 'Merriweather',
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ));
+            },
+            child: langBoxGrid(
+              color: Color(0xff1D4777),
+              darkColor: Colors.blue[900],
+              title: "C++ Programming",
+              intialValue: snapshot.data.get('percentage.C++').toDouble(),
+              child: Text(
+                'C++',
+                style: TextStyle(
+                  fontFamily: 'Merriweather',
+                  fontSize: 14,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+        ZoomIn(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(LangInfo(
+                collectionName: "Dart",
+                initialValue: snapshot.data.get('percentage.Dart'),
+                child: SvgPicture.asset("assets/images/dart.svg"),
+              ));
+            },
+            child: langBoxGrid(
+              color: Color(0xffD8FAFF),
+              darkColor: Color(0xff17A2B8),
+              title: "Dart Dev",
+              intialValue: snapshot.data.get('percentage.Dart').toDouble(),
+              child: SvgPicture.asset(
+                "assets/images/dart.svg",
+                width: 15,
+                height: 15,
+              ),
+            ),
+          ),
+        ),
+        ZoomIn(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(LangInfo(
+                collectionName: "Flutter",
+                child: Image.asset("assets/images/flutter.png"),
+                initialValue: snapshot.data.get('percentage.Flutter'),
+              ));
+            },
+            child: langBoxGrid(
+              color: Color(0xffC6EEFF),
+              darkColor: Colors.blue[900],
+              title: "Flutter",
+              intialValue: snapshot.data.get('percentage.Flutter').toDouble(),
+              child: Image.asset(
+                "assets/images/flutter.png",
+                width: 15,
+                height: 15,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  PageView _viewBelow800(AsyncSnapshot<DocumentSnapshot> snapshot) {
+    return PageView(
+      physics: BouncingScrollPhysics(),
+      onPageChanged: (value) {
+        homeController.langIndex.value = value;
+      },
+      children: [
+        ZoomIn(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(LangInfo(
+                collectionName: "CLanguage",
+                initialValue: snapshot.data.get('percentage.CLanguage'),
+                child: Text(
+                  'C',
+                  style: TextStyle(
+                    fontFamily: 'Merriweather',
+                    fontSize: 28,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ));
+            },
+            child: langBox2(
+              color: Color(0xff84FAB0),
+              darkColor: Colors.green,
+              title: "C Programming",
+              intialValue: snapshot.data.get('percentage.CLanguage').toDouble(),
+              child: Text(
+                'C',
+                style: TextStyle(
+                  fontFamily: 'Merriweather',
+                  fontSize: 24,
+                  color: const Color(0xff232c42),
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+        ZoomIn(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(LangInfo(
+                collectionName: "C++",
+                initialValue: snapshot.data.get('percentage.C++'),
+                child: Text(
+                  'C++',
+                  style: TextStyle(
+                    fontFamily: 'Merriweather',
+                    fontSize: 24,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ));
+            },
+            child: langBox2(
+              color: Color(0xff1D4777),
+              darkColor: Colors.blue[900],
+              title: "C++ Programming",
+              intialValue: snapshot.data.get('percentage.C++').toDouble(),
+              child: Text(
+                'C++',
+                style: TextStyle(
+                  fontFamily: 'Merriweather',
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ),
+        ZoomIn(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(LangInfo(
+                collectionName: "Dart",
+                initialValue: snapshot.data.get('percentage.Dart'),
+                child: SvgPicture.asset("assets/images/dart.svg"),
+              ));
+            },
+            child: langBox2(
+              color: Color(0xffD8FAFF),
+              darkColor: Color(0xff17A2B8),
+              title: "Dart Dev",
+              intialValue: snapshot.data.get('percentage.Dart').toDouble(),
+              child: SvgPicture.asset("assets/images/dart.svg"),
+            ),
+          ),
+        ),
+        ZoomIn(
+          child: GestureDetector(
+            onTap: () {
+              Get.to(LangInfo(
+                collectionName: "Flutter",
+                child: Image.asset("assets/images/flutter.png"),
+                initialValue: snapshot.data.get('percentage.Flutter'),
+              ));
+            },
+            child: langBox2(
+              color: Color(0xffC6EEFF),
+              darkColor: Colors.blue[900],
+              title: "Flutter",
+              intialValue: snapshot.data.get('percentage.Flutter').toDouble(),
+              child: Image.asset("assets/images/flutter.png"),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

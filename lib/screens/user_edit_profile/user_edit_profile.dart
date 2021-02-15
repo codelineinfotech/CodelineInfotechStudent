@@ -202,7 +202,10 @@ class _UserEditProfileState extends State<UserEditProfile> {
                 ],
               ),
               Expanded(
-                  child: Form(key: _formKey, child: editProfileForm(context)))
+                  child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child:
+                          Form(key: _formKey, child: editProfileForm(context))))
             ],
           ),
           Obx(() {
@@ -217,7 +220,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
 
   Widget editProfileForm(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 35),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: Scrollbar(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -225,6 +228,9 @@ class _UserEditProfileState extends State<UserEditProfile> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                height: 30,
+              ),
               Text(
                 "Full Name",
                 style: TextStyle(
@@ -242,6 +248,12 @@ class _UserEditProfileState extends State<UserEditProfile> {
                 validator: (name) => name.isEmpty ? "Name is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Full Name",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -286,6 +298,12 @@ class _UserEditProfileState extends State<UserEditProfile> {
                     email.isEmpty ? "Email is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Email Address",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -324,6 +342,12 @@ class _UserEditProfileState extends State<UserEditProfile> {
                     name.isEmpty ? "Mobile Number is required" : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Mobile No",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -359,6 +383,12 @@ class _UserEditProfileState extends State<UserEditProfile> {
                 // name.isEmpty ? "Address is required" : null,
                 // autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Address",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
@@ -396,6 +426,12 @@ class _UserEditProfileState extends State<UserEditProfile> {
                 //     name.isEmpty ? "Course Name is required" : null,
                 // autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Course Name",
                   hintStyle: TextStyle(
                     fontFamily: 'Roboto',
