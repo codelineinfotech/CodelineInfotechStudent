@@ -39,15 +39,7 @@ class FirebaseLoginService {
           validationController.progressVisible.value = false;
           // CircularProgress.circularProgress();
 
-          Get.defaultDialog(
-            title: "Alert !",
-            radius: 10,
-            content: Text(
-              "Your Account is not Approved By Codeline Infotech.\n Please Contact Codeline Infotech",
-              textAlign: TextAlign.center,
-              style: TextStyle(color: Color(0xff17a2b8)),
-            ),
-          );
+          // CommanWidget.approvalDialog();
         }
       } else {
         validationController.progressVisible.value = false;

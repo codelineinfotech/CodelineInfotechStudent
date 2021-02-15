@@ -43,9 +43,11 @@ class SignUpService {
         print("SIGNUP SUCCESSFULLY");
         _auth.signOut();
         validationController.progressVisible.value = false;
-        CommanWidget.circularProgressBgBlack();
-        Get.snackbar("Message", "Your Registration is Successfully");
-        Get.offAll(SignIn());
+        // CommanWidget.circularProgressBgBlack();
+        // Get.snackbar("Message", "Your Registration is Successfully");
+        // CommanWidget.approvalDialog();
+
+        // Get.offAll(SignIn());
       }).catchError((e) {
         // validationController.updateWidget();
 

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/screens/homePage/home_page.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
+import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -36,15 +37,18 @@ class GoogleLoginService {
               : authResult.user.phoneNumber,
           'address': "",
           'imageUrl': authResult.user.photoURL,
-          'approval': true,
+          'approval': false,
           'course': ['CLanguage', 'C++', 'Dart', 'Flutter'],
           'percentage': {'CLanguage': 0, 'C++': 0, 'Dart': 0, 'Flutter': 0},
           'storageLocation': ''
         }).then((value) {
           validationController.progressVisible.value = false;
-          Get.snackbar("Message", "Your Registration is Successfully");
+          // CommanWidget.approvalDialog();
 
-          Get.offAll(HomePage());
+          // Get.snackbar("Message", "Your Registration is Successfully");
+          // Get.offAll(SignIn());
+
+          // Get.offAll(HomePage());
         }).catchError((e) => print(e.toString()));
       } else {
         validationController.progressVisible.value = false;

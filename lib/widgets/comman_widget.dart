@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 
 class CommanWidget {
@@ -50,5 +54,70 @@ class CommanWidget {
               ),
       ),
     );
+  }
+
+  static Widget approvalDialog(BuildContext context) {
+    String dialogTitle = "Account Approved";
+    String alertMsg =
+        'Your Registration is Successfully but,Your Account is not Approved By Codeline Infotech\n Please Contact Codeline Infotech';
+    if (Platform.isAndroid) {
+      showDialog<void>(
+        context: context,
+        barrierDismissible: false, // user must tap button!
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(dialogTitle),
+            content: Text(alertMsg),
+            actions: <Widget>[
+              TextButton(
+                child: Text('Ok'),
+                onPressed: () {
+                  Get.offAll(SignIn());
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else if (Platform.isIOS) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => CupertinoAlertDialog(
+                title: new Text(dialogTitle),
+                content: new Text(alertMsg),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    onPressed: () {
+                      Get.offAll(SignIn());
+                    },
+                    isDefaultAction: true,
+                    child: Text("Ok"),
+                  ),
+                ],
+              ));
+    }
+    // Get.defaultDialog(
+    //   title: "Alert !",
+    //   barrierDismissible: false,
+    //   radius: 10,
+    //   actions: [
+    //     RaisedButton(
+    //       color: ColorsPicker.skyColor,
+    //       onPressed: () {
+    //         Get.offAll(SignIn());
+    //       },
+    //       child: Text(
+    //         "Ok",
+    //         style: TextStyle(color: Colors.white),
+    //       ),
+    //     )
+    //   ],
+    //   content: Text(
+    //     "Your Registration is Successfully but,Your Account is not Approved By Codeline Infotech\n Please Contact Codeline Infotech",
+    //     textAlign: TextAlign.center,
+    //     style: TextStyle(color: Color(0xff17a2b8)),
+    //   ),
+    // );
   }
 }

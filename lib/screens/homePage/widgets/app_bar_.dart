@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
@@ -32,6 +33,10 @@ Widget homeAppBar({onMenuTap}) {
                   width: Get.height / 15,
                 ),
                 InkWell(
+                  onTap: () {
+                    // DateTime _dateTime = DateTime.now();
+                    // print(DateFormat.jms().format(_dateTime));
+                  },
                   // onTap: () => Get.to(StudentList()),
                   child: Container(
                     height: Get.height / 20,

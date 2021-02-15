@@ -377,7 +377,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ///Terms & Condition
               _termsNCondition(),
               SizedBox(height: deviceSize.width / 14),
-
+              RaisedButton(
+                onPressed: () {
+                  CommanWidget.approvalDialog(context);
+                },
+                child: Text("DEmo"),
+              ),
               activeButton(
                   title: "Sign up",
                   onTap: () async {
