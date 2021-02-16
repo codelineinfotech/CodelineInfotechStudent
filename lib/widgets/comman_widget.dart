@@ -57,9 +57,9 @@ class CommanWidget {
   }
 
   static Widget approvalDialog(BuildContext context) {
-    String dialogTitle = "Account Approved";
+    String dialogTitle = "Alert";
     String alertMsg =
-        'Your Registration is Successfully but,Your Account is not Approved By Codeline Infotech\n Please Contact Codeline Infotech';
+        'Your registration is successfully but,your account is not approved by codeline infotech please contact codeline infotech';
     if (Platform.isAndroid) {
       showDialog<void>(
         context: context,

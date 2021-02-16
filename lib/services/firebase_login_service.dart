@@ -12,7 +12,8 @@ class FirebaseLoginService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final ValidationController validationController =
       Get.put(ValidationController());
-  Future<void> firebaseLogin({String email, String password}) async {
+  Future<void> firebaseLogin(
+      {String email, String password, BuildContext buildContext}) async {
     // CircularProgress.circularProgress();
 
     FirebaseFirestore.instance
@@ -39,7 +40,7 @@ class FirebaseLoginService {
           validationController.progressVisible.value = false;
           // CircularProgress.circularProgress();
 
-          // CommanWidget.approvalDialog();
+          CommanWidget.approvalDialog(buildContext);
         }
       } else {
         validationController.progressVisible.value = false;

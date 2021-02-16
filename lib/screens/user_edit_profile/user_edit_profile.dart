@@ -6,6 +6,7 @@ import 'package:codeline_students_app/controller/validation_getx_controller.dart
 import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
+import 'package:codeline_students_app/screens/homePage/home_page.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -33,7 +34,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
   TextEditingController addressTextEditingController = TextEditingController();
   TextEditingController courseTextEditingController = TextEditingController();
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
-  String imageUrl, storagePath;
+  String imageUrl, storagePath = "";
   File _image;
   final ValidationController validationController =
       Get.put(ValidationController());
@@ -169,7 +170,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
                                             width: 100,
                                             child: Image.file(
                                               _image,
-                                              fit: BoxFit.fitHeight,
+                                              fit: BoxFit.fill,
                                             ),
                                           ),
                                         )
@@ -260,15 +261,19 @@ class _UserEditProfileState extends State<UserEditProfile> {
                     fontSize: 17,
                     color: const Color(0xff3a3f44).withOpacity(0.5),
                   ),
-                  prefixIcon: SizedBox(
-                    width: 20,
-                    child: Image.asset(
-                      ImagePath.userPng,
-                      height: 5,
-                      width: 5,
-                      alignment: Alignment.center,
-                    ),
+                  prefixIcon: Icon(
+                    Icons.person_outline_sharp,
+                    color: Color(0xff9A9BA7),
                   ),
+                  // prefixIcon: SizedBox(
+                  //   width: 20,
+                  //   child: Image.asset(
+                  //     ImagePath.userPng,
+                  //     height: 5,
+                  //     width: 5,
+                  //     alignment: Alignment.center,
+                  //   ),
+                  // ),
                 ),
               ),
               SizedBox(
@@ -310,12 +315,13 @@ class _UserEditProfileState extends State<UserEditProfile> {
                     fontSize: 17,
                     color: const Color(0xff3a3f44).withOpacity(0.5),
                   ),
-                  prefixIcon: Image.asset(
-                    ImagePath.mailPng,
-                    height: 5,
-                    width: 5,
-                    alignment: Alignment.center,
-                  ),
+                  prefixIcon: Icon(Icons.mail_outline_sharp),
+                  // prefixIcon: Image.asset(
+                  //   ImagePath.mailPng,
+                  //   height: 5,
+                  //   width: 5,
+                  //   alignment: Alignment.center,
+                  // ),
                 ),
               ),
 
@@ -356,7 +362,10 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   ),
                   prefixIcon: SizedBox(
                     width: 20,
-                    child: Icon(Icons.phone_android_rounded),
+                    child: Icon(
+                      Icons.phone_android_rounded,
+                      color: Color(0xff9A9BA7),
+                    ),
                   ),
                 ),
               ),
@@ -395,7 +404,10 @@ class _UserEditProfileState extends State<UserEditProfile> {
                     fontSize: 17,
                     color: const Color(0xff3a3f44).withOpacity(0.5),
                   ),
-                  prefixIcon: Icon(Icons.location_on),
+                  prefixIcon: Icon(
+                    Icons.location_on,
+                    color: Color(0xff9A9BA7),
+                  ),
                 ),
               ),
 
@@ -492,36 +504,44 @@ class _UserEditProfileState extends State<UserEditProfile> {
     String mobileNo,
   }) async {
     if (_formKey.currentState != null) {
+      print("FORM CURRENT CALL");
       if (_formKey.currentState.validate()) {
+        print("FORM CURRENT CALL VALIDATE");
+
         _homeContoller.isLoad.value = true;
 
         // print("_IMAGE" + _image.toString());
         if (_image != null) {
           await uploadImage(_image);
+
+          print("UPLOAD SUCCESS023020");
+          print("Image URL  $imageUrl");
+          print("SAVE STORAGE CALL $storagePath");
+          _fireStore.collection('User').doc(_firebaseAuth.currentUser.uid).set({
+            'fullName': nameTextEditingController.text,
+            'mobileNo': mobileNoTextEditingController.text,
+            'address': addressTextEditingController.text,
+            'imageUrl': imageUrl,
+            'storageLocation': storagePath,
+          }, SetOptions(merge: true)).then((value) {
+            print("SIGNUP SUCCESSFULLY");
+            _homeContoller.isLoad.value = false;
+            // Get.offAll(HomePage());
+            Get.snackbar("Profile Update", "User Profile Update Successfully");
+            // CommanWidget.circularProgress();
+          }).catchError((e) {
+            _homeContoller.isLoad.value = false;
+            print('cloud Error ' + _homeContoller.isLoad.value.toString());
+          });
+        } else {
+          _homeContoller.isLoad.value = false;
         }
-
-        print("UPLOAD SUCCESS023020");
-        print("SAVE STORAGE CALL $storagePath");
-        _fireStore.collection('User').doc(_firebaseAuth.currentUser.uid).set({
-          'fullName': nameTextEditingController.text,
-          'mobileNo': mobileNoTextEditingController.text,
-          'address': addressTextEditingController.text,
-          'imageUrl': imageUrl,
-          'storageLocation': storagePath,
-        }, SetOptions(merge: true)).then((value) {
-          print("SIGNUP SUCCESSFULLY");
-          _homeContoller.isLoad.value = false;
-
-          Get.snackbar("Profile Update", "User Profile Update Successfully");
-          // CommanWidget.circularProgress();
-        }).catchError((e) {
-          _homeContoller.isLoad.value = false;
-          print('cloud Error ' + _homeContoller.isLoad.value.toString());
-        });
       } else {
         print('unvalid');
       }
     } else {
+      _homeContoller.isLoad.value = false;
+
       print("Validat Method was call on null");
     }
   }
@@ -547,6 +567,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
             _homeContoller.isLoad.value = true;
 
             print("Done");
+            // uploadProfile(_firebaseStorage, path, file);
             await Future.delayed(
               Duration(milliseconds: 100),
             );
@@ -555,8 +576,8 @@ class _UserEditProfileState extends State<UserEditProfile> {
             String downloadUrl = await snapshot.ref.getDownloadURL();
             storagePath = path;
             imageUrl = downloadUrl;
-            print("Download URL " + imageUrl);
-            print("storagePath " + storagePath);
+            print("Download URL  else -->  " + imageUrl);
+            print("storagePath  else --> " + storagePath);
             setState(() {});
             // _homeContoller.isLoad.value = false;
           } catch (e) {
@@ -564,8 +585,17 @@ class _UserEditProfileState extends State<UserEditProfile> {
           }
         } else {
           // _homeContoller.isLoad.value = true;
-
-          uploadProfile(_firebaseStorage, path, file);
+          await Future.delayed(
+            Duration(milliseconds: 100),
+          );
+          var snapshot = await _firebaseStorage.ref().child(path).putFile(file);
+          String downloadUrl = await snapshot.ref.getDownloadURL();
+          storagePath = path;
+          imageUrl = downloadUrl;
+          print("Download URL  else -->  " + imageUrl);
+          print("storagePath  else --> " + storagePath);
+          setState(() {});
+          // uploadProfile(_firebaseStorage, path, file);
         }
       } else {
         print('No Image Path Received');
@@ -628,16 +658,18 @@ class _UserEditProfileState extends State<UserEditProfile> {
         });
   }
 
-  void uploadProfile(FirebaseStorage _firebaseStorage, String path, File file) {
-    Future.delayed(Duration(milliseconds: 100), () async {
-      var snapshot = await _firebaseStorage.ref().child(path).putFile(file);
-      String downloadUrl = await snapshot.ref.getDownloadURL();
-      storagePath = path;
-      imageUrl = downloadUrl;
-      print("Download URL " + imageUrl);
-      print("storagePath " + storagePath);
-      setState(() {});
-    });
+  void uploadProfile(
+      FirebaseStorage _firebaseStorage, String path, File file) async {
+    await Future.delayed(
+      Duration(milliseconds: 100),
+    );
+    var snapshot = await _firebaseStorage.ref().child(path).putFile(file);
+    String downloadUrl = await snapshot.ref.getDownloadURL();
+    storagePath = path;
+    imageUrl = downloadUrl;
+    print("Download URL  else -->  " + imageUrl);
+    print("storagePath  else --> " + storagePath);
+    setState(() {});
     // _homeContoller.isLoad.value = false;
   }
 }

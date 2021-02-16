@@ -377,12 +377,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ///Terms & Condition
               _termsNCondition(),
               SizedBox(height: deviceSize.width / 14),
-              RaisedButton(
-                onPressed: () {
-                  CommanWidget.approvalDialog(context);
-                },
-                child: Text("DEmo"),
-              ),
+              // RaisedButton(
+              //   onPressed: () {
+              //     CommanWidget.approvalDialog(context);
+              //   },
+              //   child: Text("DEmo"),
+              // ),
               activeButton(
                   title: "Sign up",
                   onTap: () async {
@@ -398,11 +398,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             validationController.progressVisible.value = true;
                             FocusScope.of(context).unfocus();
                             await SignUpService().signUp(
-                              email: emailTextEditingController.text,
-                              password: passwordTextEditingController.text,
-                              fullName: nameTextEditingController.text,
-                              mobileNo: mobileNoTextEditingController.text,
-                            );
+                                email: emailTextEditingController.text,
+                                password: passwordTextEditingController.text,
+                                fullName: nameTextEditingController.text,
+                                mobileNo: mobileNoTextEditingController.text,
+                                buildContext: context);
                           } else {
                             Get.snackbar('Terms & Conditions',
                                 'Please check Term Condition!');

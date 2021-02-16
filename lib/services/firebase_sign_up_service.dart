@@ -3,6 +3,7 @@ import 'package:codeline_students_app/screens/homePage/home_page.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
 
@@ -14,12 +15,12 @@ class SignUpService {
   final ValidationController validationController =
       Get.put(ValidationController());
 
-  Future<void> signUp({
-    String email,
-    String password,
-    String fullName,
-    String mobileNo,
-  }) async {
+  Future<void> signUp(
+      {String email,
+      String password,
+      String fullName,
+      String mobileNo,
+      BuildContext buildContext}) async {
     _auth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
@@ -38,14 +39,14 @@ class SignUpService {
         'approval': false,
         'course': ['CLanguage', 'C++', 'Dart', 'Flutter'],
         'percentage': {'CLanguage': 0, 'C++': 0, 'Dart': 0, 'Flutter': 0},
-        'storageLocation': ''
+        'storageLocation': ""
       }).then((value) {
         print("SIGNUP SUCCESSFULLY");
         _auth.signOut();
         validationController.progressVisible.value = false;
         // CommanWidget.circularProgressBgBlack();
         // Get.snackbar("Message", "Your Registration is Successfully");
-        // CommanWidget.approvalDialog();
+        CommanWidget.approvalDialog(buildContext);
 
         // Get.offAll(SignIn());
       }).catchError((e) {

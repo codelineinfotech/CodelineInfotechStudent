@@ -83,7 +83,7 @@ class _SignInState extends State<SignIn> {
                     Expanded(
                       child: Form(
                         key: _formKey,
-                        child: loginFormWidget(),
+                        child: loginFormWidget(context),
                       ),
                     ),
                   ],
@@ -101,7 +101,7 @@ class _SignInState extends State<SignIn> {
     // .push(MaterialPageRoute(builder: (context) => SignUp()));
   }
 
-  loginFormWidget() {
+  loginFormWidget(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       physics: BouncingScrollPhysics(),
@@ -215,7 +215,8 @@ class _SignInState extends State<SignIn> {
                   validationController.progressVisible.value = true;
                   await FirebaseLoginService().firebaseLogin(
                       email: emailController.text,
-                      password: passwordController.text);
+                      password: passwordController.text,
+                      buildContext: context);
                 }
               }
             },
@@ -234,7 +235,7 @@ class _SignInState extends State<SignIn> {
           googleSignInButton(
               onTap: () async {
                 validationController.progressVisible.value = true;
-                await GoogleLoginService().googleLogin();
+                await GoogleLoginService().googleLogin(context);
               },
               deviceWidth: deviceWidth,
               title: "Sign in With Google"),
