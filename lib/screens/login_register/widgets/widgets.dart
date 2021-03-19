@@ -1,3 +1,4 @@
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:flutter/material.dart';
 
 Widget bgElements1({deviceWidth}) {
@@ -9,7 +10,7 @@ Widget bgElements1({deviceWidth}) {
       width: deviceWidth * 1.1,
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/images/bg.png"),
+          image: AssetImage(ImagePath.bgPng),
         ),
       ),
     ),
@@ -27,7 +28,7 @@ Widget bgElement2({deviceWidth}) {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage(
-            "assets/images/bg2.png",
+            ImagePath.bg2Png,
           ),
         ),
       ),

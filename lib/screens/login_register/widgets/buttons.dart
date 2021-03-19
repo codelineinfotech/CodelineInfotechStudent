@@ -1,4 +1,6 @@
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/resource/constant.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -29,19 +31,14 @@ Widget activeButton({title, onTap}) {
               padding: const EdgeInsets.only(left: 16),
               child: Text(
                 title,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 22,
-                  color: const Color(0xffffffff),
-                  letterSpacing: -0.004400000065565109,
-                ),
+                style: kButtonTextStyle,
                 textAlign: TextAlign.left,
               ),
             ),
             Spacer(),
             Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: SvgPicture.asset("assets/images/arrow.svg"),
+              child: SvgPicture.asset(ImagePath.arrowSvg),
             )
           ],
         )),
@@ -71,7 +68,7 @@ Widget googleSignInButton({deviceWidth, title, onTap}) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Expanded(flex: 1, child: Image.asset("assets/images/glogo.png")),
+          Expanded(flex: 1, child: Image.asset(ImagePath.googleLogoPng)),
           // Spacer(),
 
           ///Google Signin Text
@@ -79,12 +76,7 @@ Widget googleSignInButton({deviceWidth, title, onTap}) {
             flex: 3,
             child: Text(
               title,
-              style: TextStyle(
-                fontSize: 18,
-                color: ColorsPicker.darkGrey,
-                letterSpacing: -0.004400000065565109,
-                fontWeight: FontWeight.w500,
-              ),
+              style: kGoogleBtnTextStyle,
             ),
           ),
 

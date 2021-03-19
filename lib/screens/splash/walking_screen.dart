@@ -1,4 +1,5 @@
 import 'package:codeline_students_app/controller/home_controller.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class _WalkingScreenState extends State<WalkingScreen> {
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  "assets/images/splash1.png",
+                  ImagePath.splash1Png,
                   width: Get.width,
                   fit: BoxFit.fitWidth,
                 ),
@@ -69,7 +70,7 @@ class _WalkingScreenState extends State<WalkingScreen> {
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  "assets/images/splash2.png",
+                  ImagePath.splash2Png,
                   width: Get.width,
                   fit: BoxFit.fitWidth,
                 ),
@@ -113,7 +114,7 @@ class _WalkingScreenState extends State<WalkingScreen> {
               alignment: Alignment.center,
               children: [
                 Image.asset(
-                  "assets/images/splash3.png",
+                  ImagePath.splash3Png,
                   width: Get.width,
                   fit: BoxFit.fitWidth,
                 ),

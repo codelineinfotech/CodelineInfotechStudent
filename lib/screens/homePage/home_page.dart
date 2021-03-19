@@ -1,6 +1,9 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/controller/home_controller.dart';
+import 'package:codeline_students_app/resource/constant.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/app_bar_.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/fees_detail.dart';
@@ -22,7 +25,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeContoller homeController = Get.put(HomeContoller());
-  FirebaseAuth _auth = FirebaseAuth.instance;
+
   String imageUrl;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
@@ -43,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             child: Align(
               alignment: Alignment.topRight,
               child: SvgPicture.asset(
-                "assets/images/homeBg.svg",
+                ImagePath.homeBgSvg,
                 height: Get.height / 4,
                 width: Get.height / 3,
               ),
@@ -68,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                       child: Stack(
                         children: [
                           SvgPicture.asset(
-                            "assets/images/cbg.svg",
+                            ImagePath.cbgSvg,
                             height: Get.height / 7.3,
                           ),
                           Column(
@@ -102,11 +105,9 @@ class _HomePageState extends State<HomePage> {
                                         Expanded(
                                             child: StreamBuilder<
                                                     DocumentSnapshot>(
-                                                stream: FirebaseFirestore
-                                                    .instance
-                                                    .collection("User")
+                                                stream: cUserCollection
                                                     .doc(
-                                                        (_auth.currentUser.uid))
+                                                        (kFirebaseAuth.currentUser.uid))
                                                     .snapshots(),
                                                 builder: (context, snapshot) {
                                                   if (snapshot.hasData) {
@@ -280,11 +281,7 @@ class _HomePageState extends State<HomePage> {
                 initialValue: snapshot.data.get('percentage.CLanguage'),
                 child: Text(
                   'C',
-                  style: TextStyle(
-                    fontFamily: 'Merriweather',
-                    fontSize: 28,
-                    color: Colors.white,
-                  ),
+                  style: kCWhiteLabelTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ));
@@ -296,11 +293,7 @@ class _HomePageState extends State<HomePage> {
               intialValue: snapshot.data.get('percentage.CLanguage').toDouble(),
               child: Text(
                 'C',
-                style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 18,
-                  color: const Color(0xff232c42),
-                ),
+                style: kCIconTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -314,11 +307,7 @@ class _HomePageState extends State<HomePage> {
                 initialValue: snapshot.data.get('percentage.C++'),
                 child: Text(
                   'C++',
-                  style: TextStyle(
-                    fontFamily: 'Merriweather',
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
+                  style: kCPPWhiteLabelTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ));
@@ -346,7 +335,7 @@ class _HomePageState extends State<HomePage> {
               Get.to(LangInfo(
                 collectionName: "Dart",
                 initialValue: snapshot.data.get('percentage.Dart'),
-                child: SvgPicture.asset("assets/images/dart.svg"),
+                child: SvgPicture.asset(ImagePath.dartSvg),
               ));
             },
             child: langBoxGrid(
@@ -355,7 +344,7 @@ class _HomePageState extends State<HomePage> {
               title: "Dart Dev",
               intialValue: snapshot.data.get('percentage.Dart').toDouble(),
               child: SvgPicture.asset(
-                "assets/images/dart.svg",
+                ImagePath.dartSvg,
                 width: 15,
                 height: 15,
               ),
@@ -367,7 +356,7 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               Get.to(LangInfo(
                 collectionName: "Flutter",
-                child: Image.asset("assets/images/flutter.png"),
+                child: Image.asset(ImagePath.flutterPng),
                 initialValue: snapshot.data.get('percentage.Flutter'),
               ));
             },
@@ -377,7 +366,7 @@ class _HomePageState extends State<HomePage> {
               title: "Flutter",
               intialValue: snapshot.data.get('percentage.Flutter').toDouble(),
               child: Image.asset(
-                "assets/images/flutter.png",
+                ImagePath.flutterPng,
                 width: 15,
                 height: 15,
               ),
@@ -403,11 +392,7 @@ class _HomePageState extends State<HomePage> {
                 initialValue: snapshot.data.get('percentage.CLanguage'),
                 child: Text(
                   'C',
-                  style: TextStyle(
-                    fontFamily: 'Merriweather',
-                    fontSize: 28,
-                    color: Colors.white,
-                  ),
+                  style: kCWhiteLabelTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ));
@@ -437,11 +422,7 @@ class _HomePageState extends State<HomePage> {
                 initialValue: snapshot.data.get('percentage.C++'),
                 child: Text(
                   'C++',
-                  style: TextStyle(
-                    fontFamily: 'Merriweather',
-                    fontSize: 24,
-                    color: Colors.white,
-                  ),
+                  style: kCPPWhiteLabelTextStyle,
                   textAlign: TextAlign.center,
                 ),
               ));
@@ -469,7 +450,7 @@ class _HomePageState extends State<HomePage> {
               Get.to(LangInfo(
                 collectionName: "Dart",
                 initialValue: snapshot.data.get('percentage.Dart'),
-                child: SvgPicture.asset("assets/images/dart.svg"),
+                child: SvgPicture.asset(ImagePath.dartSvg),
               ));
             },
             child: langBox2(
@@ -477,7 +458,7 @@ class _HomePageState extends State<HomePage> {
               darkColor: Color(0xff17A2B8),
               title: "Dart Dev",
               intialValue: snapshot.data.get('percentage.Dart').toDouble(),
-              child: SvgPicture.asset("assets/images/dart.svg"),
+              child: SvgPicture.asset(ImagePath.dartSvg),
             ),
           ),
         ),
@@ -486,7 +467,7 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               Get.to(LangInfo(
                 collectionName: "Flutter",
-                child: Image.asset("assets/images/flutter.png"),
+                child: Image.asset(ImagePath.flutterPng),
                 initialValue: snapshot.data.get('percentage.Flutter'),
               ));
             },
@@ -495,7 +476,7 @@ class _HomePageState extends State<HomePage> {
               darkColor: Colors.blue[900],
               title: "Flutter",
               intialValue: snapshot.data.get('percentage.Flutter').toDouble(),
-              child: Image.asset("assets/images/flutter.png"),
+              child: Image.asset(ImagePath.flutterPng),
             ),
           ),
         ),

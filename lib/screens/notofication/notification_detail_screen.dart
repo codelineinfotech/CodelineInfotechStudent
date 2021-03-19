@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/resource/color.dart';
-import 'package:codeline_students_app/resource/utility.dart';
+
 import 'package:codeline_students_app/screens/login_register/widgets/back_string_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class _NotificationDetailsState extends State<NotificationDetails> {
   Size deviceSize;
   String notificationTitle, notificationTime, notificationDescription;
   var data = Get.arguments;
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
 
   @override
   void initState() {
@@ -29,8 +30,8 @@ class _NotificationDetailsState extends State<NotificationDetails> {
 
     notificationTime = DateFormat.yMMM().add_jm().format(dateTime);
 
-    FirebaseFirestore.instance.collection('Notification').doc(data.id).set({
-      'read_user': FieldValue.arrayUnion([_firebaseAuth.currentUser.uid])
+    cNotificationCollection.doc(data.id).set({
+      'read_user': FieldValue.arrayUnion([kFirebaseAuth.currentUser.uid])
     }, SetOptions(merge: true));
 
     super.initState();

@@ -1,15 +1,17 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/screens/user_edit_profile/user_edit_profile.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
+
 
 class FeesReportScreen extends StatefulWidget {
   @override
@@ -23,7 +25,7 @@ class _FeesReportScreenState extends State<FeesReportScreen> {
       studentName = "",
       studentEmailId = "",
       studentProfile = "";
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -32,9 +34,8 @@ class _FeesReportScreenState extends State<FeesReportScreen> {
   }
 
   getProfileData() {
-    FirebaseFirestore.instance
-        .collection('User')
-        .doc(_firebaseAuth.currentUser.uid)
+    cUserCollection
+        .doc(kFirebaseAuth.currentUser.uid)
         .get()
         .then((snapshot) {
       studentName = snapshot["fullName"].toString().capitalizeFirst;
@@ -190,24 +191,12 @@ class _FeesReportScreenState extends State<FeesReportScreen> {
                                 children: [
                                   Text(
                                     'Start Date : ',
-                                    style: TextStyle(
-                                      fontFamily: 'ProximaNova',
-                                      fontSize: 15,
-                                      color: const Color(0xff1d4777),
-                                      letterSpacing: -0.0030000000447034836,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: kTitleTextStyle,
                                     textAlign: TextAlign.left,
                                   ),
                                   Text(
                                     '28 / 02 / 2021',
-                                    style: TextStyle(
-                                      fontFamily: 'Proxima Nova',
-                                      fontSize: 15,
-                                      color: const Color(0xff8f9eb1),
-                                      letterSpacing: -0.0030000000447034836,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: kDateTextStyle,
                                     textAlign: TextAlign.left,
                                   ),
                                 ],
@@ -220,24 +209,12 @@ class _FeesReportScreenState extends State<FeesReportScreen> {
                                 children: [
                                   Text(
                                     'Due Date : ',
-                                    style: TextStyle(
-                                      fontFamily: 'ProximaNova',
-                                      fontSize: 15,
-                                      color: const Color(0xff1d4777),
-                                      letterSpacing: -0.0030000000447034836,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: kTitleTextStyle,
                                     textAlign: TextAlign.left,
                                   ),
                                   Text(
                                     '02 / 03 / 2021',
-                                    style: TextStyle(
-                                      fontFamily: 'Proxima Nova',
-                                      fontSize: 15,
-                                      color: const Color(0xff8f9eb1),
-                                      letterSpacing: -0.0030000000447034836,
-                                      fontWeight: FontWeight.w600,
-                                    ),
+                                    style: kDateTextStyle,
                                     textAlign: TextAlign.left,
                                   ),
                                 ],
@@ -256,12 +233,7 @@ class _FeesReportScreenState extends State<FeesReportScreen> {
                       children: [
                         Text(
                           'Status',
-                          style: TextStyle(
-                            fontFamily: 'Proxima Nova',
-                            fontSize: 19,
-                            color: const Color(0xff1d4777),
-                            letterSpacing: -0.003800000056624412,
-                          ),
+                          style: kStatusTextStyle,
                           textAlign: TextAlign.left,
                         ),
                         Text(

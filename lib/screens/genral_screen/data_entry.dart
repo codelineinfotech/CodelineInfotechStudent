@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+
 import 'package:flutter/material.dart';
 
 class DataEntry extends StatefulWidget {
@@ -56,17 +58,15 @@ class _DataEntryState extends State<DataEntry> {
                 //   title.clear();
                 // });
 
-                FirebaseFirestore.instance
-                    .collection("AdminLang")
+                cAdminLangCollection
                     .doc(widget.collection)
-                    .collection("Data")
+                      .collection('Data')
                     .where("index", isEqualTo: 18)
                     .get()
                     .then((value) => {
-                          FirebaseFirestore.instance
-                              .collection("AdminLang")
+                  cAdminLangCollection
                               .doc(widget.collection)
-                              .collection("Data")
+                              .collection('Data')
                               .doc(value.docs[0].id)
                               .collection("Details")
                               .add({

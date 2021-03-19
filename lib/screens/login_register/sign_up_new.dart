@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:codeline_students_app/Resource/utility.dart';
+import 'package:codeline_students_app/resource/constant.dart';
+import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/controller/validation_getx_controller.dart';
 import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
@@ -91,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         width: deviceWidth.width * 1.1,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/bg.png"),
+            image: AssetImage(ImagePath.bgPng),
           ),
         ),
       ),
@@ -109,7 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-              "assets/images/bg2.png",
+              ImagePath.bg2Png,
             ),
           ),
         ),
@@ -132,13 +133,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
 
               ///Name...
-              Text(
-                "Full Name",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+
+              CommanWidget.labelWidget(title: "Full Name"),
+
               TextFormField(
                 controller: nameTextEditingController,
                 inputFormatters: [
@@ -146,7 +143,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FilteringTextInputFormatter.allow(
                       RegExp(Utility.alphabetSpaceValidationPattern))
                 ],
-                validator: (name) => name.isEmpty ? "Name is required" : null,
+                validator: (name) =>
+                    name.isEmpty ? Utility.nameEmptyValidation : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -156,11 +154,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Full Name",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: SizedBox(
                     width: 20,
                     child: Image.asset(
@@ -172,18 +166,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
 
               ///Email...
-              Text(
-                "Email Address",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+
+              CommanWidget.labelWidget(title: "Email Address"),
+
               TextFormField(
                 controller: emailTextEditingController,
                 inputFormatters: [
@@ -191,8 +179,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FilteringTextInputFormatter.allow(
                       RegExp(Utility.emailAddressValidationPattern))
                 ],
-                validator: (email) =>
-                    email.isEmpty ? "Email is required" : null,
+                // validator: (email) => email.isEmpty ? "Email is required" : null,
+                validator: (text) {
+                  return Utility.validateUserName(text);
+                },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -202,11 +192,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Email Address",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: Image.asset(
                     ImagePath.mailPng,
                     height: 5,
@@ -216,18 +202,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
 
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
 
               ///Mobile Number...
-              Text(
-                "Mobile No",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+
+              CommanWidget.labelWidget(title: "Mobile No"),
+
               TextFormField(
                 controller: mobileNoTextEditingController,
                 inputFormatters: [
@@ -235,8 +215,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   FilteringTextInputFormatter.allow(
                       RegExp(Utility.digitsValidationPattern))
                 ],
-                validator: (name) =>
-                    name.isEmpty ? "Mobile Number is required" : null,
+                validator: (name) => name.isEmpty
+                    ? Utility.mobileNumberInValidValidation
+                    : mobileNoTextEditingController.text.length != 10
+                        ? Utility.mobileNumberInValidValidation
+                        : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -246,11 +229,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Mobile No",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: SizedBox(
                     width: 20,
                     child: Icon(
@@ -261,27 +240,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
 
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
 
               ///Password ...
-              Text(
-                "Password",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+
+              CommanWidget.labelWidget(title: "Password"),
+
               TextFormField(
                 controller: passwordTextEditingController,
                 inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(Utility.password)),
                   LengthLimitingTextInputFormatter(30),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetDigitsSpecialValidationPattern))
+                  /*     FilteringTextInputFormatter.allow(RegExp(Utility
+                                    .alphabetDigitsSpecialValidationPattern))*/
                 ],
-                validator: (password) =>
-                    password.isEmpty ? "Password is required" : null,
+                // validator: (password) =>
+                //     password.isEmpty ? "Password is required" : null,
+                validator: (text) {
+                  return Utility.validatePassword(text);
+                },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -291,11 +268,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Password",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: Image.asset(
                     ImagePath.passwordPng,
                     height: 5,
@@ -317,27 +290,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 obscureText: validationController.obscureText.value,
               ),
 
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
 
               ///Confirm Password ...
-              Text(
-                "Conform Password",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+              CommanWidget.labelWidget(title: "Conform Password"),
+
               TextFormField(
                 controller: conformPasswordTextEditingController,
                 inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(Utility.password)),
                   LengthLimitingTextInputFormatter(30),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetDigitsSpecialValidationPattern))
+                  /*     FilteringTextInputFormatter.allow(RegExp(Utility
+                                    .alphabetDigitsSpecialValidationPattern))*/
                 ],
-                validator: (cPassword) =>
-                    cPassword.isEmpty ? "Conform Password is required" : null,
+                // validator: (password) =>
+                //     password.isEmpty ? "Password is required" : null,
+                validator: (text) {
+                  return Utility.validatePassword(text);
+                },
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -347,11 +317,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Conform Password",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: Image.asset(
                     ImagePath.passwordPng,
                     height: 5,
@@ -372,11 +338,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
                 obscureText: validationController.obscureText.value,
               ),
-              SizedBox(height: deviceSize.width / 14),
+              sizedBox(),
 
               ///Terms & Condition
               _termsNCondition(),
-              SizedBox(height: deviceSize.width / 14),
+
+              sizedBox(),
               // RaisedButton(
               //   onPressed: () {
               //     CommanWidget.approvalDialog(context);
@@ -404,15 +371,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 mobileNo: mobileNoTextEditingController.text,
                                 buildContext: context);
                           } else {
-                            Get.snackbar('Terms & Conditions',
-                                'Please check Term Condition!');
+                            CommanWidget.snackBar(
+                                title: Utility.termsConditions,
+                                message: Utility.termsConditionsMessage,
+                                position: SnackPosition.BOTTOM);
                           }
                         } else {
                           print('unvalid');
                         }
                       } else {
-                        Get.snackbar('Validation ',
-                            'Password and Conform password does not match!');
+                        CommanWidget.snackBar(
+                            title: '',
+                            message: Utility.passwordNotMatch,
+                            position: SnackPosition.BOTTOM);
                       }
                     } else {
                       print("Validat Method was call on null");
@@ -424,6 +395,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
               // ),
             ],
           )),
+    );
+  }
+
+  sizedBox() {
+    return SizedBox(height: deviceSize.width / 14);
+  }
+
+  labelWidget({String title}) {
+    return Text(
+      title,
+      style: kLabelTextStyle,
     );
   }
 

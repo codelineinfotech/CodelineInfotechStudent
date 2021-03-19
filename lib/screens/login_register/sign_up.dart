@@ -1,4 +1,4 @@
-import 'package:codeline_students_app/Resource/utility.dart';
+import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:codeline_students_app/screens/login_register/text_fields.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/back_string_button.dart';
@@ -141,8 +141,9 @@ class SignUp extends StatelessWidget {
                                           fullName: fullNameController.text,
                                         );
                                       } else {
-                                        Get.snackbar('Terms & Conditions',
-                                            'Please check Term Condition!');
+                                     
+                                        CommanWidget.snackBar(title:Utility.termsConditions,message:  Utility.termsConditionsMessage,position: SnackPosition.BOTTOM);
+
                                       }
                                     } else {
                                       print('unvalid');

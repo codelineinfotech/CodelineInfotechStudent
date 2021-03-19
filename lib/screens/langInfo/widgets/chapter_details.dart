@@ -3,8 +3,11 @@ import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/controller/home_controller.dart';
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
+import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/langInfo/widgets/buttons.dart';
 import 'package:codeline_students_app/screens/langInfo/widgets/chapter_card.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
@@ -15,6 +18,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -43,17 +47,17 @@ Widget chapterDetails({
   // print("ASSIGNMENT LINK---> $assignmentLink");
 
   return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance
-          .collection(course)
-          .doc(title)
-          .collection('Topics')
+      stream: kFireStore.collection('$course/$title/Topics')
           .orderBy(
             'index',
           )
           .snapshots(),
       builder: (context, snapshot) {
+
         if (snapshot.hasData) {
           // print("TOTAL TOPIC LENGTH" + snapshot.data.docs.length.toString());
+          print("DATA LENGTH -->  ${snapshot.data.docs.length}");
+
 
           return Obx(() => AnimatedContainer(
                 duration: Duration(milliseconds: 400),
@@ -73,15 +77,9 @@ Widget chapterDetails({
                                 +
                                 32) *
                             snapshot.data.docs.length) //icon size...
-                        //
-
                         +
                         20 //currewnt progress top padding
-                    // 10 +
-                    // (Get.height / 22) +
-                    // (Get.height / 40) +
-                    // ((((Get.height / 23) + (Get.height / 14)) *
-                    //     snapshot.data.docs.length))
+
                     : Get.height / 10,
                 width: Get.width,
                 decoration: BoxDecoration(
@@ -108,18 +106,20 @@ Widget chapterDetails({
                             child: SingleChildScrollView(
                               physics: NeverScrollableScrollPhysics(),
                               child: StreamBuilder<DocumentSnapshot>(
-                                  stream: FirebaseFirestore.instance
-                                      .collection('CourseCompletedTopic')
+                                  stream: cCourseCompletedTopicCollection
                                       .doc(
-                                          FirebaseAuth.instance.currentUser.uid)
+                                      kFirebaseAuth.currentUser.uid)
                                       .snapshots(),
                                   builder: (context, completeSnapshot) {
                                     if (completeSnapshot.hasData) {
+                                      print("completeSnapshot ${(completeSnapshot.data.get("${course.toString()}_CourseTopic")
+                                      as List).toString()}" );
+
                                       String field = course +
                                           "_" +
                                           title.replaceAll(
                                               new RegExp(r"\s+"), "");
-                                      print("COMPLETED TOPIC" + field);
+                                      // print("COMPLETED TOPIC" + field);
                                       return Column(
                                         children: [
                                           SizedBox(
@@ -128,11 +128,8 @@ Widget chapterDetails({
                                           Container(
                                             child: StreamBuilder<
                                                     DocumentSnapshot>(
-                                                stream: FirebaseFirestore
-                                                    .instance
-                                                    .collection(
-                                                        "AssignmentSubmission")
-                                                    .doc(FirebaseAuth.instance
+                                                stream: cAssignmentSubmissionCollection
+                                                    .doc(kFirebaseAuth
                                                         .currentUser.uid)
                                                     .snapshots(),
                                                 builder: (context,
@@ -203,28 +200,18 @@ Widget chapterDetails({
                                                                               assignmentLink,
                                                                               filename);
                                                                         } else {
-                                                                          Get.snackbar(
-                                                                            "Message",
-                                                                            "Assignment is not download until your course topic is not completed",
-                                                                            snackPosition:
-                                                                                SnackPosition.BOTTOM,
-                                                                          );
+
+
+                                                                          CommanWidget.snackBar(title: "",message:Utility.assignmentNotDownloadMessage ,position: SnackPosition.BOTTOM);
+
                                                                         }
                                                                       } else {
-                                                                        Get.snackbar(
-                                                                          "Message",
-                                                                          "Assignment is not download until your course topic is not completed",
-                                                                          snackPosition:
-                                                                              SnackPosition.BOTTOM,
-                                                                        );
+                                                                        CommanWidget.snackBar(title: "",message:Utility.assignmentNotDownloadMessage ,position: SnackPosition.BOTTOM);
+
                                                                       }
                                                                     } else {
-                                                                      Get.snackbar(
-                                                                        "Message",
-                                                                        "Assignment is not download until your course topic is not completed",
-                                                                        snackPosition:
-                                                                            SnackPosition.BOTTOM,
-                                                                      );
+                                                                      CommanWidget.snackBar(title: "",message:Utility.assignmentNotDownloadMessage ,position: SnackPosition.BOTTOM);
+
                                                                     }
                                                                   },
                                                                   child: outlineButton(
@@ -286,28 +273,19 @@ Widget chapterDetails({
                                                                               course,
                                                                               title);
                                                                         } else {
-                                                                          Get.snackbar(
-                                                                            "Message",
-                                                                            "Assignment is not upload until your course topic is not completed",
-                                                                            snackPosition:
-                                                                                SnackPosition.BOTTOM,
-                                                                          );
+
+                                                                          CommanWidget.snackBar(title: "",message:Utility.assignmentNotUploadMessage ,position: SnackPosition.BOTTOM);
+
                                                                         }
                                                                       } else {
-                                                                        Get.snackbar(
-                                                                          "Message",
-                                                                          "Assignment is not upload until your course topic is not completed",
-                                                                          snackPosition:
-                                                                              SnackPosition.BOTTOM,
-                                                                        );
+
+                                                                        CommanWidget.snackBar(title: "",message:Utility.assignmentNotUploadMessage ,position: SnackPosition.BOTTOM);
+
                                                                       }
                                                                     } else {
-                                                                      Get.snackbar(
-                                                                        "Message",
-                                                                        "Assignment is not upload until your course topic is not completed",
-                                                                        snackPosition:
-                                                                            SnackPosition.BOTTOM,
-                                                                      );
+
+                                                                      CommanWidget.snackBar(title: "",message:Utility.assignmentNotUploadMessage ,position: SnackPosition.BOTTOM);
+
                                                                     }
                                                                   },
                                                                   child: outlineButton(
@@ -375,6 +353,7 @@ Widget chapterDetails({
                                               physics: BouncingScrollPhysics(),
                                               // padding: EdgeInsets.only(bottom: 50),
                                               itemBuilder: (contexts, index) {
+                                                print("DATA LENGTH -->  ${snapshot.data.docs.length}");
                                                 // print(
                                                 //     "SHOW ${course}_CourseTopic");
                                                 return Row(
@@ -401,11 +380,11 @@ Widget chapterDetails({
                                                                             .data
                                                                             .docs[index]
                                                                             .get('title'))
-                                                                        ? "assets/images/check.svg"
-                                                                        : "assets/images/nonCheck.svg"
-                                                                    : "assets/images/nonCheck.svg"
-                                                                : "assets/images/nonCheck.svg"
-                                                            : "assets/images/nonCheck.svg"),
+                                                                        ? ImagePath.checkSvg
+                                                                        : ImagePath.nonCheckSvg
+                                                                    : ImagePath.nonCheckSvg
+                                                                : ImagePath.nonCheckSvg
+                                                            : ImagePath.nonCheckSvg),
                                                         SizedBox(
                                                           width: 10,
                                                         ),
@@ -591,14 +570,13 @@ void _openFileExplorer(String courseName, String courseTitle) async {
       // User canceled the picker
     }
     final _firebaseStorage = FirebaseStorage.instanceFor(
-        bucket: 'gs://studentapp-a47d3.appspot.com');
-    final snapSot = FirebaseFirestore.instance
-        .collection("AssignmentSubmission")
-        .doc(FirebaseAuth.instance.currentUser.uid)
+        bucket: Utility.bucketURL);
+    final snapSot = cAssignmentSubmissionCollection
+        .doc(kFirebaseAuth.currentUser.uid)
         .get()
         .then((value) async {
       String storagePath =
-          '$folderName/$courseTitle/${FirebaseAuth.instance.currentUser.uid}/${DateTime.now().microsecondsSinceEpoch}';
+          '$folderName/$courseTitle/${kFirebaseAuth.currentUser.uid}/${DateTime.now().microsecondsSinceEpoch}';
 
       if (value.exists) {
         print("SUBMISSION DATA EXISTS IF------------");
@@ -650,9 +628,8 @@ updateFileFireStorage(FirebaseStorage _firebaseStorage, File file,
         await _firebaseStorage.ref().child(storagePath).putFile(file);
 
     var downloadUrl = await snapshot.ref.getDownloadURL();
-    FirebaseFirestore.instance
-        .collection("AssignmentSubmission")
-        .doc(FirebaseAuth.instance.currentUser.uid)
+    cAssignmentSubmissionCollection
+        .doc(kFirebaseAuth.currentUser.uid)
         .set({
       '$courseName': {
         '$courseTitle': {
@@ -666,8 +643,7 @@ updateFileFireStorage(FirebaseStorage _firebaseStorage, File file,
     }, SetOptions(merge: true));
 
     _homeContoller.isLoad.value = false;
-
-    Get.snackbar("Uploading Message", "Assignment Upload Successfully");
+    CommanWidget.snackBar(title:Utility.uploadingTitle,message:  Utility.assignmentUploadSuccessfullyMessage,position: SnackPosition.TOP);
   });
 }
 
@@ -683,24 +659,18 @@ Future<void> downloadFile(uri, fileName) async {
     onReceiveProgress: (rcv, total) {},
     deleteOnError: true,
   )
-      .then((_) {
+      .then((_) async {
     _homeContoller.isLoad.value = false;
 
-    Get.snackbar(
-      "Message",
-      "Assignment Download Successfully",
-      snackPosition: SnackPosition.BOTTOM,
-    );
+    CommanWidget.snackBar(title:Utility.downloadingTitle,message:  Utility.assignmentDownloadSuccessfullyMessage,position: SnackPosition.TOP);
+
     print("File Downloaded");
   }).catchError((e) {
     print("ERROR DOWNLOAD FILE--->${e.toString()}");
     _homeContoller.isLoad.value = false;
 
-    Get.snackbar(
-      "Message",
-      "Problem Downloading Assignment",
-      snackPosition: SnackPosition.BOTTOM,
-    );
+    CommanWidget.snackBar(title:"",message:  Utility.assignmentDownloadProblemMessage,position: SnackPosition.BOTTOM);
+
   });
 }
 //gets the applicationDirectory and path for the to-be downloaded file
@@ -723,7 +693,8 @@ Future<String> getFilePath(uniqueFileName) async {
       for (int x = 1; x < paths.length; x++) {
         String folder = paths[x];
         if (folder != "Android") {
-          newPath += "/" + folder;
+          newPath += "/download" + folder;
+          // newPath += "/" + folder;
         } else {
           break;
         }
@@ -750,5 +721,3 @@ Future<bool> _requestPermission(Permission permission) async {
   return false;
 }
 
-// https://firebasestorage.googleapis.com/v0/b/studentapp-a47d3.appspot.com/o/CLanguageAssignmentSubmission%2FLoops%2Fpac0Mpol5Qbd8Wa6hOjH4EczZKD2%2F1612244590000238?alt=media&token=19c8eedf-5478-4487-a56f-d3dd05294d34
-// https://firebasestorage.googleapis.com/v0/b/studentapp-a47d3.appspot.com/o/CLanguageAssignmentSubmission%2FLoops%2Fpac0Mpol5Qbd8Wa6hOjH4EczZKD2%2F1612244590000238?alt=media&token=19c8eedf-5478-4487-a56f-d3dd05294d34

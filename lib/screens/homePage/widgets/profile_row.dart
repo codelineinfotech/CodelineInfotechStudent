@@ -1,11 +1,13 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
 
 Widget profileRow() {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+
   return Padding(
     padding: const EdgeInsets.only(
       left: 20,
@@ -14,9 +16,8 @@ Widget profileRow() {
       right: 20,
     ),
     child: StreamBuilder(
-        stream: FirebaseFirestore.instance
-            .collection("User")
-            .doc(_auth.currentUser.uid)
+        stream: cUserCollection
+            .doc(kFirebaseAuth.currentUser.uid)
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -32,7 +33,7 @@ Widget profileRow() {
                     : CircleAvatar(
                         backgroundColor: Colors.white,
                         backgroundImage:
-                            AssetImage("assets/images/profile.png"),
+                            AssetImage(ImagePath.profilePng),
                         radius: 25,
                       ),
                 SizedBox(

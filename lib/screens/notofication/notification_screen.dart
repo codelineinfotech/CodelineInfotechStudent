@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+
 import 'package:codeline_students_app/screens/login_register/widgets/back_string_button.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ import 'notification_detail_screen.dart';
 
 class NotificationsScreen extends StatelessWidget {
   Size deviceSize;
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class NotificationsScreen extends StatelessWidget {
       color: Colors.white,
       child: StreamBuilder<QuerySnapshot>(
           stream:
-              FirebaseFirestore.instance.collection('Notification').snapshots(),
+          cNotificationCollection.snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Column(
@@ -62,7 +63,7 @@ class NotificationsScreen extends StatelessWidget {
                               width: deviceSize.width,
                               color: (snapshot.data.docs[index].get('read_user')
                                           as List)
-                                      .contains(_firebaseAuth.currentUser.uid)
+                                      .contains(kFirebaseAuth.currentUser.uid)
                                   // .contains(_auth.currentUser.uid)
                                   ? Colors.white
                                   : Colors.red[50],
@@ -78,7 +79,7 @@ class NotificationsScreen extends StatelessWidget {
                                       color: (snapshot.data.docs[index]
                                                   .get('read_user') as List)
                                               .contains(
-                                                  _firebaseAuth.currentUser.uid)
+                                          kFirebaseAuth.currentUser.uid)
                                           // .contains(_auth.currentUser.uid)
                                           ? Colors.grey
                                           : Colors.red,

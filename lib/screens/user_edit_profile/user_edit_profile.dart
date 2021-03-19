@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/controller/home_controller.dart';
 import 'package:codeline_students_app/controller/validation_getx_controller.dart';
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/homePage/home_page.dart';
@@ -33,7 +35,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
   TextEditingController mobileNoTextEditingController = TextEditingController();
   TextEditingController addressTextEditingController = TextEditingController();
   TextEditingController courseTextEditingController = TextEditingController();
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
+
   String imageUrl, storagePath = "";
   File _image;
   final ValidationController validationController =
@@ -48,11 +50,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
   }
 
   getProfileData() {
-    FirebaseFirestore.instance
-        .collection('User')
-        .doc(_firebaseAuth.currentUser.uid)
-        .get()
-        .then((snapshot) {
+    cUserCollection.doc(_firebaseAuth.currentUser.uid).get().then((snapshot) {
       nameTextEditingController.text =
           (snapshot["fullName"] as String).capitalize;
       emailTextEditingController.text = snapshot['email'];
@@ -174,8 +172,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
                                             ),
                                           ),
                                         )
-                                      : Image.asset(
-                                          "assets/images/profile.png"),
+                                      : Image.asset(ImagePath.profilePng),
                                   decoration: BoxDecoration(
                                     color: Colors.grey[400],
                                     borderRadius: BorderRadius.circular(100),
@@ -220,6 +217,8 @@ class _UserEditProfileState extends State<UserEditProfile> {
   }
 
   Widget editProfileForm(BuildContext context) {
+    print(
+        "Mobile Number ${mobileNoTextEditingController.text.length.toString()}");
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       child: Scrollbar(
@@ -232,13 +231,9 @@ class _UserEditProfileState extends State<UserEditProfile> {
               SizedBox(
                 height: 30,
               ),
-              Text(
-                "Full Name",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+              CommanWidget.labelWidget(title: "Full Name"),
+
+
               TextFormField(
                 controller: nameTextEditingController,
                 inputFormatters: [
@@ -246,7 +241,8 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   FilteringTextInputFormatter.allow(
                       RegExp(Utility.alphabetSpaceValidationPattern))
                 ],
-                validator: (name) => name.isEmpty ? "Name is required" : null,
+                validator: (name) =>
+                    name.isEmpty ? Utility.nameEmptyValidation : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -256,11 +252,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Full Name",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: Icon(
                     Icons.person_outline_sharp,
                     color: Color(0xff9A9BA7),
@@ -276,18 +268,11 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   // ),
                 ),
               ),
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
 
               ///Email...
-              Text(
-                "Email Address",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+              CommanWidget.labelWidget(title: "Email Address"),
+
               TextFormField(
                 controller: emailTextEditingController,
                 enabled: false,
@@ -300,7 +285,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   color: ColorsPicker.darkGrey.withOpacity(0.8),
                 ),
                 validator: (email) =>
-                    email.isEmpty ? "Email is required" : null,
+                    email.isEmpty ? Utility.emailEmptyValidation : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -310,11 +295,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Email Address",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: Icon(Icons.mail_outline_sharp),
                   // prefixIcon: Image.asset(
                   //   ImagePath.mailPng,
@@ -324,19 +305,12 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   // ),
                 ),
               ),
-
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
 
               ///Mobile Number...
-              Text(
-                "Mobile No",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+
+              CommanWidget.labelWidget(title: "Mobile No"),
+
               TextFormField(
                 controller: mobileNoTextEditingController,
                 inputFormatters: [
@@ -344,8 +318,11 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   FilteringTextInputFormatter.allow(
                       RegExp(Utility.digitsValidationPattern))
                 ],
-                validator: (name) =>
-                    name.isEmpty ? "Mobile Number is required" : null,
+                validator: (name) => name.isEmpty
+                    ? Utility.mobileNumberInValidValidation
+                    : mobileNoTextEditingController.text.length != 10
+                        ? Utility.mobileNumberInValidValidation
+                        : null,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: InputDecoration(
                   focusedBorder: UnderlineInputBorder(
@@ -355,11 +332,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Mobile No",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: SizedBox(
                     width: 20,
                     child: Icon(
@@ -369,18 +342,12 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
 
               ///Addresss...
-              Text(
-                "Address",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+
+              CommanWidget.labelWidget(title: "Address"),
+
               TextFormField(
                 controller: addressTextEditingController,
                 inputFormatters: [
@@ -399,30 +366,19 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Enter Address",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle: kHintTextStyle,
                   prefixIcon: Icon(
                     Icons.location_on,
                     color: Color(0xff9A9BA7),
                   ),
                 ),
               ),
-
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
 
               ///Course Name ...
-              Text(
-                "Course Name",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
+
+              CommanWidget.labelWidget(title: "Course Name"),
+
               TextFormField(
                 controller: courseTextEditingController,
                 inputFormatters: [
@@ -445,18 +401,11 @@ class _UserEditProfileState extends State<UserEditProfile> {
                   enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: ColorsPicker.skyColor)),
                   hintText: "Course Name",
-                  hintStyle: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 17,
-                    color: const Color(0xff3a3f44).withOpacity(0.5),
-                  ),
+                  hintStyle:kHintTextStyle,
                   prefixIcon: Icon(Icons.book_outlined),
                 ),
               ),
-
-              SizedBox(
-                height: deviceSize.width / 14,
-              ),
+              sizedBox(),
               InkWell(
                 onTap: () {
                   updateUserData();
@@ -480,12 +429,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
                       padding: const EdgeInsets.only(left: 16),
                       child: Text(
                         "Save",
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 22,
-                          color: const Color(0xffffffff),
-                          letterSpacing: -0.004400000065565109,
-                        ),
+                        style: kButtonTextStyle,
                         textAlign: TextAlign.left,
                       ),
                     )),
@@ -496,7 +440,16 @@ class _UserEditProfileState extends State<UserEditProfile> {
       ),
     );
   }
+    sizedBox() {
+      return SizedBox(height: deviceSize.width / 14);
+    }
 
+  labelWidget({String title}) {
+    return Text(
+      title,
+      style: kLabelTextStyle,
+    );
+  }
   Future<void> updateUserData({
     String email,
     String password,
@@ -517,7 +470,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
           print("UPLOAD SUCCESS023020");
           print("Image URL  $imageUrl");
           print("SAVE STORAGE CALL $storagePath");
-          _fireStore.collection('User').doc(_firebaseAuth.currentUser.uid).set({
+          cUserCollection.doc(_firebaseAuth.currentUser.uid).set({
             'fullName': nameTextEditingController.text,
             'mobileNo': mobileNoTextEditingController.text,
             'address': addressTextEditingController.text,
@@ -527,14 +480,40 @@ class _UserEditProfileState extends State<UserEditProfile> {
             print("SIGNUP SUCCESSFULLY");
             _homeContoller.isLoad.value = false;
             // Get.offAll(HomePage());
-            Get.snackbar("Profile Update", "User Profile Update Successfully");
+            CommanWidget.snackBar(
+                title: "Profile Update",
+                message: "User Profile Update Successfully",
+                position: SnackPosition.TOP);
+
             // CommanWidget.circularProgress();
           }).catchError((e) {
             _homeContoller.isLoad.value = false;
             print('cloud Error ' + _homeContoller.isLoad.value.toString());
           });
         } else {
-          _homeContoller.isLoad.value = false;
+          print("UPLOAD SUCCESS023020");
+          print("Image URL  $imageUrl");
+          print("SAVE STORAGE CALL $storagePath");
+          cUserCollection.doc(_firebaseAuth.currentUser.uid).set({
+            'fullName': nameTextEditingController.text,
+            'mobileNo': mobileNoTextEditingController.text,
+            'address': addressTextEditingController.text,
+            'imageUrl': imageUrl,
+            'storageLocation': storagePath,
+          }, SetOptions(merge: true)).then((value) {
+            print("SIGNUP SUCCESSFULLY");
+            _homeContoller.isLoad.value = false;
+            // Get.offAll(HomePage());
+            CommanWidget.snackBar(
+                title: "Profile Update",
+                message: "User Profile Update Successfully",
+                position: SnackPosition.TOP);
+
+            // CommanWidget.circularProgress();
+          }).catchError((e) {
+            _homeContoller.isLoad.value = false;
+            print('cloud Error ' + _homeContoller.isLoad.value.toString());
+          });
         }
       } else {
         print('unvalid');

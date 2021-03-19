@@ -3,11 +3,11 @@ class ImagePath {
   static String bg2Png = "assets/images/bg2.png";
   static String flutterPng = "assets/images/flutter.png";
   static String googleLogoPng = "assets/images/glogo.png";
-  static String logoPng = "assets/images/logo.png";
   static String appLogoPng = "assets/images/logo.png";
   static String mailPng = "assets/images/mail.png";
   static String messagePng = "assets/images/chatnew.png";
   static String onBoardPng = "assets/images/onBoard.png";
+  static String onBoardOnePng = "assets/images/onBoard1.png";
   static String passwordPng = "assets/images/pass.png";
   static String splash1Png = "assets/images/splash1.png";
   static String splash2Png = "assets/images/splash2.png";
@@ -16,5 +16,16 @@ class ImagePath {
   static String mobilePng = "assets/images/mobile.png";
   static String addressPng = "assets/images/address.png";
   static String coursePng = "assets/images/coursenew.png";
+  static String profilePng = "assets/images/profile.png";
+  static String cbgSvg = "assets/images/cbg.svg";
   static String courseSvg = "assets/icons/course.svg";
+  static String checkSvg = "assets/images/check.svg";
+  static String nonCheckSvg = "assets/images/nonCheck.svg";
+  static String arrowSvg = "assets/images/arrow.svg";
+  static String homeBgSvg = "assets/images/homeBg.svg";
+  static String dartSvg = "assets/images/dart.svg";
+  static String bellSvg = "assets/images/bell.svg";
+  static String menuSvg = "assets/images/menu.svg";
+  static String downArrowSvg = "assets/images/downArrow.svg";
+  static String rightArrowSvg = "assets/images/rightArrow.svg";
 }

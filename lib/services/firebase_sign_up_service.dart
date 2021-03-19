@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/screens/homePage/home_page.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
@@ -10,8 +11,6 @@ import 'package:get/get.dart';
 import '../controller/validation_getx_controller.dart';
 
 class SignUpService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
   final ValidationController validationController =
       Get.put(ValidationController());
 
@@ -21,7 +20,7 @@ class SignUpService {
       String fullName,
       String mobileNo,
       BuildContext buildContext}) async {
-    _auth
+    kFirebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
       print("SIGNUP SUCCESSFULLY ");
@@ -29,7 +28,7 @@ class SignUpService {
       // print("email $email");
       // print("Password $password");
 
-      _fireStore.collection('User').doc(value.user.uid).set({
+      cUserCollection.doc(value.user.uid).set({
         'fullName': fullName,
         'email': email,
         'password': password,
@@ -42,7 +41,7 @@ class SignUpService {
         'storageLocation': ""
       }).then((value) {
         print("SIGNUP SUCCESSFULLY");
-        _auth.signOut();
+        kFirebaseAuth.signOut();
         validationController.progressVisible.value = false;
         // CommanWidget.circularProgressBgBlack();
         // Get.snackbar("Message", "Your Registration is Successfully");
@@ -62,7 +61,8 @@ class SignUpService {
       print('catch Error ' +
           validationController.progressVisible.value.toString());
       print(e);
-      Get.snackbar('Sign Up Failed', 'Account is Already Exist!');
+
+      CommanWidget.snackBar(title: 'Sign Up Failed',message:'Account is Already Exist!' ,position: SnackPosition.BOTTOM);
     });
   }
 }

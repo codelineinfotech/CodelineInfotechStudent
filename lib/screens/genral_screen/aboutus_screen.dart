@@ -1,4 +1,5 @@
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -35,10 +36,7 @@ class AboutUsScreen extends StatelessWidget {
                   child: Text(
                     Utility.aboutUs,
                     textAlign: TextAlign.justify,
-                    style: TextStyle(
-                      fontFamily: 'Roboto',
-                      fontSize: 15,
-                    ),
+                    style: kAboutsUsTextStyle,
                   ),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

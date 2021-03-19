@@ -1,3 +1,4 @@
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/screens/homePage/home_page.dart';
 import 'package:codeline_students_app/screens/splash/walking_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
             height: Get.height / 1.3,
             decoration: BoxDecoration(),
             child: Image.asset(
-              "assets/images/onBoard1.png",
+              ImagePath.onBoardOnePng,
               width: Get.width,
               fit: BoxFit.fitWidth,
             ),
@@ -89,7 +90,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
                           Spacer(),
                           Padding(
                             padding: const EdgeInsets.only(right: 16),
-                            child: SvgPicture.asset("assets/images/arrow.svg"),
+                            child: SvgPicture.asset(ImagePath.arrowSvg),
                           )
                         ],
                       )),

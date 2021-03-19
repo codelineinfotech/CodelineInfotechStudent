@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-FirebaseAuth _auth = FirebaseAuth.instance;
+
 Widget appBar({onMenuTap}) {
   return Padding(
     padding: const EdgeInsets.only(left: 10, right: 20, top: 20),
@@ -39,15 +41,14 @@ Widget appBar({onMenuTap}) {
                     shape: BoxShape.circle,
                   ),
                   child: SvgPicture.asset(
-                    "assets/images/bell.svg",
+                    ImagePath.bellSvg,
                   ),
                 ),
                 Positioned(
                   top: 1,
                   right: 2,
                   child: StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection('Notification')
+                      stream: cNotificationCollection
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -55,7 +56,7 @@ Widget appBar({onMenuTap}) {
 
                           snapshot.data.docs.forEach((element) {
                             if ((element.get('read_user') as List)
-                                .contains(_auth.currentUser.uid)) {
+                                .contains(kFirebaseAuth.currentUser.uid)) {
                               notificationCount = notificationCount - 1;
                             }
                           });
@@ -103,7 +104,7 @@ Widget appBar({onMenuTap}) {
                   shape: BoxShape.circle,
                 ),
                 child: SvgPicture.asset(
-                  "assets/images/menu.svg",
+                  ImagePath.menuSvg,
                 ),
               ),
             ),

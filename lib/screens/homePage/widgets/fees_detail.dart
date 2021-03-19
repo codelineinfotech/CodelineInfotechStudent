@@ -1,4 +1,5 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -29,19 +30,11 @@ Widget _boxes({title, description}) {
       TextSpan(children: [
         TextSpan(
           text: "${title}\n",
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 27,
-            color: const Color(0xffffffff),
-          ),
+          style:kHomeWhiteLabelTextStyle,
         ),
         TextSpan(
           text: description,
-          style: TextStyle(
-            fontFamily: 'Roboto',
-            fontSize: 15,
-            color: const Color(0xff9ae0eb),
-          ),
+          style:kHomeLabelTextStyle,
         )
       ]),
       textAlign: TextAlign.center,

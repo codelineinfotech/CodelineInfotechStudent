@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -60,8 +61,8 @@ Widget chapterCard({homeController, index, title, description, seuqenceNo}) {
           Padding(
             padding: EdgeInsets.only(top: Get.height / 50),
             child: SvgPicture.asset(homeController.selectedIndex.value == index
-                ? "assets/images/downArrow.svg"
-                : "assets/images/rightArrow.svg"),
+                ? ImagePath.downArrowSvg
+                : ImagePath.rightArrowSvg),
           )
         ],
       ),

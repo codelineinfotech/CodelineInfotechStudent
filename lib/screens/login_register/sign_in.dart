@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:codeline_students_app/Resource/utility.dart';
 import 'package:codeline_students_app/controller/validation_getx_controller.dart';
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
+import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/login_register/sign_up.dart';
 import 'package:codeline_students_app/screens/login_register/text_fields.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/back_string_button.dart';
@@ -122,7 +123,10 @@ class _SignInState extends State<SignIn> {
               FilteringTextInputFormatter.allow(
                   RegExp(Utility.emailAddressValidationPattern))
             ],
-            validator: (email) => email.isEmpty ? "Email is required" : null,
+            // validator: (email) => email.isEmpty ? "Email is required" : null,
+            validator: (text) {
+              return Utility.validateUserName(text);
+            },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
@@ -132,11 +136,7 @@ class _SignInState extends State<SignIn> {
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: ColorsPicker.skyColor)),
               hintText: "Enter Email Address",
-              hintStyle: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 17,
-                color: const Color(0xff3a3f44).withOpacity(0.5),
-              ),
+              hintStyle: kHintTextStyle,
               prefixIcon: Image.asset(
                 ImagePath.mailPng,
                 height: 5,
@@ -148,12 +148,16 @@ class _SignInState extends State<SignIn> {
           TextFormField(
             controller: passwordController,
             inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(Utility.password)),
               LengthLimitingTextInputFormatter(30),
               /*     FilteringTextInputFormatter.allow(RegExp(Utility
                                     .alphabetDigitsSpecialValidationPattern))*/
             ],
-            validator: (password) =>
-                password.isEmpty ? "Password is required" : null,
+            // validator: (password) =>
+            //     password.isEmpty ? "Password is required" : null,
+            validator: (text) {
+              return Utility.validatePassword(text);
+            },
             autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
               focusedBorder: UnderlineInputBorder(
@@ -163,11 +167,7 @@ class _SignInState extends State<SignIn> {
               enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(color: ColorsPicker.skyColor)),
               hintText: "Enter Password",
-              hintStyle: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 17,
-                color: const Color(0xff3a3f44).withOpacity(0.5),
-              ),
+              hintStyle: kHintTextStyle,
               prefixIcon: Image.asset(
                 ImagePath.passwordPng,
                 height: 5,
@@ -198,10 +198,7 @@ class _SignInState extends State<SignIn> {
               alignment: Alignment.centerRight,
               child: Text(
                 'Forgot Password?',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Color(0xff17a2b8),
-                ),
+                style:kLabelTextStyle,
               ),
             ),
           ),
@@ -227,7 +224,7 @@ class _SignInState extends State<SignIn> {
               'OR',
               style: TextStyle(
                 fontSize: 16,
-                color: Color(0xff3a3f44),
+                color: ColorsPicker.balticSea,
               ),
               textAlign: TextAlign.left,
             ),
@@ -250,10 +247,7 @@ class _SignInState extends State<SignIn> {
                 TextSpan(text: 'Don\'t have an Account? '),
                 TextSpan(
                   text: 'Sign up',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Color(0xff17a2b8),
-                  ),
+                  style: kLabelTextStyle,
                 )
               ])),
             ),

@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+import 'package:codeline_students_app/resource/constant.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/screens/genral_screen/aboutus_screen.dart';
 import 'package:codeline_students_app/screens/genral_screen/certificate_screen.dart';
 import 'package:codeline_students_app/screens/genral_screen/contactus_screen.dart';
@@ -12,7 +15,7 @@ import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 
 Widget buildDrawer(BuildContext context) {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+
   return Drawer(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,9 +26,8 @@ Widget buildDrawer(BuildContext context) {
 
         ///GET CURRENT USER DATA ....
         StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection("User")
-              .doc((_auth.currentUser.uid))
+          stream: cUserCollection
+              .doc((kFirebaseAuth.currentUser.uid))
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -60,7 +62,7 @@ Widget buildDrawer(BuildContext context) {
                             : CircleAvatar(
                                 backgroundColor: Colors.white,
                                 backgroundImage:
-                                    AssetImage("assets/images/profile.png"),
+                                    AssetImage(ImagePath.profilePng),
                                 radius: 25,
                               ),
                       ),
@@ -100,18 +102,8 @@ Widget buildDrawer(BuildContext context) {
             Get.back();
             Get.to(UserEditProfile());
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              'Edit Profile',
-              style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 14,
-                  color: const Color(0xff1d4777),
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center,
-            ),
-          ),
+
+          child:  labelWidget(title: 'Edit Profile'),
         ),
         customSizedBox(context),
 
@@ -121,18 +113,8 @@ Widget buildDrawer(BuildContext context) {
 
             Get.to(FeesReportScreen());
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              'Fees Report',
-              style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 14,
-                  color: const Color(0xff1d4777),
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          child:  labelWidget(title: 'Fees Report'),
+
         ),
         customSizedBox(context),
 
@@ -141,27 +123,16 @@ Widget buildDrawer(BuildContext context) {
             Get.back();
             Get.to(NotificationsScreen());
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              'Notifications',
-              style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 14,
-                  color: const Color(0xff1d4777),
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          child: labelWidget(title: 'Notifications'),
+
         ),
         customSizedBox(context),
 
         InkWell(
           onTap: () {
             Get.back();
-            FirebaseFirestore.instance
-                .collection('User')
-                .doc(FirebaseAuth.instance.currentUser.uid)
+            cUserCollection
+                .doc(kFirebaseAuth.currentUser.uid)
                 .get()
                 .then((value) {
               List<String> list = List<String>();
@@ -181,18 +152,7 @@ Widget buildDrawer(BuildContext context) {
             });
             // Get.to(Demo());
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              'Certificate',
-              style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 14,
-                  color: const Color(0xff1d4777),
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          child: labelWidget(title: 'Certificate'),
         ),
         customSizedBox(context),
 
@@ -202,18 +162,9 @@ Widget buildDrawer(BuildContext context) {
 
             Get.to(ContactUsScreen());
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              'Contact US',
-              style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 14,
-                  color: const Color(0xff1d4777),
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          child: labelWidget(title: 'Contact US'),
+
+
         ),
         customSizedBox(context),
 
@@ -223,41 +174,32 @@ Widget buildDrawer(BuildContext context) {
 
             Get.to(AboutUsScreen());
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              'About US',
-              style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 14,
-                  color: const Color(0xff1d4777),
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          child: labelWidget(title: 'About US'),
+
         ),
         Spacer(),
         InkWell(
           onTap: () {
-            _auth.signOut().then((value) => Get.offAll(SignIn()));
+            kFirebaseAuth.signOut().then((value) => Get.offAll(SignIn()));
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              'Logout',
-              style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 14,
-                  color: const Color(0xff1d4777),
-                  fontWeight: FontWeight.w600),
-              textAlign: TextAlign.center,
-            ),
-          ),
+          child: labelWidget(title: 'Logout'),
+
         ),
         SizedBox(
           height: Get.height / 20,
         ),
       ],
+    ),
+  );
+}
+
+labelWidget({String title}) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 40),
+    child: Text(
+      title,
+      style: kDrawerLabelTextStyle,
+      textAlign: TextAlign.center,
     ),
   );
 }

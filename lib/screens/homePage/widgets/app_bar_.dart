@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
 
 Widget homeAppBar({onMenuTap}) {
+
   return Padding(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
     child: Row(
@@ -15,7 +18,7 @@ Widget homeAppBar({onMenuTap}) {
       children: [
         Column(
           children: [
-            Image.asset("assets/images/logo.png"),
+            Image.asset(ImagePath.appLogoPng),
             Text(
               "Codeline",
               style: TextStyle(fontFamily: "Jack", fontSize: 24),
@@ -48,7 +51,7 @@ Widget homeAppBar({onMenuTap}) {
                       shape: BoxShape.circle,
                     ),
                     child: SvgPicture.asset(
-                      "assets/images/bell.svg",
+                      ImagePath.bellSvg,
                     ),
                   ),
                 ),
@@ -56,8 +59,7 @@ Widget homeAppBar({onMenuTap}) {
                   top: 1,
                   right: 2,
                   child: StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection('Notification')
+                      stream: cNotificationCollection
                           .snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
@@ -65,7 +67,7 @@ Widget homeAppBar({onMenuTap}) {
 
                           snapshot.data.docs.forEach((element) {
                             if ((element.get('read_user') as List)
-                                .contains(_firebaseAuth.currentUser.uid)) {
+                                .contains(kFirebaseAuth.currentUser.uid)) {
                               notificationCount = notificationCount - 1;
                             }
                           });
@@ -113,7 +115,7 @@ Widget homeAppBar({onMenuTap}) {
                   shape: BoxShape.circle,
                 ),
                 child: SvgPicture.asset(
-                  "assets/images/menu.svg",
+                  ImagePath.menuSvg,
                 ),
               ),
             ),

@@ -1,6 +1,8 @@
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
+import 'package:codeline_students_app/services/firebase_contactus_service.dart';
 import 'package:codeline_students_app/services/firebase_contactus_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +66,7 @@ class ContactUsScreen extends StatelessWidget {
           image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-              "assets/images/bg2.png",
+              ImagePath.bg2Png,
             ),
           ),
         ),
@@ -82,14 +84,7 @@ class ContactUsScreen extends StatelessWidget {
           children: [
             Text(
               'Details',
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 38,
-                color: const Color(0xff3a3f44),
-                letterSpacing: 0.38,
-                fontWeight: FontWeight.w500,
-                height: 1.3421052631578947,
-              ),
+              style:kDetailsTextStyle,
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -99,10 +94,7 @@ class ContactUsScreen extends StatelessWidget {
             ///Name...
             Text(
               "Full Name",
-              style: TextStyle(
-                fontSize: 14,
-                color: ColorsPicker.skyColor,
-              ),
+              style: kLabelTextStyle,
             ),
             TextFormField(
               controller: nameTextEditingController,
@@ -114,7 +106,7 @@ class ContactUsScreen extends StatelessWidget {
               // style: TextStyle(
               //   color: ColorsPicker.darkGrey.withOpacity(0.8),
               // ),
-              validator: (name) => name.isEmpty ? "Name is required" : null,
+              validator: (name) => name.isEmpty ?  Utility.nameEmptyValidation : null,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 focusedBorder: UnderlineInputBorder(
@@ -124,11 +116,7 @@ class ContactUsScreen extends StatelessWidget {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: ColorsPicker.skyColor)),
                 hintText: "Enter Full Name",
-                hintStyle: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 17,
-                  color: const Color(0xff3a3f44).withOpacity(0.5),
-                ),
+                hintStyle: kHintTextStyle,
                 prefixIcon: SizedBox(
                   width: 20,
                   child: Image.asset(
@@ -148,10 +136,7 @@ class ContactUsScreen extends StatelessWidget {
             ///Email...
             Text(
               "Email Address",
-              style: TextStyle(
-                fontSize: 14,
-                color: ColorsPicker.skyColor,
-              ),
+              style:kLabelTextStyle,
             ),
             TextFormField(
               controller: emailTextEditingController,
@@ -163,7 +148,7 @@ class ContactUsScreen extends StatelessWidget {
               // style: TextStyle(
               //   color: ColorsPicker.darkGrey.withOpacity(0.8),
               // ),
-              validator: (email) => email.isEmpty ? "Email is required" : null,
+              validator: (email) => email.isEmpty ? Utility.emailEmptyValidation : null,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 focusedBorder: UnderlineInputBorder(
@@ -173,11 +158,7 @@ class ContactUsScreen extends StatelessWidget {
                 enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: ColorsPicker.skyColor)),
                 hintText: "Enter Email Address",
-                hintStyle: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 17,
-                  color: const Color(0xff3a3f44).withOpacity(0.5),
-                ),
+                hintStyle: kHintTextStyle,
                 prefixIcon: Image.asset(
                   ImagePath.mailPng,
                   height: 5,
@@ -197,10 +178,7 @@ class ContactUsScreen extends StatelessWidget {
               children: [
                 Text(
                   "Message",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: ColorsPicker.skyColor,
-                  ),
+                  style:kLabelTextStyle,
                 ),
                 SizedBox(
                   width: 5,
@@ -249,11 +227,7 @@ class ContactUsScreen extends StatelessWidget {
                   borderSide:
                       BorderSide(color: ColorsPicker.skyColor, width: 1.0),
                 ),
-                hintStyle: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 17,
-                  color: const Color(0xff3a3f44).withOpacity(0.5),
-                ),
+                hintStyle: kHintTextStyle,
               ),
             ),
 
@@ -287,19 +261,14 @@ class ContactUsScreen extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 16),
                         child: Text(
                           "Send Message",
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 22,
-                            color: const Color(0xffffffff),
-                            letterSpacing: -0.004400000065565109,
-                          ),
+                          style: kButtonTextStyle,
                           textAlign: TextAlign.left,
                         ),
                       ),
                       Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(right: 16),
-                        child: SvgPicture.asset("assets/images/arrow.svg"),
+                        child: SvgPicture.asset(ImagePath.arrowSvg),
                       )
                     ],
                   )),

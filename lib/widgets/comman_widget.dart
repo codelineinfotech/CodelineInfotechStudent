@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:codeline_students_app/resource/color.dart';
+import 'package:codeline_students_app/resource/constant.dart';
+import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +46,7 @@ class CommanWidget {
                     OctoPlaceholder.blurHash('LEHV6nWB2yk8pyo0adR*.7kCMdnj'),
                 errorBuilder: OctoError.icon(color: Colors.red),
               )
-            : Image.asset("assets/images/profile.png"),
+            : Image.asset(ImagePath.profilePng),
         decoration: decoration == "NoDecoration"
             ? BoxDecoration()
             : BoxDecoration(
@@ -97,27 +99,18 @@ class CommanWidget {
                 ],
               ));
     }
-    // Get.defaultDialog(
-    //   title: "Alert !",
-    //   barrierDismissible: false,
-    //   radius: 10,
-    //   actions: [
-    //     RaisedButton(
-    //       color: ColorsPicker.skyColor,
-    //       onPressed: () {
-    //         Get.offAll(SignIn());
-    //       },
-    //       child: Text(
-    //         "Ok",
-    //         style: TextStyle(color: Colors.white),
-    //       ),
-    //     )
-    //   ],
-    //   content: Text(
-    //     "Your Registration is Successfully but,Your Account is not Approved By Codeline Infotech\n Please Contact Codeline Infotech",
-    //     textAlign: TextAlign.center,
-    //     style: TextStyle(color: Color(0xff17a2b8)),
-    //   ),
-    // );
   }
+
+  static Widget snackBar({String title,String message,SnackPosition position})
+  {
+    Get.snackbar(title, message,snackPosition: position);
+  }
+  static Widget labelWidget({String title}) {
+    return Text(
+      title,
+      style: kLabelTextStyle,
+    );
+  }
+
 }
+

@@ -1,7 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/controller/home_controller.dart';
-import 'package:codeline_students_app/resource/color.dart';
+
 import 'package:codeline_students_app/screens/langInfo/widgets/app_bar_.dart';
 import 'package:codeline_students_app/screens/langInfo/widgets/background_elements.dart';
 import 'package:codeline_students_app/screens/langInfo/widgets/chapter_details.dart';
@@ -9,7 +10,7 @@ import 'package:codeline_students_app/screens/langInfo/widgets/progress_containe
 import 'package:codeline_students_app/style/box_decorations.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:codeline_students_app/widgets/drawer_.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -27,12 +28,12 @@ class LangInfo extends StatefulWidget {
 class _LangInfoState extends State<LangInfo> {
   final homeController = Get.put(HomeContoller());
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
   String submisstionStatus = "Pending";
 
   @override
   Widget build(BuildContext context) {
-    print("COllation name" + widget.collectionName);
+    print("Collation name " + widget.collectionName);
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: buildDrawer(context),
@@ -64,11 +65,13 @@ class _LangInfoState extends State<LangInfo> {
 
                           ///GET PARENT COLLATION
                           child: StreamBuilder<QuerySnapshot>(
-                              stream: FirebaseFirestore.instance
+                              stream: kFireStore
                                   .collection(widget.collectionName)
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
+                                  print("Collation Data ${snapshot.data.docs.length}");
+
                                   return ListView.builder(
                                       itemCount: snapshot.data.docs.length,
                                       itemBuilder: (context, index) {

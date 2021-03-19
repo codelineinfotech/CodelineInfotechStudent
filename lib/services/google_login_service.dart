@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/homePage/home_page.dart';
-import 'package:codeline_students_app/screens/login_register/sign_in.dart';
+
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
@@ -11,9 +13,7 @@ import '../controller/validation_getx_controller.dart';
 
 class GoogleLoginService {
   final GoogleSignIn _signIn = GoogleSignIn();
-  final FirebaseFirestore _fireStore = FirebaseFirestore.instance;
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final ValidationController validationController =
       Get.put(ValidationController());
   Future<void> googleLogin(BuildContext context) async {
@@ -27,11 +27,10 @@ class GoogleLoginService {
         idToken: googleSignInAuthentication.idToken,
       );
 
-      final authResult = await _auth.signInWithCredential(credential);
+      final authResult = await kFirebaseAuth.signInWithCredential(credential);
       if (authResult.user != null) {
         print("USER ID${authResult.user.uid.toString()}");
-        DocumentSnapshot _userDoc = await _fireStore
-            .collection('User')
+        DocumentSnapshot _userDoc = await cUserCollection
             .doc(authResult.user.uid)
             .get()
             .catchError((e) => print("$e"));
@@ -46,13 +45,13 @@ class GoogleLoginService {
             print("IS APPROVED ELSE");
             validationController.progressVisible.value = false;
 
-            await _auth.signOut();
+            await kFirebaseAuth.signOut();
             CommanWidget.approvalDialog(context);
           }
         } else {
           print("IS NEW USER");
 
-          _fireStore.collection('User').doc(authResult.user.uid).set({
+          cUserCollection.doc(authResult.user.uid).set({
             'fullName': authResult.user.displayName,
             'email': authResult.user.email,
             'password': "",
@@ -72,7 +71,9 @@ class GoogleLoginService {
         }
       } else {
         validationController.progressVisible.value = false;
-        Get.snackbar('Login Error', 'Login Field Please Try Again!');
+
+        CommanWidget.snackBar(title: Utility.loginError,message:"Login Field Please Try Again!" ,position: SnackPosition.BOTTOM);
+
       }
     } catch (e) {
       validationController.progressVisible.value = false;

@@ -1,3 +1,4 @@
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:flutter/material.dart';
 
 Widget backStringButton({deviceWidth, title, onTap}) {
@@ -20,12 +21,7 @@ Widget backStringButton({deviceWidth, title, onTap}) {
           ),
           Text(
             title,
-            style: TextStyle(
-              fontSize: 22,
-              color: Color(0xba000000),
-              letterSpacing: 0.44,
-              height: 1.2727272727272727,
-            ),
+            style: kAppBarTextStyle,
             textAlign: TextAlign.left,
           ),
         ],
