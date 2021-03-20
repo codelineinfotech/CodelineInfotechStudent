@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 
 import 'package:codeline_students_app/screens/login_register/widgets/back_string_button.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
@@ -102,24 +103,13 @@ class NotificationsScreen extends StatelessWidget {
                                         Text(
                                           snapshot.data.docs[index]
                                               .get('title'),
-                                          style: TextStyle(
-                                              fontFamily: 'MetropolisLight',
-                                              fontSize: 16,
-                                              color: const Color(0xff4a4b4d),
-                                              height: 1.5,
-                                              fontWeight: FontWeight.bold),
+                                          style: kNotificationTitleTextStyle,
                                           textAlign: TextAlign.left,
                                         ),
                                         // Adobe XD layer: 'Profile text slider…' (text)
                                         Text(
                                           time,
-                                          style: TextStyle(
-                                            fontFamily: 'Metropolis',
-                                            fontSize: 12,
-                                            color: const Color(0xffb6b7b7),
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.75,
-                                          ),
+                                          style: kNotificationTimeTextStyle,
                                           textAlign: TextAlign.left,
                                         ),
                                       ],

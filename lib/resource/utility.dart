@@ -1,9 +1,12 @@
+
 class Utility {
   static String emailAddressValidationPattern = r"([a-zA-Z0-9_@.])";
   static String password = r"[a-zA-Z0-9#!_@$%^&*-]";
+  static String emailText = "email";
+  static String passwordText = "password";
   static String nameEmptyValidation = "Name is required";
   static String emailEmptyValidation = "Email is required";
-  static String kUserNameEmptyValidation = 'Please Enter Username';
+  static String kUserNameEmptyValidation = 'Please Enter Valid Email';
   static String kPasswordEmptyValidation = 'Please Enter Password';
   static String kPasswordLengthValidation = 'Must be more than 6 charater';
   static String kPasswordInValidValidation = 'Password Invalid';

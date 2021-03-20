@@ -4,6 +4,7 @@ import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/services/firebase_contactus_service.dart';
 import 'package:codeline_students_app/services/firebase_contactus_service.dart';
+import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,7 +85,7 @@ class ContactUsScreen extends StatelessWidget {
           children: [
             Text(
               'Details',
-              style:kDetailsTextStyle,
+              style: kDetailsTextStyle,
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -92,93 +93,31 @@ class ContactUsScreen extends StatelessWidget {
             ),
 
             ///Name...
-            Text(
-              "Full Name",
-              style: kLabelTextStyle,
-            ),
-            TextFormField(
-              controller: nameTextEditingController,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(30),
-                FilteringTextInputFormatter.allow(
-                    RegExp(Utility.alphabetSpaceValidationPattern))
-              ],
-              // style: TextStyle(
-              //   color: ColorsPicker.darkGrey.withOpacity(0.8),
-              // ),
-              validator: (name) => name.isEmpty ?  Utility.nameEmptyValidation : null,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: ColorsPicker.skyColor)),
+
+            CommanWidget.getTextFormField(
+              labelText:   "Full Name",
+                textEditingController: nameTextEditingController,
                 hintText: "Enter Full Name",
-                hintStyle: kHintTextStyle,
-                prefixIcon: SizedBox(
-                  width: 20,
-                  child: Image.asset(
-                    ImagePath.userPng,
-                    height: 5,
-                    width: 5,
-                    color: ColorsPicker.darkGrey.withOpacity(0.6),
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: deviceSize.width / 14,
-            ),
-
+                inputLength: 30,
+                regularExpression: Utility.alphabetSpaceValidationPattern,
+                validationMessage: Utility.nameEmptyValidation,
+                iconPath:ImagePath.userPng),
             ///Email...
-            Text(
-              "Email Address",
-              style:kLabelTextStyle,
-            ),
-            TextFormField(
-              controller: emailTextEditingController,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(50),
-                FilteringTextInputFormatter.allow(
-                    RegExp(Utility.alphabetDigitsSpecialValidationPattern))
-              ],
-              // style: TextStyle(
-              //   color: ColorsPicker.darkGrey.withOpacity(0.8),
-              // ),
-              validator: (email) => email.isEmpty ? Utility.emailEmptyValidation : null,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              decoration: InputDecoration(
-                focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: ColorsPicker.skyColor)),
+            CommanWidget.getTextFormField(
+              labelText: "Email Address",
+                textEditingController: emailTextEditingController,
+                validationType: Utility.emailText,
                 hintText: "Enter Email Address",
-                hintStyle: kHintTextStyle,
-                prefixIcon: Image.asset(
-                  ImagePath.mailPng,
-                  height: 5,
-                  width: 5,
-                  color: ColorsPicker.darkGrey.withOpacity(0.6),
-                  alignment: Alignment.center,
-                ),
-              ),
-            ),
-
-            SizedBox(
-              height: deviceSize.width / 14,
-            ),
-
+                inputLength: 50,
+                regularExpression: Utility.emailAddressValidationPattern,
+                validationMessage: Utility.emailEmptyValidation,
+            iconPath:ImagePath.mailPng ),
             ///Message...
             Row(
               children: [
                 Text(
                   "Message",
-                  style:kLabelTextStyle,
+                  style: kLabelTextStyle,
                 ),
                 SizedBox(
                   width: 5,
@@ -188,11 +127,7 @@ class ContactUsScreen extends StatelessWidget {
                   size: 15,
                   color: Colors.grey,
                 ),
-                // Image.asset(
-                //   ImagePath.messagePng,
-                //   color: ColorsPicker.darkGrey.withOpacity(0.8),
-                //   alignment: Alignment.topCenter,
-                // )
+
               ],
             ),
             SizedBox(
@@ -200,7 +135,6 @@ class ContactUsScreen extends StatelessWidget {
             ),
             TextFormField(
               maxLines: 5,
-
               controller: messageTextEditingController,
               inputFormatters: [
                 LengthLimitingTextInputFormatter(100),
@@ -208,25 +142,18 @@ class ContactUsScreen extends StatelessWidget {
                     RegExp(Utility.alphabetDigitsSpaceValidationPattern))
               ],
               textInputAction: TextInputAction.done,
-              // style: TextStyle(
-              //   color: ColorsPicker.darkGrey.withOpacity(0.8),
-              // ),
               textAlign: TextAlign.start,
               validator: (message) =>
                   message.isEmpty ? "Message is required" : null,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
+                errorBorder:  CommanWidget.outLineRed,
+                focusedErrorBorder: CommanWidget.outLineRed,
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 focusColor: ColorsPicker.skyColor,
-                enabledBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide:
-                      BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                ),
+                enabledBorder:CommanWidget.outLineSky,
+                focusedBorder: CommanWidget.outLineSky,
                 hintStyle: kHintTextStyle,
               ),
             ),

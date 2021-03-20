@@ -131,8 +131,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: deviceSize.height / 25,
               ),
-
               ///Name...
+              CommanWidget.getTextFormField(
+                  labelText: "Full Name",
+                  textEditingController: nameTextEditingController,
+                  hintText: "Enter Full Name",
+                  inputLength: 30,
+                  regularExpression: Utility.alphabetSpaceValidationPattern,
+                  validationMessage: Utility.nameEmptyValidation,
+                  iconPath: ImagePath.userPng),
+              /*///Name...
 
               CommanWidget.labelWidget(title: "Full Name"),
 
@@ -166,11 +174,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                 ),
               ),
-              sizedBox(),
+              sizedBox(),*/
 
               ///Email...
-
-              CommanWidget.labelWidget(title: "Email Address"),
+              CommanWidget.getTextFormField(
+                  labelText: "Email Address",
+                  textEditingController: emailTextEditingController,
+                  validationType: Utility.emailText,
+                  hintText: "Enter Email Address",
+                  inputLength: 50,
+                  regularExpression: Utility.emailAddressValidationPattern,
+                  validationMessage: Utility.emailEmptyValidation,
+                  iconPath:ImagePath.mailPng ),
+            /*  CommanWidget.labelWidget(title: "Email Address"),
 
               TextFormField(
                 controller: emailTextEditingController,
@@ -203,10 +219,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
 
               sizedBox(),
-
+*/
               ///Mobile Number...
-
-              CommanWidget.labelWidget(title: "Mobile No"),
+              CommanWidget.getTextFormField(
+                labelText: "Mobile No",
+                textEditingController: mobileNoTextEditingController,
+                inputLength: 10,
+                regularExpression: Utility.digitsValidationPattern,
+                validationMessage: Utility.mobileNumberInValidValidation,
+                validationType: 'mobileno',
+                hintText: "Enter Mobile No",
+                icon: Icons.phone_android_rounded,
+              ),
+           /*   CommanWidget.labelWidget(title: "Mobile No"),
 
               TextFormField(
                 controller: mobileNoTextEditingController,
@@ -240,10 +265,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
 
-              sizedBox(),
+              sizedBox(),*/
 
               ///Password ...
-
+              CommanWidget.getTextFormField(
+                labelText: "Password",
+                textEditingController: passwordTextEditingController,
+                inputLength: 30,
+                regularExpression: Utility.password,
+                validationMessage: "",
+                validationType: 'Password',
+                hintText: "Enter Password",
+                iconPath: ImagePath.passwordPng,
+              ),
               CommanWidget.labelWidget(title: "Password"),
 
               TextFormField(
@@ -339,17 +373,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 obscureText: validationController.obscureText.value,
               ),
               sizedBox(),
-
               ///Terms & Condition
               _termsNCondition(),
-
               sizedBox(),
-              // RaisedButton(
-              //   onPressed: () {
-              //     CommanWidget.approvalDialog(context);
-              //   },
-              //   child: Text("DEmo"),
-              // ),
+
               activeButton(
                   title: "Sign up",
                   onTap: () async {

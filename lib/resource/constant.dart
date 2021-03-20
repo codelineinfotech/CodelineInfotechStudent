@@ -39,6 +39,19 @@ String fontMerriWeather='Merriweather';
    fontSize: 14,
    color: ColorsPicker.skyColor,
  );
+ final TextStyle kNotificationTitleTextStyle= TextStyle(
+     fontFamily: 'MetropolisLight',
+     fontSize: 16,
+     color: const Color(0xff4a4b4d),
+     height: 1.5,
+     fontWeight: FontWeight.bold);
+ final TextStyle kNotificationTimeTextStyle= TextStyle(
+   fontFamily: 'Metropolis',
+   fontSize: 12,
+   color: const Color(0xffb6b7b7),
+   fontWeight: FontWeight.w700,
+   height: 1.75,
+ );
 
  final TextStyle kDetailsTextStyle= TextStyle(
    fontFamily: fontRoboto,

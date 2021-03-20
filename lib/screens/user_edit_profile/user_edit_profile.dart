@@ -231,181 +231,62 @@ class _UserEditProfileState extends State<UserEditProfile> {
               SizedBox(
                 height: 30,
               ),
-              CommanWidget.labelWidget(title: "Full Name"),
-
-
-              TextFormField(
-                controller: nameTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(30),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetSpaceValidationPattern))
-                ],
-                validator: (name) =>
-                    name.isEmpty ? Utility.nameEmptyValidation : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
+              ///Name...
+              CommanWidget.getTextFormField(
+                  labelText: "Full Name",
+                  textEditingController: nameTextEditingController,
                   hintText: "Enter Full Name",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: Icon(
-                    Icons.person_outline_sharp,
-                    color: Color(0xff9A9BA7),
-                  ),
-                  // prefixIcon: SizedBox(
-                  //   width: 20,
-                  //   child: Image.asset(
-                  //     ImagePath.userPng,
-                  //     height: 5,
-                  //     width: 5,
-                  //     alignment: Alignment.center,
-                  //   ),
-                  // ),
-                ),
-              ),
-              sizedBox(),
+                  inputLength: 30,
+                  regularExpression: Utility.alphabetSpaceValidationPattern,
+                  validationMessage: Utility.nameEmptyValidation,
+                  iconPath: ImagePath.userPng),
 
               ///Email...
-              CommanWidget.labelWidget(title: "Email Address"),
-
-              TextFormField(
-                controller: emailTextEditingController,
-                enabled: false,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(50),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetDigitsSpecialValidationPattern))
-                ],
-                style: TextStyle(
-                  color: ColorsPicker.darkGrey.withOpacity(0.8),
-                ),
-                validator: (email) =>
-                    email.isEmpty ? Utility.emailEmptyValidation : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
+              CommanWidget.getTextFormField(
+                  labelText: "Email Address",
+                  isEnable: false,
+                  textEditingController: emailTextEditingController,
+                  validationType: Utility.emailText,
                   hintText: "Enter Email Address",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: Icon(Icons.mail_outline_sharp),
-                  // prefixIcon: Image.asset(
-                  //   ImagePath.mailPng,
-                  //   height: 5,
-                  //   width: 5,
-                  //   alignment: Alignment.center,
-                  // ),
-                ),
-              ),
-              sizedBox(),
+                  inputLength: 50,
+                  regularExpression: Utility.emailAddressValidationPattern,
+                  validationMessage: Utility.emailEmptyValidation,
+                  iconPath: ImagePath.mailPng),
 
               ///Mobile Number...
-
-              CommanWidget.labelWidget(title: "Mobile No"),
-
-              TextFormField(
-                controller: mobileNoTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(10),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.digitsValidationPattern))
-                ],
-                validator: (name) => name.isEmpty
-                    ? Utility.mobileNumberInValidValidation
-                    : mobileNoTextEditingController.text.length != 10
-                        ? Utility.mobileNumberInValidValidation
-                        : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Mobile No",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: SizedBox(
-                    width: 20,
-                    child: Icon(
-                      Icons.phone_android_rounded,
-                      color: Color(0xff9A9BA7),
-                    ),
-                  ),
-                ),
+              CommanWidget.getTextFormField(
+                labelText: "Mobile No",
+                textEditingController: mobileNoTextEditingController,
+                inputLength: 10,
+                regularExpression: Utility.digitsValidationPattern,
+                validationMessage: Utility.mobileNumberInValidValidation,
+                validationType: 'mobileno',
+                hintText: "Enter Mobile No",
+                icon: Icons.phone_android_rounded,
               ),
-              sizedBox(),
 
               ///Addresss...
-
-              CommanWidget.labelWidget(title: "Address"),
-
-              TextFormField(
-                controller: addressTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(100),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetDigitsSpaceValidationPattern))
-                ],
-                // validator: (name) =>
-                // name.isEmpty ? "Address is required" : null,
-                // autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Address",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: Icon(
-                    Icons.location_on,
-                    color: Color(0xff9A9BA7),
-                  ),
-                ),
+              CommanWidget.getTextFormField(
+                labelText: "Address",
+                textEditingController: addressTextEditingController,
+                inputLength: 100,
+                isValidate: false,
+                regularExpression: Utility.alphabetDigitsSpaceValidationPattern,
+                hintText: "Enter Address",
+                icon: Icons.location_on,
               ),
-              sizedBox(),
 
               ///Course Name ...
+              CommanWidget.getTextFormField(
+                  labelText: "Course Name",
+                  isEnable: false,
+                  textEditingController: courseTextEditingController,
+                  hintText: "Enter Course Name",
+                  inputLength: 1,
+                  regularExpression: "",
+                  validationMessage: "",
+                  icon: Icons.book_outlined),
 
-              CommanWidget.labelWidget(title: "Course Name"),
-
-              TextFormField(
-                controller: courseTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(50),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetDigitsSpacePlusValidationPattern))
-                ],
-                enabled: false,
-                style: TextStyle(
-                  color: ColorsPicker.darkGrey.withOpacity(0.8),
-                ),
-                // validator: (name) =>
-                //     name.isEmpty ? "Course Name is required" : null,
-                // autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Course Name",
-                  hintStyle:kHintTextStyle,
-                  prefixIcon: Icon(Icons.book_outlined),
-                ),
-              ),
-              sizedBox(),
               InkWell(
                 onTap: () {
                   updateUserData();
@@ -440,16 +321,6 @@ class _UserEditProfileState extends State<UserEditProfile> {
       ),
     );
   }
-    sizedBox() {
-      return SizedBox(height: deviceSize.width / 14);
-    }
-
-  labelWidget({String title}) {
-    return Text(
-      title,
-      style: kLabelTextStyle,
-    );
-  }
   Future<void> updateUserData({
     String email,
     String password,
@@ -460,13 +331,9 @@ class _UserEditProfileState extends State<UserEditProfile> {
       print("FORM CURRENT CALL");
       if (_formKey.currentState.validate()) {
         print("FORM CURRENT CALL VALIDATE");
-
         _homeContoller.isLoad.value = true;
-
-        // print("_IMAGE" + _image.toString());
         if (_image != null) {
           await uploadImage(_image);
-
           print("UPLOAD SUCCESS023020");
           print("Image URL  $imageUrl");
           print("SAVE STORAGE CALL $storagePath");
@@ -479,13 +346,10 @@ class _UserEditProfileState extends State<UserEditProfile> {
           }, SetOptions(merge: true)).then((value) {
             print("SIGNUP SUCCESSFULLY");
             _homeContoller.isLoad.value = false;
-            // Get.offAll(HomePage());
             CommanWidget.snackBar(
                 title: "Profile Update",
                 message: "User Profile Update Successfully",
                 position: SnackPosition.TOP);
-
-            // CommanWidget.circularProgress();
           }).catchError((e) {
             _homeContoller.isLoad.value = false;
             print('cloud Error ' + _homeContoller.isLoad.value.toString());
@@ -508,8 +372,6 @@ class _UserEditProfileState extends State<UserEditProfile> {
                 title: "Profile Update",
                 message: "User Profile Update Successfully",
                 position: SnackPosition.TOP);
-
-            // CommanWidget.circularProgress();
           }).catchError((e) {
             _homeContoller.isLoad.value = false;
             print('cloud Error ' + _homeContoller.isLoad.value.toString());
@@ -520,22 +382,17 @@ class _UserEditProfileState extends State<UserEditProfile> {
       }
     } else {
       _homeContoller.isLoad.value = false;
-
       print("Validat Method was call on null");
     }
   }
-
   uploadImage(File image) async {
     var permissionStatus = await Permission.photos.status;
     if (permissionStatus.isGranted) {
       final _firebaseStorage = FirebaseStorage.instanceFor(
-          bucket: 'gs://studentapp-a47d3.appspot.com');
+          bucket: Utility.bucketURL);
       String path = 'UserProfilePic/${DateTime.now().microsecondsSinceEpoch}';
-
       var file = File(image.path);
       if (image != null) {
-        //Upload to Firebase
-
         if (storagePath != null && storagePath != "") {
           try {
             await _firebaseStorage
@@ -544,9 +401,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
                 .delete()
                 .catchError((e) => print("DELETE IMAGE ERROR$e"));
             _homeContoller.isLoad.value = true;
-
             print("Done");
-            // uploadProfile(_firebaseStorage, path, file);
             await Future.delayed(
               Duration(milliseconds: 100),
             );
@@ -563,7 +418,6 @@ class _UserEditProfileState extends State<UserEditProfile> {
             print("ERROR --> ${e.toString()}");
           }
         } else {
-          // _homeContoller.isLoad.value = true;
           await Future.delayed(
             Duration(milliseconds: 100),
           );
@@ -587,7 +441,6 @@ class _UserEditProfileState extends State<UserEditProfile> {
   _imgFromCamera() async {
     File image = await ImagePicker.pickImage(
         source: ImageSource.camera, imageQuality: 50);
-
     if (image != null) {
       setState(() {
         _image = image;
@@ -595,7 +448,6 @@ class _UserEditProfileState extends State<UserEditProfile> {
       // uploadImage(_image);
     }
   }
-
   _imgFromGallery() async {
     File image = await ImagePicker.pickImage(
         source: ImageSource.gallery, imageQuality: 50);
@@ -603,10 +455,8 @@ class _UserEditProfileState extends State<UserEditProfile> {
       setState(() {
         _image = image;
       });
-      // uploadImage(_image);
     }
   }
-
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -636,7 +486,6 @@ class _UserEditProfileState extends State<UserEditProfile> {
           );
         });
   }
-
   void uploadProfile(
       FirebaseStorage _firebaseStorage, String path, File file) async {
     await Future.delayed(
@@ -652,7 +501,6 @@ class _UserEditProfileState extends State<UserEditProfile> {
     // _homeContoller.isLoad.value = false;
   }
 }
-
 class MyCustomClipar extends CustomClipper<Path> {
   @override
   getClip(Size size) {
