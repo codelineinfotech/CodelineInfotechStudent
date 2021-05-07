@@ -27,6 +27,7 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
 
   @override
   void initState() {
+    print("gdfgdf");
     // TODO: implement initState
     data = Get.arguments;
     topicTitle = data['title'].toString();
@@ -114,8 +115,7 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
                                         fitEachPage: true,
                                         fitPolicy: FitPolicy.WIDTH,
                                         onRender: (_pages) {
-                                          setState(() {
-                                          });
+                                          setState(() {});
                                         },
                                         onError: (error) {
                                           print(
@@ -126,8 +126,7 @@ class _ViewMoreScreenState extends State<ViewMoreScreen> {
                                               '$page: ${error.toString()}');
                                         },
                                         onViewCreated: (PDFViewController
-                                            pdfViewController) {
-                                        },
+                                            pdfViewController) {},
                                         onPageChanged: (int page, int total) {
                                           print('page change: $page/$total');
                                         },
