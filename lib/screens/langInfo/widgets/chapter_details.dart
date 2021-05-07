@@ -57,6 +57,7 @@ Widget chapterDetails({
         if (snapshot.hasData) {
           // print("TOTAL TOPIC LENGTH" + snapshot.data.docs.length.toString());
           print("DATA LENGTH -->  ${snapshot.data.docs.length}");
+          print("UID -->  ${kFirebaseAuth.currentUser.uid}");
 
 
           return Obx(() => AnimatedContainer(
@@ -112,8 +113,8 @@ Widget chapterDetails({
                                       .snapshots(),
                                   builder: (context, completeSnapshot) {
                                     if (completeSnapshot.hasData) {
-                                      print("completeSnapshot ${(completeSnapshot.data.get("${course.toString()}_CourseTopic")
-                                      as List).toString()}" );
+                                      // print("completeSnapshot ${(completeSnapshot.data.get("${course.toString()}_CourseTopic")
+                                      // as List).toString()}" );
 
                                       String field = course +
                                           "_" +

@@ -1,5 +1,5 @@
-import 'dart:math';
 
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
@@ -127,11 +127,7 @@ Widget langBox2({color, title, darkColor, intialValue, child}) {
                   ),
                   Text(
                     title,
-                    style: TextStyle(
-                      fontFamily: 'Merriweather',
-                      fontSize: 20,
-                      color: const Color(0xff232c42),
-                    ),
+                    style: kTitleLanguageTextStyle,
                   ),
                 ],
               ),
@@ -149,13 +145,7 @@ Widget langBox2({color, title, darkColor, intialValue, child}) {
                     topLeft: Radius.circular(18),
                     bottomRight: Radius.circular(18)),
                 color: color,
-                boxShadow: [
-                  // BoxShadow(
-                  //   color: const Color(0x29000000).withOpacity(0.5),
-                  //   offset: Offset(0, 3),
-                  //   blurRadius: 6,
-                  // ),
-                ],
+
               ),
               child: child,
             ),
@@ -217,11 +207,7 @@ Widget langBoxGrid({color, title, darkColor, intialValue, child}) {
                   ),
                   Text(
                     title,
-                    style: TextStyle(
-                      fontFamily: 'Merriweather',
-                      fontSize: 12,
-                      color: const Color(0xff232c42),
-                    ),
+                    style: kGridTitleTextStyle,
                   ),
                   SizedBox(
                     height: Get.height / 130,

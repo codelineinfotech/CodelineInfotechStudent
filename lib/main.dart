@@ -1,14 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:codeline_students_app/controller/home_controller.dart';
-import 'package:codeline_students_app/screens/homePage/home_page.dart';
-import 'package:codeline_students_app/screens/genral_screen/on_board.dart';
 import 'package:codeline_students_app/screens/splash/splash_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:firebase_core/firebase_core.dart';
-
-//com.codelineInfotech.studentApp
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();

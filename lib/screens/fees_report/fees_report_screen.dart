@@ -19,7 +19,6 @@ class FeesReportScreen extends StatefulWidget {
 }
 
 class _FeesReportScreenState extends State<FeesReportScreen> {
-  File _image;
   Size deviceSize;
   String feesStatus = "Complate",
       studentName = "",

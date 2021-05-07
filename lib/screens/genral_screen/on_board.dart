@@ -1,5 +1,4 @@
 import 'package:codeline_students_app/resource/image_path.dart';
-import 'package:codeline_students_app/screens/homePage/home_page.dart';
 import 'package:codeline_students_app/screens/splash/walking_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -15,7 +14,6 @@ class OnBoardPage extends StatefulWidget {
 class _OnBoardPageState extends State<OnBoardPage> {
   @override
   Widget build(BuildContext context) {
-    print("ON BOARD");
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

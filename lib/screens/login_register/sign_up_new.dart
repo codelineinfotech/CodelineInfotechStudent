@@ -140,41 +140,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   regularExpression: Utility.alphabetSpaceValidationPattern,
                   validationMessage: Utility.nameEmptyValidation,
                   iconPath: ImagePath.userPng),
-              /*///Name...
 
-              CommanWidget.labelWidget(title: "Full Name"),
-
-              TextFormField(
-                controller: nameTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(30),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.alphabetSpaceValidationPattern))
-                ],
-                validator: (name) =>
-                    name.isEmpty ? Utility.nameEmptyValidation : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Full Name",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: SizedBox(
-                    width: 20,
-                    child: Image.asset(
-                      ImagePath.userPng,
-                      height: 5,
-                      width: 5,
-                      alignment: Alignment.center,
-                    ),
-                  ),
-                ),
-              ),
-              sizedBox(),*/
 
               ///Email...
               CommanWidget.getTextFormField(
@@ -186,40 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   regularExpression: Utility.emailAddressValidationPattern,
                   validationMessage: Utility.emailEmptyValidation,
                   iconPath:ImagePath.mailPng ),
-            /*  CommanWidget.labelWidget(title: "Email Address"),
 
-              TextFormField(
-                controller: emailTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(50),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.emailAddressValidationPattern))
-                ],
-                // validator: (email) => email.isEmpty ? "Email is required" : null,
-                validator: (text) {
-                  return Utility.validateUserName(text);
-                },
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Email Address",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: Image.asset(
-                    ImagePath.mailPng,
-                    height: 5,
-                    width: 5,
-                    alignment: Alignment.center,
-                  ),
-                ),
-              ),
-
-              sizedBox(),
-*/
               ///Mobile Number...
               CommanWidget.getTextFormField(
                 labelText: "Mobile No",
@@ -231,41 +164,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 hintText: "Enter Mobile No",
                 icon: Icons.phone_android_rounded,
               ),
-           /*   CommanWidget.labelWidget(title: "Mobile No"),
 
-              TextFormField(
-                controller: mobileNoTextEditingController,
-                inputFormatters: [
-                  LengthLimitingTextInputFormatter(10),
-                  FilteringTextInputFormatter.allow(
-                      RegExp(Utility.digitsValidationPattern))
-                ],
-                validator: (name) => name.isEmpty
-                    ? Utility.mobileNumberInValidValidation
-                    : mobileNoTextEditingController.text.length != 10
-                        ? Utility.mobileNumberInValidValidation
-                        : null,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Mobile No",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: SizedBox(
-                    width: 20,
-                    child: Icon(
-                      Icons.phone_android_rounded,
-                      color: Color(0xff9A9BA7),
-                    ),
-                  ),
-                ),
-              ),
-
-              sizedBox(),*/
 
               ///Password ...
               CommanWidget.getTextFormField(
@@ -273,106 +172,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 textEditingController: passwordTextEditingController,
                 inputLength: 30,
                 regularExpression: Utility.password,
-                validationMessage: "",
-                validationType: 'Password',
+                validationMessage: "Password is required",
+                validationType: 'password',
                 hintText: "Enter Password",
                 iconPath: ImagePath.passwordPng,
               ),
-              CommanWidget.labelWidget(title: "Password"),
 
-              TextFormField(
-                controller: passwordTextEditingController,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(Utility.password)),
-                  LengthLimitingTextInputFormatter(30),
-                  /*     FilteringTextInputFormatter.allow(RegExp(Utility
-                                    .alphabetDigitsSpecialValidationPattern))*/
-                ],
-                // validator: (password) =>
-                //     password.isEmpty ? "Password is required" : null,
-                validator: (text) {
-                  return Utility.validatePassword(text);
-                },
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Password",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: Image.asset(
-                    ImagePath.passwordPng,
-                    height: 5,
-                    width: 5,
-                    alignment: Alignment.center,
-                  ),
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      validationController.toggle();
-                    },
-                    child: Icon(
-                      !validationController.obscureText.value
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: ColorsPicker.skyColor,
-                    ),
-                  ),
-                ),
-                obscureText: validationController.obscureText.value,
-              ),
-
-              sizedBox(),
 
               ///Confirm Password ...
-              CommanWidget.labelWidget(title: "Conform Password"),
 
-              TextFormField(
-                controller: conformPasswordTextEditingController,
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(Utility.password)),
-                  LengthLimitingTextInputFormatter(30),
-                  /*     FilteringTextInputFormatter.allow(RegExp(Utility
-                                    .alphabetDigitsSpecialValidationPattern))*/
-                ],
-                // validator: (password) =>
-                //     password.isEmpty ? "Password is required" : null,
-                validator: (text) {
-                  return Utility.validatePassword(text);
-                },
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                decoration: InputDecoration(
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide:
-                        BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: ColorsPicker.skyColor)),
-                  hintText: "Enter Conform Password",
-                  hintStyle: kHintTextStyle,
-                  prefixIcon: Image.asset(
-                    ImagePath.passwordPng,
-                    height: 5,
-                    width: 5,
-                    alignment: Alignment.center,
-                  ),
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      validationController.toggle();
-                    },
-                    child: Icon(
-                      !validationController.obscureText.value
-                          ? Icons.visibility_off
-                          : Icons.visibility,
-                      color: ColorsPicker.skyColor,
-                    ),
-                  ),
-                ),
-                obscureText: validationController.obscureText.value,
+
+              CommanWidget.getTextFormField(
+                labelText: "Conform Password",
+                textEditingController: conformPasswordTextEditingController,
+                inputLength: 30,
+                regularExpression: Utility.password,
+                validationMessage: "Conform Password is required",
+                validationType: 'password',
+                hintText: "Enter Conform Password",
+                iconPath: ImagePath.passwordPng,
               ),
-              sizedBox(),
+
               ///Terms & Condition
               _termsNCondition(),
               sizedBox(),
@@ -429,12 +249,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return SizedBox(height: deviceSize.width / 14);
   }
 
-  labelWidget({String title}) {
-    return Text(
-      title,
-      style: kLabelTextStyle,
-    );
-  }
 
   Widget _termsNCondition() {
     print("T&C  --> " + validationController.termCondition.value.toString());
@@ -449,13 +263,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               return Checkbox(
                 value: validationController.termCondition.value,
                 onChanged: (value) {
-                  validationController.chnageTC();
-
-                  print("T&C Chnage --> " +
-                      validationController.termCondition.value.toString());
-                  /* validationController.termCondition.value =
-                    !validationController.termCondition.value;*/
-                  // validationController.chnageTC();
                 },
                 checkColor: Colors.white,
                 activeColor: ColorsPicker.skyColor,
@@ -468,29 +275,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         Text.rich(
           TextSpan(
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 15,
-              color: ColorsPicker.darkGrey,
-            ),
+            style: kTermsTextStyle,
             children: [
               TextSpan(
                 text: 'I agree to the ',
               ),
               TextSpan(
                 text: 'Terms',
-                style: TextStyle(
-                  color: ColorsPicker.skyColor,
-                ),
+                style: kSkyTextStyle,
               ),
               TextSpan(
                 text: ' and ',
               ),
               TextSpan(
                 text: 'Privacy',
-                style: TextStyle(
-                  color: ColorsPicker.skyColor,
-                ),
+                style: kSkyTextStyle,
               ),
               TextSpan(
                 text: ' policy.',

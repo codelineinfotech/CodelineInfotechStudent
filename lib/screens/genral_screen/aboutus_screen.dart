@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../login_register/widgets/back_string_button.dart';
-import '../login_register/widgets/widgets.dart';
 
 class AboutUsScreen extends StatelessWidget {
   Size deviceSize;
@@ -32,7 +31,7 @@ class AboutUsScreen extends StatelessWidget {
                 child: Container(
                   padding:
                       EdgeInsets.only(left: 10, right: 10, top: 15, bottom: 30),
-                  // height: deviceSize.height,
+
                   child: Text(
                     Utility.aboutUs,
                     textAlign: TextAlign.justify,

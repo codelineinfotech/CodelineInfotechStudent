@@ -19,7 +19,7 @@ class Utility {
 
   static String alphabetDigitsSpacePlusValidationPattern = r"[a-zA-Z0-9+ ]";
 
-  static String alphabetDigitsSpecialValidationPattern = r"[a-zA-Z0-9#$%_@.]";
+  static String alphabetDigitsSpecialValidationPattern = r"[a-zA-Z0-9#&$%_@. ]";
 
   static String alphabetDigitsDashValidationPattern = r"[a-zA-Z0-9-]";
   static String digitsValidationPattern = r"[0-9]";
@@ -77,3 +77,6 @@ class Utility {
 
   }
 }
+
+// Basic Of Dart
+

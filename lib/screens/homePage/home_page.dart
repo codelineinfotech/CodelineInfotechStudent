@@ -4,7 +4,6 @@ import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/controller/home_controller.dart';
 import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
-import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/app_bar_.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/fees_detail.dart';
 import 'package:codeline_students_app/screens/homePage/widgets/lang_box.dart';
@@ -13,7 +12,6 @@ import 'package:codeline_students_app/screens/langInfo/lang_info.dart';
 import 'package:codeline_students_app/style/box_decorations.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:codeline_students_app/widgets/drawer_.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -31,7 +29,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    print("HOME PAGE CALL");
     super.initState();
   }
 
@@ -404,11 +401,7 @@ class _HomePageState extends State<HomePage> {
               intialValue: snapshot.data.get('percentage.CLanguage').toDouble(),
               child: Text(
                 'C',
-                style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 24,
-                  color: const Color(0xff232c42),
-                ),
+                style:kLangLabelTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -434,11 +427,7 @@ class _HomePageState extends State<HomePage> {
               intialValue: snapshot.data.get('percentage.C++').toDouble(),
               child: Text(
                 'C++',
-                style: TextStyle(
-                  fontFamily: 'Merriweather',
-                  fontSize: 16,
-                  color: Colors.white,
-                ),
+                style:kLangLabelTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),

@@ -33,7 +33,6 @@ class _LangInfoState extends State<LangInfo> {
 
   @override
   Widget build(BuildContext context) {
-    print("Collation name " + widget.collectionName);
     return Scaffold(
       key: _scaffoldKey,
       endDrawer: buildDrawer(context),
@@ -70,12 +69,10 @@ class _LangInfoState extends State<LangInfo> {
                                   .snapshots(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
-                                  print("Collation Data ${snapshot.data.docs.length}");
 
                                   return ListView.builder(
                                       itemCount: snapshot.data.docs.length,
                                       itemBuilder: (context, index) {
-                                        // print(snapshot.data.docs[index].id);
                                         return FadeInLeft(
                                           duration: Duration(milliseconds: 400),
                                           child: chapterDetails(
@@ -85,10 +82,6 @@ class _LangInfoState extends State<LangInfo> {
                                               index: index,
                                               homeController: homeController,
                                               sequenceNo: index + 1,
-                                              // .data.docs[index]
-                                              // .get("sequence")snapshot
-                                              // .data.docs[index]
-                                              // .get("sequence"),
                                               assignmentLink: snapshot
                                                   .data.docs[index]
                                                   .get("assignment"),

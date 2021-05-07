@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -60,10 +60,7 @@ Widget appBar({onMenuTap}) {
                               notificationCount = notificationCount - 1;
                             }
                           });
-                          print(
-                              "NOTIFICATION COUNT${notificationCount.toString()}");
-
-                          return notificationCount.toString() != '0'
+                           return notificationCount.toString() != '0'
                               ? Container(
                                   alignment: Alignment.center,
                                   height: Get.height / 40,
@@ -76,15 +73,12 @@ Widget appBar({onMenuTap}) {
                                   ),
                                   child: Text(
                                     notificationCount.toString(),
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.black,
-                                    ),
+                                    style: kNotificationTextStyle,
                                   ),
                                 )
-                              : Container();
+                              : SizedBox();
                         } else {
-                          return Container();
+                          return SizedBox();
                         }
                       }),
                 )

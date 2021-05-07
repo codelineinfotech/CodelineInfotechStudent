@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/collectionRoute/collection_route.dart';
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 
 
@@ -35,24 +34,17 @@ Widget homeAppBar({onMenuTap}) {
                   height: Get.height / 15,
                   width: Get.height / 15,
                 ),
-                InkWell(
-                  onTap: () {
-                    // DateTime _dateTime = DateTime.now();
-                    // print(DateFormat.jms().format(_dateTime));
-                  },
-                  // onTap: () => Get.to(StudentList()),
-                  child: Container(
-                    height: Get.height / 20,
-                    width: Get.height / 20,
-                    padding: EdgeInsets.all(Get.height / 100),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff26D147), width: 2),
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: SvgPicture.asset(
-                      ImagePath.bellSvg,
-                    ),
+                Container(
+                  height: Get.height / 20,
+                  width: Get.height / 20,
+                  padding: EdgeInsets.all(Get.height / 100),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xff26D147), width: 2),
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
+                  child: SvgPicture.asset(
+                    ImagePath.bellSvg,
                   ),
                 ),
                 Positioned(
@@ -71,8 +63,6 @@ Widget homeAppBar({onMenuTap}) {
                               notificationCount = notificationCount - 1;
                             }
                           });
-                          print(
-                              "NOTIFICATION COUNT${notificationCount.toString()}");
 
                           return notificationCount.toString() != '0'
                               ? Container(
@@ -87,10 +77,7 @@ Widget homeAppBar({onMenuTap}) {
                                   ),
                                   child: Text(
                                     notificationCount.toString(),
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: Colors.black,
-                                    ),
+                                    style:kNotificationTextStyle,
                                   ),
                                 )
                               : Container();

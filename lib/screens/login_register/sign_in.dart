@@ -116,7 +116,7 @@ class _SignInState extends State<SignIn> {
           SizedBox(
             height: deviceWidth / 10,
           ),
-          TextFormField(
+   /*       TextFormField(
             controller: emailController,
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
@@ -143,15 +143,25 @@ class _SignInState extends State<SignIn> {
                 width: 5,
               ),
             ),
-          ),
-          SizedBox(height: deviceWidth / 14),
+          ),*/
+          ///Email...
+          CommanWidget.getTextFormField(
+              labelText: "Email Address",
+              textEditingController: emailController,
+              validationType: Utility.emailText,
+              hintText: "Enter Email Address",
+              inputLength: 50,
+              regularExpression: Utility.emailAddressValidationPattern,
+              validationMessage: Utility.emailEmptyValidation,
+              iconPath:ImagePath.mailPng ),
+        /*  SizedBox(height: deviceWidth / 14),
           TextFormField(
             controller: passwordController,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(Utility.password)),
               LengthLimitingTextInputFormatter(30),
-              /*     FilteringTextInputFormatter.allow(RegExp(Utility
-                                    .alphabetDigitsSpecialValidationPattern))*/
+              *//*     FilteringTextInputFormatter.allow(RegExp(Utility
+                                    .alphabetDigitsSpecialValidationPattern))*//*
             ],
             // validator: (password) =>
             //     password.isEmpty ? "Password is required" : null,
@@ -186,8 +196,19 @@ class _SignInState extends State<SignIn> {
               ),
             ),
             obscureText: validationController.obscureText.value,
+          ),*/
+          ///Password ...
+          CommanWidget.getTextFormField(
+            labelText: "Password",
+            textEditingController: passwordController,
+            inputLength: 30,
+            regularExpression: Utility.password,
+            validationMessage: "Password is required",
+            validationType: 'password',
+            hintText: "Enter Password",
+            iconPath: ImagePath.passwordPng,
           ),
-          SizedBox(height: deviceWidth / 20),
+          // SizedBox(height: deviceWidth / 14),
           GestureDetector(
             onTap: () {
               FocusScope.of(context).unfocus();

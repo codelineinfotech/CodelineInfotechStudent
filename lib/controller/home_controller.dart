@@ -7,7 +7,9 @@ class HomeContoller extends GetxController {
   RxInt selectedIndex = 500.obs;
   RxInt splashIndex = 0.obs;
   RxInt langIndex = 0.obs;
-
+  RxString selectedCourse = "".obs;
+  RxString descriptionFileName = "".obs;
+  RxString assignmentFileName = "".obs;
   RxInt cLanguageTopicCount = 0.obs;
   RxInt cLanguageCompleteTopicCount = 0.obs;
   RxInt cppTopicCount = 0.obs;
@@ -18,4 +20,9 @@ class HomeContoller extends GetxController {
 
   RxInt flutterTopicCount = 0.obs;
   RxInt flutterCompleteTopicCount = 0.obs;
+
+  void changeLoaderStatus(bool _isLoad) {
+    isLoad.value = _isLoad;
+    update();
+  }
 }

@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 
+import '../add_course_topic_screen.dart';
+
 Widget buildDrawer(BuildContext context) {
 
   return Drawer(
@@ -178,6 +180,18 @@ Widget buildDrawer(BuildContext context) {
 
         ),
         Spacer(),
+        // customSizedBox(context),
+        //
+        // InkWell(
+        //   onTap: () {
+        //     Get.back();
+        //
+        //     Get.to(AddCourseTopic());
+        //   },
+        //   child: labelWidget(title: 'Add Course'),
+        //
+        // ),
+        // Spacer(),
         InkWell(
           onTap: () {
             kFirebaseAuth.signOut().then((value) => Get.offAll(SignIn()));

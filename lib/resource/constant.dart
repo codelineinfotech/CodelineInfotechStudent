@@ -39,6 +39,9 @@ String fontMerriWeather='Merriweather';
    fontSize: 14,
    color: ColorsPicker.skyColor,
  );
+ final TextStyle kSkyTextStyle= TextStyle(
+   color: ColorsPicker.skyColor,
+ );
  final TextStyle kNotificationTitleTextStyle= TextStyle(
      fontFamily: 'MetropolisLight',
      fontSize: 16,
@@ -67,8 +70,15 @@ String fontMerriWeather='Merriweather';
    color: ColorsPicker.blackA,
    letterSpacing: 0.44,
    height: 1.2727272727272727,
+ ); final TextStyle kThreeTextStyle= TextStyle(
+   fontSize: 10,
+   color: Colors.black,
  );
-
+ final TextStyle kTitleLanguageTextStyle=TextStyle(
+ fontFamily: fontMerriWeather,
+ fontSize: 20,
+ color: const Color(0xff232c42),
+ );
  final TextStyle kButtonTextStyle= TextStyle(
    fontFamily: fontRoboto,
    fontSize: 22,
@@ -92,6 +102,16 @@ String fontMerriWeather='Merriweather';
    fontSize: 15,
    color: ColorsPicker.blizzardBlue,
  );
+ final TextStyle kLangLabelTextStyle= TextStyle(
+   fontFamily: fontMerriWeather,
+   fontSize: 24,
+   color: const Color(0xff232c42),
+ );
+ final TextStyle kTermsTextStyle= TextStyle(
+   fontFamily: fontRoboto,
+   fontSize: 15,
+   color: ColorsPicker.darkGrey,
+ );
  final TextStyle kHomeWhiteLabelTextStyle=  TextStyle(
    fontFamily: fontRoboto,
    fontSize: 27,
@@ -101,6 +121,31 @@ String fontMerriWeather='Merriweather';
    fontFamily: fontMerriWeather,
    fontSize: 28,
    color: Colors.white,
+ );
+ final TextStyle kGridTitleTextStyle= TextStyle(
+   fontFamily: fontMerriWeather,
+   fontSize: 12,
+   color: const Color(0xff232c42),
+ );
+ final TextStyle kNotificationTextStyle=  TextStyle(
+   fontSize: 10,
+   color: Colors.black,
+ );
+ final TextStyle kChaptarCardStyle= TextStyle(
+   fontFamily: fontMerriWeather,
+   fontSize: 16,
+   color: const Color(0xff1d4777),
+   fontWeight: FontWeight.w700,
+ );  final TextStyle kSequenceNoStyle= TextStyle(
+   fontFamily: fontRoboto,
+   fontSize: 25,
+   color: const Color(0xffafa823),
+ );
+ final TextStyle kTopicStyle= TextStyle(
+   fontFamily: 'Helvetica Neue',
+   fontSize: 25,
+   color: const Color(0xff707070),
+   fontWeight: FontWeight.w700,
  );
  final TextStyle kCPPWhiteLabelTextStyle=  TextStyle(
    fontFamily: fontMerriWeather,
@@ -112,7 +157,8 @@ String fontMerriWeather='Merriweather';
    fontFamily: fontMerriWeather,
    fontSize: 18,
    color: const Color(0xff232c42),
- );final TextStyle kAboutsUsTextStyle=TextStyle(
+ );
+ final TextStyle kAboutsUsTextStyle=TextStyle(
    fontFamily: 'Roboto',
    fontSize: 15,
  );

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,11 +32,7 @@ Widget chapterCard({homeController, index, title, description, seuqenceNo}) {
             ),
             child: Text(
               "${seuqenceNo.toString()}",
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 25,
-                color: const Color(0xffafa823),
-              ),
+              style: kSequenceNoStyle,
             ),
           ),
           SizedBox(
@@ -48,12 +45,7 @@ Widget chapterCard({homeController, index, title, description, seuqenceNo}) {
             child: Text(
               title,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: 'Merriweather',
-                fontSize: 16,
-                color: const Color(0xff1d4777),
-                fontWeight: FontWeight.w700,
-              ),
+              style: kChaptarCardStyle,
               textAlign: TextAlign.left,
             ),
           ),

@@ -3,7 +3,6 @@ import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/services/firebase_contactus_service.dart';
-import 'package:codeline_students_app/services/firebase_contactus_service.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
