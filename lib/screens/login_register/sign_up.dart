@@ -141,9 +141,11 @@ class SignUp extends StatelessWidget {
                                           fullName: fullNameController.text,
                                         );
                                       } else {
-                                     
-                                        CommanWidget.snackBar(title:Utility.termsConditions,message:  Utility.termsConditionsMessage,position: SnackPosition.BOTTOM);
-
+                                        CommanWidget.snackBar(
+                                            title: Utility.termsConditions,
+                                            message:
+                                                Utility.termsConditionsMessage,
+                                            position: SnackPosition.BOTTOM);
                                       }
                                     } else {
                                       print('unvalid');
@@ -199,7 +201,7 @@ class SignUp extends StatelessWidget {
                   !validationController.termCondition.value;
               // validationController.chnageTC();
             },
-            checkColor: Colors.white,
+            checkColor: Colors.greenAccent,
             activeColor: Color(0xff17a2b8),
           ),
         ),

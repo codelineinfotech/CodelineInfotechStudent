@@ -116,7 +116,7 @@ class _SignInState extends State<SignIn> {
           SizedBox(
             height: deviceWidth / 10,
           ),
-   /*       TextFormField(
+          /*       TextFormField(
             controller: emailController,
             inputFormatters: [
               LengthLimitingTextInputFormatter(50),
@@ -153,15 +153,15 @@ class _SignInState extends State<SignIn> {
               inputLength: 50,
               regularExpression: Utility.emailAddressValidationPattern,
               validationMessage: Utility.emailEmptyValidation,
-              iconPath:ImagePath.mailPng ),
-        /*  SizedBox(height: deviceWidth / 14),
+              iconPath: ImagePath.mailPng),
+          /*  SizedBox(height: deviceWidth / 14),
           TextFormField(
             controller: passwordController,
             inputFormatters: [
               FilteringTextInputFormatter.allow(RegExp(Utility.password)),
               LengthLimitingTextInputFormatter(30),
-              *//*     FilteringTextInputFormatter.allow(RegExp(Utility
-                                    .alphabetDigitsSpecialValidationPattern))*//*
+              */ /*     FilteringTextInputFormatter.allow(RegExp(Utility
+                                    .alphabetDigitsSpecialValidationPattern))*/ /*
             ],
             // validator: (password) =>
             //     password.isEmpty ? "Password is required" : null,
@@ -219,7 +219,7 @@ class _SignInState extends State<SignIn> {
               alignment: Alignment.centerRight,
               child: Text(
                 'Forgot Password?',
-                style:kLabelTextStyle,
+                style: kLabelTextStyle,
               ),
             ),
           ),
@@ -252,6 +252,7 @@ class _SignInState extends State<SignIn> {
           ),
           googleSignInButton(
               onTap: () async {
+                print("hello");
                 validationController.progressVisible.value = true;
                 await GoogleLoginService().googleLogin(context);
               },

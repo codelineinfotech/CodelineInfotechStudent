@@ -47,18 +47,17 @@ Widget chapterDetails({
   // print("ASSIGNMENT LINK---> $assignmentLink");
 
   return StreamBuilder<QuerySnapshot>(
-      stream: kFireStore.collection('$course/$title/Topics')
+      stream: kFireStore
+          .collection('$course/$title/Topics')
           .orderBy(
             'index',
           )
           .snapshots(),
       builder: (context, snapshot) {
-
         if (snapshot.hasData) {
           // print("TOTAL TOPIC LENGTH" + snapshot.data.docs.length.toString());
           print("DATA LENGTH -->  ${snapshot.data.docs.length}");
           print("UID -->  ${kFirebaseAuth.currentUser.uid}");
-
 
           return Obx(() => AnimatedContainer(
                 duration: Duration(milliseconds: 400),
@@ -108,8 +107,7 @@ Widget chapterDetails({
                               physics: NeverScrollableScrollPhysics(),
                               child: StreamBuilder<DocumentSnapshot>(
                                   stream: cCourseCompletedTopicCollection
-                                      .doc(
-                                      kFirebaseAuth.currentUser.uid)
+                                      .doc(kFirebaseAuth.currentUser.uid)
                                       .snapshots(),
                                   builder: (context, completeSnapshot) {
                                     if (completeSnapshot.hasData) {
@@ -129,10 +127,11 @@ Widget chapterDetails({
                                           Container(
                                             child: StreamBuilder<
                                                     DocumentSnapshot>(
-                                                stream: cAssignmentSubmissionCollection
-                                                    .doc(kFirebaseAuth
-                                                        .currentUser.uid)
-                                                    .snapshots(),
+                                                stream:
+                                                    cAssignmentSubmissionCollection
+                                                        .doc(kFirebaseAuth
+                                                            .currentUser.uid)
+                                                        .snapshots(),
                                                 builder: (context,
                                                     snapshotSubmission) {
                                                   if (snapshotSubmission
@@ -201,18 +200,27 @@ Widget chapterDetails({
                                                                               assignmentLink,
                                                                               filename);
                                                                         } else {
-
-
-                                                                          CommanWidget.snackBar(title: "",message:Utility.assignmentNotDownloadMessage ,position: SnackPosition.BOTTOM);
-
+                                                                          CommanWidget.snackBar(
+                                                                              title: "",
+                                                                              message: Utility.assignmentNotDownloadMessage,
+                                                                              position: SnackPosition.BOTTOM);
                                                                         }
                                                                       } else {
-                                                                        CommanWidget.snackBar(title: "",message:Utility.assignmentNotDownloadMessage ,position: SnackPosition.BOTTOM);
-
+                                                                        CommanWidget.snackBar(
+                                                                            title:
+                                                                                "",
+                                                                            message:
+                                                                                Utility.assignmentNotDownloadMessage,
+                                                                            position: SnackPosition.BOTTOM);
                                                                       }
                                                                     } else {
-                                                                      CommanWidget.snackBar(title: "",message:Utility.assignmentNotDownloadMessage ,position: SnackPosition.BOTTOM);
-
+                                                                      CommanWidget.snackBar(
+                                                                          title:
+                                                                              "",
+                                                                          message: Utility
+                                                                              .assignmentNotDownloadMessage,
+                                                                          position:
+                                                                              SnackPosition.BOTTOM);
                                                                     }
                                                                   },
                                                                   child: outlineButton(
@@ -274,19 +282,27 @@ Widget chapterDetails({
                                                                               course,
                                                                               title);
                                                                         } else {
-
-                                                                          CommanWidget.snackBar(title: "",message:Utility.assignmentNotUploadMessage ,position: SnackPosition.BOTTOM);
-
+                                                                          CommanWidget.snackBar(
+                                                                              title: "",
+                                                                              message: Utility.assignmentNotUploadMessage,
+                                                                              position: SnackPosition.BOTTOM);
                                                                         }
                                                                       } else {
-
-                                                                        CommanWidget.snackBar(title: "",message:Utility.assignmentNotUploadMessage ,position: SnackPosition.BOTTOM);
-
+                                                                        CommanWidget.snackBar(
+                                                                            title:
+                                                                                "",
+                                                                            message:
+                                                                                Utility.assignmentNotUploadMessage,
+                                                                            position: SnackPosition.BOTTOM);
                                                                       }
                                                                     } else {
-
-                                                                      CommanWidget.snackBar(title: "",message:Utility.assignmentNotUploadMessage ,position: SnackPosition.BOTTOM);
-
+                                                                      CommanWidget.snackBar(
+                                                                          title:
+                                                                              "",
+                                                                          message: Utility
+                                                                              .assignmentNotUploadMessage,
+                                                                          position:
+                                                                              SnackPosition.BOTTOM);
                                                                     }
                                                                   },
                                                                   child: outlineButton(
@@ -354,7 +370,8 @@ Widget chapterDetails({
                                               physics: BouncingScrollPhysics(),
                                               // padding: EdgeInsets.only(bottom: 50),
                                               itemBuilder: (contexts, index) {
-                                                print("DATA LENGTH -->  ${snapshot.data.docs.length}");
+                                                print(
+                                                    "DATA LENGTH -->  ${snapshot.data.docs.length}");
                                                 // print(
                                                 //     "SHOW ${course}_CourseTopic");
                                                 return Row(
@@ -570,8 +587,8 @@ void _openFileExplorer(String courseName, String courseTitle) async {
     } else {
       // User canceled the picker
     }
-    final _firebaseStorage = FirebaseStorage.instanceFor(
-        bucket: Utility.bucketURL);
+    final _firebaseStorage =
+        FirebaseStorage.instanceFor(bucket: Utility.bucketURL);
     final snapSot = cAssignmentSubmissionCollection
         .doc(kFirebaseAuth.currentUser.uid)
         .get()
@@ -629,9 +646,7 @@ updateFileFireStorage(FirebaseStorage _firebaseStorage, File file,
         await _firebaseStorage.ref().child(storagePath).putFile(file);
 
     var downloadUrl = await snapshot.ref.getDownloadURL();
-    cAssignmentSubmissionCollection
-        .doc(kFirebaseAuth.currentUser.uid)
-        .set({
+    cAssignmentSubmissionCollection.doc(kFirebaseAuth.currentUser.uid).set({
       '$courseName': {
         '$courseTitle': {
           'submissionStatus': 'Pending',
@@ -644,7 +659,10 @@ updateFileFireStorage(FirebaseStorage _firebaseStorage, File file,
     }, SetOptions(merge: true));
 
     _homeContoller.isLoad.value = false;
-    CommanWidget.snackBar(title:Utility.uploadingTitle,message:  Utility.assignmentUploadSuccessfullyMessage,position: SnackPosition.TOP);
+    CommanWidget.snackBar(
+        title: Utility.uploadingTitle,
+        message: Utility.assignmentUploadSuccessfullyMessage,
+        position: SnackPosition.TOP);
   });
 }
 
@@ -663,15 +681,20 @@ Future<void> downloadFile(uri, fileName) async {
       .then((_) async {
     _homeContoller.isLoad.value = false;
 
-    CommanWidget.snackBar(title:Utility.downloadingTitle,message:  Utility.assignmentDownloadSuccessfullyMessage,position: SnackPosition.TOP);
+    CommanWidget.snackBar(
+        title: Utility.downloadingTitle,
+        message: Utility.assignmentDownloadSuccessfullyMessage,
+        position: SnackPosition.TOP);
 
     print("File Downloaded");
   }).catchError((e) {
     print("ERROR DOWNLOAD FILE--->${e.toString()}");
     _homeContoller.isLoad.value = false;
 
-    CommanWidget.snackBar(title:"",message:  Utility.assignmentDownloadProblemMessage,position: SnackPosition.BOTTOM);
-
+    CommanWidget.snackBar(
+        title: "",
+        message: Utility.assignmentDownloadProblemMessage,
+        position: SnackPosition.BOTTOM);
   });
 }
 //gets the applicationDirectory and path for the to-be downloaded file
@@ -694,8 +717,8 @@ Future<String> getFilePath(uniqueFileName) async {
       for (int x = 1; x < paths.length; x++) {
         String folder = paths[x];
         if (folder != "Android") {
-          newPath += "/download" + folder;
-          // newPath += "/" + folder;
+          // newPath += "/download" + folder;
+          newPath += "/" + folder;
         } else {
           break;
         }
@@ -721,4 +744,3 @@ Future<bool> _requestPermission(Permission permission) async {
   }
   return false;
 }
-

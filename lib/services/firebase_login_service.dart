@@ -11,17 +11,14 @@ import 'package:get/get.dart';
 import '../controller/validation_getx_controller.dart';
 
 class FirebaseLoginService {
-
   final ValidationController validationController =
       Get.put(ValidationController());
+
   Future<void> firebaseLogin(
       {String email, String password, BuildContext buildContext}) async {
     // CircularProgress.circularProgress();
 
-    cUserCollection
-        .where("email", isEqualTo: email)
-        .get()
-        .then((value) async {
+    cUserCollection.where("email", isEqualTo: email).get().then((value) async {
       if (value.docs.length > 0) {
         if (value.docs[0].get("approval")) {
           await kFirebaseAuth
@@ -34,9 +31,10 @@ class FirebaseLoginService {
             print(e);
             validationController.progressVisible.value = false;
 
-
-
-            CommanWidget.snackBar(title: Utility.loginError,message:Utility.invalidPasswordMessage ,position: SnackPosition.BOTTOM);
+            CommanWidget.snackBar(
+                title: Utility.loginError,
+                message: Utility.invalidPasswordMessage,
+                position: SnackPosition.BOTTOM);
 
             // CircularProgress.circularProgress();
           });
@@ -47,11 +45,12 @@ class FirebaseLoginService {
           CommanWidget.approvalDialog(buildContext);
         }
       } else {
+        CommanWidget.snackBar(
+            title: Utility.loginError,
+            message: Utility.userNotExist,
+            position: SnackPosition.BOTTOM);
+
         validationController.progressVisible.value = false;
-
-
-        CommanWidget.snackBar(title:Utility.loginError,message:Utility.userNotExist ,position: SnackPosition.BOTTOM);
-
       }
     });
   }
@@ -59,10 +58,7 @@ class FirebaseLoginService {
   Future<void> firebaseAdminLogin({String email, String password}) async {
     // CircularProgress.circularProgress();
 
-    cAdminCollection
-        .where("email", isEqualTo: email)
-        .get()
-        .then((value) async {
+    cAdminCollection.where("email", isEqualTo: email).get().then((value) async {
       if (value.docs.length > 0) {
         await kFirebaseAuth
             .signInWithEmailAndPassword(email: email, password: password)
@@ -73,14 +69,17 @@ class FirebaseLoginService {
         }).catchError((e) {
           print(e);
           validationController.progressVisible.value = false;
-          CommanWidget.snackBar(title: Utility.loginError,message:Utility.invalidPasswordMessage ,position: SnackPosition.BOTTOM);
-
-
+          CommanWidget.snackBar(
+              title: Utility.loginError,
+              message: Utility.invalidPasswordMessage,
+              position: SnackPosition.BOTTOM);
         });
       } else {
         validationController.progressVisible.value = false;
-        CommanWidget.snackBar(title: Utility.loginError,message:Utility.userNotExist ,position: SnackPosition.BOTTOM);
-
+        CommanWidget.snackBar(
+            title: Utility.loginError,
+            message: Utility.userNotExist,
+            position: SnackPosition.BOTTOM);
       }
     });
   }

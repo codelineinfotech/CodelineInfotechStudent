@@ -131,6 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               SizedBox(
                 height: deviceSize.height / 25,
               ),
+
               ///Name...
               CommanWidget.getTextFormField(
                   labelText: "Full Name",
@@ -141,7 +142,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   validationMessage: Utility.nameEmptyValidation,
                   iconPath: ImagePath.userPng),
 
-
               ///Email...
               CommanWidget.getTextFormField(
                   labelText: "Email Address",
@@ -151,7 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   inputLength: 50,
                   regularExpression: Utility.emailAddressValidationPattern,
                   validationMessage: Utility.emailEmptyValidation,
-                  iconPath:ImagePath.mailPng ),
+                  iconPath: ImagePath.mailPng),
 
               ///Mobile Number...
               CommanWidget.getTextFormField(
@@ -165,7 +165,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 icon: Icons.phone_android_rounded,
               ),
 
-
               ///Password ...
               CommanWidget.getTextFormField(
                 labelText: "Password",
@@ -178,9 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 iconPath: ImagePath.passwordPng,
               ),
 
-
               ///Confirm Password ...
-
 
               CommanWidget.getTextFormField(
                 labelText: "Conform Password",
@@ -249,8 +246,70 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return SizedBox(height: deviceSize.width / 14);
   }
 
-
   Widget _termsNCondition() {
+    print("T&C --> " + validationController.termCondition.value.toString());
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          height: 22,
+          width: 22,
+          child: Checkbox(
+            value: validationController.termCondition.value,
+            onChanged: (value) {
+              print("T&C Chnage --> " +
+                  validationController.termCondition.value.toString());
+
+              validationController.termCondition.value =
+                  !validationController.termCondition.value;
+              // validationController.chnageTC();
+            },
+            checkColor: Colors.greenAccent,
+            activeColor: Color(0xff17a2b8),
+          ),
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text.rich(
+          TextSpan(
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: 15,
+              color: const Color(0xff797b8b),
+            ),
+            children: [
+              TextSpan(
+                text: 'I agree to the ',
+              ),
+              TextSpan(
+                text: 'terms',
+                style: TextStyle(
+                  color: Color(0xff17a2b8),
+                ),
+              ),
+              TextSpan(
+                text: ' and ',
+              ),
+              TextSpan(
+                text: 'Privacy',
+                style: TextStyle(
+                  color: Color(0xff17a2b8),
+                ),
+              ),
+              TextSpan(
+                text: ' policy.',
+              ),
+            ],
+          ),
+          textAlign: TextAlign.left,
+        ),
+      ],
+    );
+  }
+
+  Widget _termsNCondition_() {
     print("T&C  --> " + validationController.termCondition.value.toString());
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -262,8 +321,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             builder: (_) {
               return Checkbox(
                 value: validationController.termCondition.value,
-                onChanged: (value) {
-                },
+                onChanged: (value) {},
                 checkColor: Colors.white,
                 activeColor: ColorsPicker.skyColor,
               );
