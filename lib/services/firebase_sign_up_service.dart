@@ -1,9 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/collectionRoute/collection_route.dart';
-import 'package:codeline_students_app/screens/homePage/home_page.dart';
-import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 
 import 'package:get/get.dart';
@@ -23,11 +19,6 @@ class SignUpService {
     kFirebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then((value) {
-      print("SIGNUP SUCCESSFULLY ");
-      // print("full name $fullName");
-      // print("email $email");
-      // print("Password $password");
-
       cUserCollection.doc(value.user.uid).set({
         'fullName': fullName,
         'email': email,
@@ -43,14 +34,8 @@ class SignUpService {
         print("SIGNUP SUCCESSFULLY");
         kFirebaseAuth.signOut();
         validationController.progressVisible.value = false;
-        // CommanWidget.circularProgressBgBlack();
-        // Get.snackbar("Message", "Your Registration is Successfully");
         CommanWidget.approvalDialog(buildContext);
-
-        // Get.offAll(SignIn());
       }).catchError((e) {
-        // validationController.updateWidget();
-
         validationController.progressVisible.value = false;
         print('cloud Error ' +
             validationController.progressVisible.value.toString());
@@ -62,7 +47,10 @@ class SignUpService {
           validationController.progressVisible.value.toString());
       print(e);
 
-      CommanWidget.snackBar(title: 'Sign Up Failed',message:'Account is Already Exist!' ,position: SnackPosition.BOTTOM);
+      CommanWidget.snackBar(
+          title: 'Sign Up Failed',
+          message: 'Account is Already Exist!',
+          position: SnackPosition.BOTTOM);
     });
   }
 }

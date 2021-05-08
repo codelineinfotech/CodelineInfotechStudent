@@ -1,25 +1,17 @@
-import 'dart:convert';
-
 import 'package:codeline_students_app/controller/validation_getx_controller.dart';
 import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
-import 'package:codeline_students_app/screens/login_register/sign_up.dart';
-import 'package:codeline_students_app/screens/login_register/text_fields.dart';
-import 'package:codeline_students_app/screens/login_register/widgets/back_string_button.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/buttons.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/widgets.dart';
 import 'package:codeline_students_app/services/firebase_login_service.dart';
 import 'package:codeline_students_app/services/google_login_service.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide Key;
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
-import 'package:flutter/src/foundation/key.dart';
 
 import 'sign_up_new.dart';
 
@@ -57,7 +49,6 @@ class _SignInState extends State<SignIn> {
           return true;
         },
         child: Scaffold(
-            // resizeToAvoidBottomPadding: false,
             backgroundColor: Color(0xffF5F7FA),
             body: Stack(fit: StackFit.expand, children: [
               bgElements1(deviceWidth: deviceWidth),
@@ -70,9 +61,6 @@ class _SignInState extends State<SignIn> {
                     SafeArea(
                         child: IconButton(
                       onPressed: () {
-                        // validationController.chnageTC();
-
-                        // Get.to(SignUp());
                         Get.to(SignUpScreen());
                       },
                       icon: Icon(
@@ -96,12 +84,6 @@ class _SignInState extends State<SignIn> {
             ]))));
   }
 
-  void navigateToSignUp(context) {
-    /*Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => SignUpScreen()));*/
-    // .push(MaterialPageRoute(builder: (context) => SignUp()));
-  }
-
   loginFormWidget(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -116,34 +98,7 @@ class _SignInState extends State<SignIn> {
           SizedBox(
             height: deviceWidth / 10,
           ),
-          /*       TextFormField(
-            controller: emailController,
-            inputFormatters: [
-              LengthLimitingTextInputFormatter(50),
-              FilteringTextInputFormatter.allow(
-                  RegExp(Utility.emailAddressValidationPattern))
-            ],
-            // validator: (email) => email.isEmpty ? "Email is required" : null,
-            validator: (text) {
-              return Utility.validateUserName(text);
-            },
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: InputDecoration(
-              focusedBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: ColorsPicker.skyColor)),
-              hintText: "Enter Email Address",
-              hintStyle: kHintTextStyle,
-              prefixIcon: Image.asset(
-                ImagePath.mailPng,
-                height: 5,
-                width: 5,
-              ),
-            ),
-          ),*/
+
           ///Email...
           CommanWidget.getTextFormField(
               labelText: "Email Address",
@@ -154,49 +109,7 @@ class _SignInState extends State<SignIn> {
               regularExpression: Utility.emailAddressValidationPattern,
               validationMessage: Utility.emailEmptyValidation,
               iconPath: ImagePath.mailPng),
-          /*  SizedBox(height: deviceWidth / 14),
-          TextFormField(
-            controller: passwordController,
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(Utility.password)),
-              LengthLimitingTextInputFormatter(30),
-              */ /*     FilteringTextInputFormatter.allow(RegExp(Utility
-                                    .alphabetDigitsSpecialValidationPattern))*/ /*
-            ],
-            // validator: (password) =>
-            //     password.isEmpty ? "Password is required" : null,
-            validator: (text) {
-              return Utility.validatePassword(text);
-            },
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            decoration: InputDecoration(
-              focusedBorder: UnderlineInputBorder(
-                borderSide:
-                    BorderSide(color: ColorsPicker.skyColor, width: 1.0),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: ColorsPicker.skyColor)),
-              hintText: "Enter Password",
-              hintStyle: kHintTextStyle,
-              prefixIcon: Image.asset(
-                ImagePath.passwordPng,
-                height: 5,
-                width: 5,
-              ),
-              suffixIcon: InkWell(
-                onTap: () {
-                  validationController.toggle();
-                },
-                child: Icon(
-                  !validationController.obscureText.value
-                      ? Icons.visibility_off
-                      : Icons.visibility,
-                  color: ColorsPicker.skyColor,
-                ),
-              ),
-            ),
-            obscureText: validationController.obscureText.value,
-          ),*/
+
           ///Password ...
           CommanWidget.getTextFormField(
             labelText: "Password",
@@ -208,7 +121,6 @@ class _SignInState extends State<SignIn> {
             hintText: "Enter Password",
             iconPath: ImagePath.passwordPng,
           ),
-          // SizedBox(height: deviceWidth / 14),
           GestureDetector(
             onTap: () {
               FocusScope.of(context).unfocus();
@@ -263,7 +175,6 @@ class _SignInState extends State<SignIn> {
             child: InkWell(
               onTap: () {
                 Get.to(SignUpScreen());
-                // navigateToSignUp(context);
               },
               child: Text.rich(TextSpan(children: [
                 TextSpan(text: 'Don\'t have an Account? '),

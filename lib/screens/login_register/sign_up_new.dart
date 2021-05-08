@@ -1,17 +1,14 @@
-import 'dart:io';
 import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/controller/validation_getx_controller.dart';
 import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
-import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/back_string_button.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/buttons.dart';
 import 'package:codeline_students_app/screens/login_register/widgets/widgets.dart';
 import 'package:codeline_students_app/services/firebase_sign_up_service.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -233,10 +230,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       print("Validat Method was call on null");
                     }
                   }),
-              // Padding(
-              //   padding: EdgeInsets.only(
-              //       bottom: MediaQuery.of(context).viewInsets.bottom),
-              // ),
             ],
           )),
     );
@@ -297,57 +290,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: TextStyle(
                   color: Color(0xff17a2b8),
                 ),
-              ),
-              TextSpan(
-                text: ' policy.',
-              ),
-            ],
-          ),
-          textAlign: TextAlign.left,
-        ),
-      ],
-    );
-  }
-
-  Widget _termsNCondition_() {
-    print("T&C  --> " + validationController.termCondition.value.toString());
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          height: 22,
-          width: 22,
-          child: GetX(
-            builder: (_) {
-              return Checkbox(
-                value: validationController.termCondition.value,
-                onChanged: (value) {},
-                checkColor: Colors.white,
-                activeColor: ColorsPicker.skyColor,
-              );
-            },
-          ),
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Text.rich(
-          TextSpan(
-            style: kTermsTextStyle,
-            children: [
-              TextSpan(
-                text: 'I agree to the ',
-              ),
-              TextSpan(
-                text: 'Terms',
-                style: kSkyTextStyle,
-              ),
-              TextSpan(
-                text: ' and ',
-              ),
-              TextSpan(
-                text: 'Privacy',
-                style: kSkyTextStyle,
               ),
               TextSpan(
                 text: ' policy.',

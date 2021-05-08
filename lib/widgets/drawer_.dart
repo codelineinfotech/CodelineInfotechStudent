@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
@@ -9,15 +8,11 @@ import 'package:codeline_students_app/screens/fees_report/fees_report_screen.dar
 import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:codeline_students_app/screens/notofication/notification_screen.dart';
 import 'package:codeline_students_app/screens/user_edit_profile/user_edit_profile.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 
-import '../add_course_topic_screen.dart';
-
 Widget buildDrawer(BuildContext context) {
-
   return Drawer(
     child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,9 +23,8 @@ Widget buildDrawer(BuildContext context) {
 
         ///GET CURRENT USER DATA ....
         StreamBuilder(
-          stream: cUserCollection
-              .doc((kFirebaseAuth.currentUser.uid))
-              .snapshots(),
+          stream:
+              cUserCollection.doc((kFirebaseAuth.currentUser.uid)).snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Column(
@@ -104,8 +98,7 @@ Widget buildDrawer(BuildContext context) {
             Get.back();
             Get.to(UserEditProfile());
           },
-
-          child:  labelWidget(title: 'Edit Profile'),
+          child: labelWidget(title: 'Edit Profile'),
         ),
         customSizedBox(context),
 
@@ -115,8 +108,7 @@ Widget buildDrawer(BuildContext context) {
 
             Get.to(FeesReportScreen());
           },
-          child:  labelWidget(title: 'Fees Report'),
-
+          child: labelWidget(title: 'Fees Report'),
         ),
         customSizedBox(context),
 
@@ -126,7 +118,6 @@ Widget buildDrawer(BuildContext context) {
             Get.to(NotificationsScreen());
           },
           child: labelWidget(title: 'Notifications'),
-
         ),
         customSizedBox(context),
 
@@ -165,8 +156,6 @@ Widget buildDrawer(BuildContext context) {
             Get.to(ContactUsScreen());
           },
           child: labelWidget(title: 'Contact US'),
-
-
         ),
         customSizedBox(context),
 
@@ -177,7 +166,6 @@ Widget buildDrawer(BuildContext context) {
             Get.to(AboutUsScreen());
           },
           child: labelWidget(title: 'About US'),
-
         ),
         Spacer(),
         // customSizedBox(context),
@@ -197,7 +185,6 @@ Widget buildDrawer(BuildContext context) {
             kFirebaseAuth.signOut().then((value) => Get.offAll(SignIn()));
           },
           child: labelWidget(title: 'Logout'),
-
         ),
         SizedBox(
           height: Get.height / 20,

@@ -23,7 +23,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeContoller homeController = Get.put(HomeContoller());
-
   String imageUrl;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
@@ -100,27 +99,28 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                         ),
                                         Expanded(
-                                            child: StreamBuilder<
-                                                    DocumentSnapshot>(
-                                                stream: cUserCollection
-                                                    .doc(
-                                                        (kFirebaseAuth.currentUser.uid))
-                                                    .snapshots(),
-                                                builder: (context, snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    if (Get.height > 800) {
-                                                      return _viewAbove800(
-                                                          snapshot);
-                                                    } else {
-                                                      return _viewBelow800(
-                                                          snapshot);
-                                                    }
-                                                  } else {
-                                                    return Center(
-                                                        child: CommanWidget
-                                                            .circularProgress());
-                                                  }
-                                                })),
+                                            child:
+                                                StreamBuilder<DocumentSnapshot>(
+                                                    stream: cUserCollection
+                                                        .doc((kFirebaseAuth
+                                                            .currentUser.uid))
+                                                        .snapshots(),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      if (snapshot.hasData) {
+                                                        if (Get.height > 800) {
+                                                          return _viewAbove800(
+                                                              snapshot);
+                                                        } else {
+                                                          return _viewBelow800(
+                                                              snapshot);
+                                                        }
+                                                      } else {
+                                                        return Center(
+                                                            child: CommanWidget
+                                                                .circularProgress());
+                                                      }
+                                                    })),
                                         Get.height < 800
                                             ? Obx(() {
                                                 return Padding(
@@ -401,7 +401,7 @@ class _HomePageState extends State<HomePage> {
               intialValue: snapshot.data.get('percentage.CLanguage').toDouble(),
               child: Text(
                 'C',
-                style:kLangLabelTextStyle,
+                style: kLangLabelTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -427,7 +427,7 @@ class _HomePageState extends State<HomePage> {
               intialValue: snapshot.data.get('percentage.C++').toDouble(),
               child: Text(
                 'C++',
-                style:kLangLabelTextStyle,
+                style: kLangLabelTextStyle,
                 textAlign: TextAlign.center,
               ),
             ),

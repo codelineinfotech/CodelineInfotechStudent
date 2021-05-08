@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,12 +12,10 @@ import 'package:codeline_students_app/screens/langInfo/widgets/chapter_card.dart
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -44,8 +41,6 @@ Widget chapterDetails({
   String assignmentLink,
   String submissionStatus,
 }) {
-  // print("ASSIGNMENT LINK---> $assignmentLink");
-
   return StreamBuilder<QuerySnapshot>(
       stream: kFireStore
           .collection('$course/$title/Topics')
@@ -55,7 +50,6 @@ Widget chapterDetails({
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // print("TOTAL TOPIC LENGTH" + snapshot.data.docs.length.toString());
           print("DATA LENGTH -->  ${snapshot.data.docs.length}");
           print("UID -->  ${kFirebaseAuth.currentUser.uid}");
 

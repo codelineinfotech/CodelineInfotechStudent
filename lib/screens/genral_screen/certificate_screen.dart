@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/constant.dart';
@@ -172,7 +170,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
                             padding: const EdgeInsets.only(left: 16),
                             child: Text(
                               "Download",
-                              style:kButtonTextStyle,
+                              style: kButtonTextStyle,
                               textAlign: TextAlign.left,
                             ),
                           ),
@@ -184,8 +182,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
                             padding: const EdgeInsets.only(right: 16),
                             child: RotatedBox(
                               quarterTurns: 1,
-                              child:
-                                  SvgPicture.asset(ImagePath.arrowSvg),
+                              child: SvgPicture.asset(ImagePath.arrowSvg),
                             ),
                           )
                         ],
@@ -221,8 +218,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
         } else {
           return false;
         }
-      }
-      else {
+      } else {
         if (await _requestPermission(Permission.photos)) {
           directory = await getTemporaryDirectory();
         } else {
@@ -276,7 +272,7 @@ class _CertificateScreenState extends State<CertificateScreen> {
           image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
-             ImagePath.bg2Png,
+              ImagePath.bg2Png,
             ),
           ),
         ),

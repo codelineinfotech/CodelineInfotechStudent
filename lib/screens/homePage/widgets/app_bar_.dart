@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-
-
 Widget homeAppBar({onMenuTap}) {
-
   return Padding(
     padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
     child: Row(
@@ -51,8 +48,7 @@ Widget homeAppBar({onMenuTap}) {
                   top: 1,
                   right: 2,
                   child: StreamBuilder<QuerySnapshot>(
-                      stream: cNotificationCollection
-                          .snapshots(),
+                      stream: cNotificationCollection.snapshots(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           int notificationCount = snapshot.data.docs.length;
@@ -77,7 +73,7 @@ Widget homeAppBar({onMenuTap}) {
                                   ),
                                   child: Text(
                                     notificationCount.toString(),
-                                    style:kNotificationTextStyle,
+                                    style: kNotificationTextStyle,
                                   ),
                                 )
                               : Container();

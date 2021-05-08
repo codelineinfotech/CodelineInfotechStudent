@@ -1,10 +1,8 @@
-import 'package:codeline_students_app/controller/home_controller.dart';
 import 'package:codeline_students_app/screens/genral_screen/data_entry.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 Widget progressContainer({intialValue, child, collection}) {
-  // print("COLLATION NAME $collection");
   return Padding(
     padding: const EdgeInsets.only(top: 30, bottom: 20, left: 20, right: 20),
     child: Container(

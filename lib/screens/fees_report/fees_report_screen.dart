@@ -1,17 +1,12 @@
-import 'dart:io';
-
-
 import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/screens/user_edit_profile/user_edit_profile.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-
 
 class FeesReportScreen extends StatefulWidget {
   @override
@@ -33,10 +28,7 @@ class _FeesReportScreenState extends State<FeesReportScreen> {
   }
 
   getProfileData() {
-    cUserCollection
-        .doc(kFirebaseAuth.currentUser.uid)
-        .get()
-        .then((snapshot) {
+    cUserCollection.doc(kFirebaseAuth.currentUser.uid).get().then((snapshot) {
       studentName = snapshot["fullName"].toString().capitalizeFirst;
       studentEmailId = snapshot['email'];
 

@@ -8,12 +8,10 @@ import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:codeline_students_app/resource/utility.dart';
-import 'package:codeline_students_app/screens/homePage/home_page.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -231,6 +229,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
               SizedBox(
                 height: 30,
               ),
+
               ///Name...
               CommanWidget.getTextFormField(
                   labelText: "Full Name",
@@ -321,6 +320,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
       ),
     );
   }
+
   Future<void> updateUserData({
     String email,
     String password,
@@ -385,11 +385,12 @@ class _UserEditProfileState extends State<UserEditProfile> {
       print("Validat Method was call on null");
     }
   }
+
   uploadImage(File image) async {
     var permissionStatus = await Permission.photos.status;
     if (permissionStatus.isGranted) {
-      final _firebaseStorage = FirebaseStorage.instanceFor(
-          bucket: Utility.bucketURL);
+      final _firebaseStorage =
+          FirebaseStorage.instanceFor(bucket: Utility.bucketURL);
       String path = 'UserProfilePic/${DateTime.now().microsecondsSinceEpoch}';
       var file = File(image.path);
       if (image != null) {
@@ -448,6 +449,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
       // uploadImage(_image);
     }
   }
+
   _imgFromGallery() async {
     File image = await ImagePicker.pickImage(
         source: ImageSource.gallery, imageQuality: 50);
@@ -457,6 +459,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
       });
     }
   }
+
   void _showPicker(context) {
     showModalBottomSheet(
         context: context,
@@ -486,6 +489,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
           );
         });
   }
+
   void uploadProfile(
       FirebaseStorage _firebaseStorage, String path, File file) async {
     await Future.delayed(
@@ -501,6 +505,7 @@ class _UserEditProfileState extends State<UserEditProfile> {
     // _homeContoller.isLoad.value = false;
   }
 }
+
 class MyCustomClipar extends CustomClipper<Path> {
   @override
   getClip(Size size) {

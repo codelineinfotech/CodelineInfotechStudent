@@ -1,4 +1,3 @@
-import 'package:codeline_students_app/resource/color.dart';
 import 'package:codeline_students_app/resource/constant.dart';
 import 'package:codeline_students_app/resource/image_path.dart';
 import 'package:flutter/material.dart';

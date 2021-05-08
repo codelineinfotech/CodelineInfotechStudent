@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:codeline_students_app/collectionRoute/collection_route.dart';
 import 'package:codeline_students_app/resource/utility.dart';
 import 'package:codeline_students_app/screens/homePage/home_page.dart';
-import 'package:codeline_students_app/screens/login_register/sign_in.dart';
 import 'package:codeline_students_app/widgets/comman_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
@@ -16,8 +13,6 @@ class FirebaseLoginService {
 
   Future<void> firebaseLogin(
       {String email, String password, BuildContext buildContext}) async {
-    // CircularProgress.circularProgress();
-
     cUserCollection.where("email", isEqualTo: email).get().then((value) async {
       if (value.docs.length > 0) {
         if (value.docs[0].get("approval")) {
@@ -26,7 +21,6 @@ class FirebaseLoginService {
               .then((value) {
             Get.offAll(HomePage());
             validationController.progressVisible.value = false;
-            // CircularProgress.circularProgress();
           }).catchError((e) {
             print(e);
             validationController.progressVisible.value = false;
@@ -35,12 +29,9 @@ class FirebaseLoginService {
                 title: Utility.loginError,
                 message: Utility.invalidPasswordMessage,
                 position: SnackPosition.BOTTOM);
-
-            // CircularProgress.circularProgress();
           });
         } else {
           validationController.progressVisible.value = false;
-          // CircularProgress.circularProgress();
 
           CommanWidget.approvalDialog(buildContext);
         }
@@ -56,8 +47,6 @@ class FirebaseLoginService {
   }
 
   Future<void> firebaseAdminLogin({String email, String password}) async {
-    // CircularProgress.circularProgress();
-
     cAdminCollection.where("email", isEqualTo: email).get().then((value) async {
       if (value.docs.length > 0) {
         await kFirebaseAuth
@@ -65,7 +54,6 @@ class FirebaseLoginService {
             .then((value) {
           Get.offAll(HomePage());
           validationController.progressVisible.value = false;
-          // CircularProgress.circularProgress();
         }).catchError((e) {
           print(e);
           validationController.progressVisible.value = false;
